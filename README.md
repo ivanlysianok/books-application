@@ -1,5 +1,2 @@
-# books-application
-Hello people.
-#### Detecting some changes
-Some changes
+# Angular application using Google Books API
 

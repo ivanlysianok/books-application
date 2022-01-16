@@ -43,4 +43,5 @@ testem.log
 
 # System Files
 .DS_Store
+.api-keys.ts
 Thumbs.db

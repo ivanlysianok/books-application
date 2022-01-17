@@ -1,32 +1,14 @@
 <div class="container border border-primary">
-  <form [formGroup]="dataFormGroup">
-    <div class="form-group">
-      <div class="mb-2 mt-2">
-        <label>Search term</label>
-        <input
-          type="text"
-          class="form-control form-control-sm"
-          formControlName="q"
-        />
-      </div>
-      <div class="mb-3"> 
-        <label>Sorting by</label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="orderBy" value="relevance" name="orderBy">
-          <label class="form-check-label">
-            Relevance
-          </label>
+  <app-books-search (dataEmitter)="getSearchData($event)"></app-books-search>
+</div>
+<div class="container">
+    <!-- <div class="row" >
+        <div class="col" *ngFor="let v of volumesCollection">
+           <span>Book title:</span>
+           <span>{{v.volumeInfo.title}}</span>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="orderBy" value="newest" name="orderBy">
-          <label class="form-check-label">
-              Newest
-          </label>
-        </div>
-      </div>
-      <div class="mb-2">
-        <button type="button" class="btn btn-primary btn-sm" (click)="onSearch()">Search books!</button>
-      </div>
-    </div>
-  </form>
+    </div> -->
+    <ul>
+        <li *ngFor="let v of volumesCollection">{{v.volumeInfo.title}}</li>
+    </ul>
 </div>

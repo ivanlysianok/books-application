@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { keys } from 'src/app/credentials/api-keys';
 import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
 import { SearchParams } from '../models/search-params.interface';
@@ -9,6 +9,16 @@ import { Volume } from '../models/volumes.interface';
 @Injectable()
 export class BooksService {
   private baseUri = 'https://www.googleapis.com/books/v1';
+  private selectCategories: string[] = [
+    'All',
+    'Art',
+    'Biography',
+    'Computers',
+    'History',
+    'Medical',
+    'Poetry',
+  ];
+
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -37,5 +47,13 @@ export class BooksService {
    */
   public getBookById(volumeId: string): Observable<Volume> {
     return this.httpClient.get<Volume>(`${this.baseUri}/volumes/${volumeId}`)
+  }
+  
+  /**
+   * This method is used to get select categories
+   * @returns Observable with collection of categories
+   */
+  public getCategories(): Observable<string[]> {
+    return of (this.selectCategories);
   }
 }

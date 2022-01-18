@@ -1,14 +1,14 @@
 <div class="container border border-primary">
-  <app-books-search (dataEmitter)="getSearchData($event)"></app-books-search>
+  <app-books-search (dataEmitter)="getSearchData($event)" [maxResults]="maxResults"></app-books-search>
 </div>
-<div class="container">
-    <!-- <div class="row" >
-        <div class="col" *ngFor="let v of volumesCollection">
-           <span>Book title:</span>
-           <span>{{v.volumeInfo.title}}</span>
-        </div>
-    </div> -->
-    <ul>
-        <li *ngFor="let v of volumesCollection">{{v.volumeInfo.title}}</li>
-    </ul>
+<div class="container" *ngIf="showVolumes">
+  <ul>
+    <li *ngFor="let v of volumesCollection">{{ v.volumeInfo.title }}</li>
+  </ul>
+  <button class="btn btn-outline-dark btn-sm me-2" (click)="lessResults()" *ngIf="maxResults > 3">
+    Less results
+  </button>
+  <button class="btn btn-outline-primary btn-sm" (click)="moreResults()">
+    More results
+  </button>
 </div>

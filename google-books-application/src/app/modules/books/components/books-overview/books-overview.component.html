@@ -1,14 +1,34 @@
 <div class="container border border-primary">
-  <app-books-search (dataEmitter)="getSearchData($event)" [maxResults]="maxResults"></app-books-search>
+  <app-books-search
+    (dataEmitter)="getSearchData($event)"
+    [maxResults]="maxResults"
+  ></app-books-search>
 </div>
-<div class="container" *ngIf="showVolumes">
-  <ul>
-    <li *ngFor="let v of volumesCollection">{{ v.volumeInfo.title }}</li>
-  </ul>
-  <button class="btn btn-outline-dark btn-sm me-2" (click)="lessResults()" *ngIf="maxResults > 3">
-    Less results
-  </button>
-  <button class="btn btn-outline-primary btn-sm" (click)="moreResults()">
-    More results
-  </button>
+<div class="container mt-4">
+  <div *ngIf="showVolumes">
+    <div *ngIf="volumesTotalCount == 0">There are no books found</div>
+    <div *ngIf="volumesTotalCount > 0">
+      Books found: {{ volumesTotalCount }}
+    </div>
+    <div class="cards">
+      <app-book-card
+        *ngFor="let item of volumesCollection"
+        [volume]="item"
+      ></app-book-card>
+    </div>
+    <button
+      class="btn btn-outline-dark btn-sm me-2"
+      (click)="onLessResults()"
+      *ngIf="maxResults > volumesPagination.startStep"
+    >
+      Less results
+    </button>
+    <button
+      class="btn btn-outline-primary btn-sm"
+      (click)="onMoreResults()"
+      *ngIf="volumesTotalCount > 0"
+    >
+      More results
+    </button>
+  </div>
 </div>

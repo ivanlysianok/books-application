@@ -1,12 +1,28 @@
-<form [formGroup]="dataFormGroup">
+<form
+  [formGroup]="dataFormGroup"
+  (ngSubmit)="onSearch()"
+  (keyup.enter)="onSearch()"
+>
   <div class="form-group">
     <div class="mb-2 mt-2">
       <label>Search term</label>
       <input
         type="text"
-        class="form-control form-control-sm"
+        [ngClass]="
+          q?.invalid && (q?.dirty || q?.touched)
+            ? 'is-invalid form-control form-control-sm'
+            : 'form-control form-control-sm'
+        "
         formControlName="q"
       />
+      <div
+        class="invalid-feedback"
+        *ngIf="
+          q?.invalid && (q?.dirty || q?.touched)
+        "
+      >
+        Please fill this field
+      </div>
     </div>
     <div class="mb-2">
       <label>Select category</label>
@@ -38,7 +54,7 @@
       </div>
     </div>
     <div class="mb-2">
-      <button type="button" class="btn btn-primary btn-sm" (click)="onSearch()">
+      <button type="submit" class="btn btn-primary btn-sm">
         Search books!
       </button>
     </div>

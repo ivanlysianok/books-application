@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { VolumesPagination } from '../../constants/pagination.constant';
+import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
+import { VolumesPagination } from '../../constants/volumes-pagination.constant';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
 import { BooksSearchComponent } from '../books-search/books-search.component';
@@ -12,37 +13,43 @@ import { BooksSearchComponent } from '../books-search/books-search.component';
 export class BooksOverviewComponent {
   @ViewChild(BooksSearchComponent)
   booksSearchReference: BooksSearchComponent | null = null;
+  public volumesPagination = VolumesPagination;
   public volumesCollection: Volume[] = [];
-  public maxResults = VolumesPagination.basicStep
+  public volumesTotalCount = 0;
+  public maxResults = VolumesPagination.startStep;
   public showVolumes = false;
-
   constructor(private booksService: BooksService) {}
 
-  getSearchData(data: Volume[]): void {
-    this.volumesCollection = data;
-    if (this.volumesCollection.length > 0) {
-      this.showVolumes = true;
-    }
+  getSearchData(data: CollectionResultModel<Volume[]>): void {
+    this.volumesCollection = data.items;
+    this.volumesTotalCount = data.totalItems;
+    this.showVolumes = true;
   }
 
-  lessResults(): void {
+  onLessResults(): void {
+    console.log(this.volumesCollection);
     if (this.maxResults > 3) {
       this.maxResults = this.maxResults - VolumesPagination.basicStep;
-      console.log(this.maxResults)
-      this.volumesCollection.splice(this.maxResults, VolumesPagination.basicStep)
+      this.volumesCollection.splice(
+        this.maxResults,
+        VolumesPagination.basicStep
+      );
     }
   }
 
-  moreResults(): void {
+  onMoreResults(): void {
     if (this.booksSearchReference) {
       this.maxResults = this.maxResults + VolumesPagination.basicStep;
-      const formGroup = this.booksSearchReference.dataFormGroup;
-      formGroup.controls['maxResults'].patchValue(this.maxResults.toString())
-      this.booksService.getBooksCollection(formGroup.value).subscribe((response) => {
-        if (response) {
-          this.volumesCollection = response.items;
-        }
-      })
+      this.booksSearchReference.dataFormGroup.controls['maxResults'].patchValue(
+        this.maxResults
+      );
+      this.booksService
+        .getBooksCollection(this.booksSearchReference.dataFormGroup.value)
+        .subscribe((response) => {
+          if (response) {
+            this.volumesCollection = response.items;
+          }
+        });
     }
   }
 }

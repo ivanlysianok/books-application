@@ -1,5 +1,16 @@
-import { Component, Output, EventEmitter, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
+import { OrderBy } from '../../constants/order-by.constant';
+import { VolumesPagination } from '../../constants/volumes-pagination.constant';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
 
@@ -9,7 +20,7 @@ import { BooksService } from '../../services/books.service';
   styleUrls: ['./books-search.component.scss'],
 })
 export class BooksSearchComponent implements OnInit, OnChanges {
-  @Output() dataEmitter = new EventEmitter<Volume[]>();
+  @Output() dataEmitter = new EventEmitter<CollectionResultModel<Volume[]>>();
   @Input() maxResults: number | null = null;
   public dataFormGroup: FormGroup;
   public categories: string[] = [];
@@ -18,40 +29,51 @@ export class BooksSearchComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder
   ) {
     this.dataFormGroup = this.formBuilder.group({
-      q: [''],
+      q: ['', Validators.required],
       subject: [''],
       orderBy: [''],
-      startIndex: ['0'],
-      maxResults: [''],
+      startIndex: [VolumesPagination.startIndex],
+      maxResults: [null],
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      this.updateMaxResultsProp();
+      this.updateMaxResults();
     }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.booksService.getCategories().subscribe((response) => {
       if (response) {
         this.categories = response;
+        // Because of API fails when query param orderBy is null,
+        // here is provided patching of default value
+        this.dataFormGroup.patchValue({
+          orderBy: OrderBy.relevance,
+        });
       }
     });
   }
 
-  onSearch(): void {
+  public onSearch(): void {
+    if (this.dataFormGroup.invalid) {
+      this.q?.markAsTouched();
+      return;
+    }
     this.booksService
       .getBooksCollection(this.dataFormGroup.value)
       .subscribe((response) => {
-        if (response.items) {
-          this.dataEmitter.emit(response.items);
-        }
+        this.dataEmitter.emit(response);
       });
   }
 
-  updateMaxResultsProp(): void {
+  private updateMaxResults(): void {
     if (this.maxResults) {
-      this.dataFormGroup.controls['maxResults'].patchValue(this.maxResults.toString())
+      this.dataFormGroup.controls['maxResults'].patchValue(this.maxResults);
     }
+  }
+
+  public get q() {
+    return this.dataFormGroup.get('q');
   }
 }

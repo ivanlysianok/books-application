@@ -10,7 +10,7 @@
     <div *ngIf="volumesTotalCount > 0">
       Books found: {{ volumesTotalCount }}
     </div>
-    <div class="cards">
+    <div class="cards-grid">
       <app-book-card
         *ngFor="let item of volumesCollection"
         [volume]="item"

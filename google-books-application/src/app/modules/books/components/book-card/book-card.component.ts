@@ -9,13 +9,12 @@ import { Volume } from '../../models/volumes.interface';
 export class BookCardComponent implements OnChanges {
   @Input() volume: Volume | null = null;
 
-  public firstCategory: string | undefined;
+  public bookCategory = ''
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       if (this.volume?.volumeInfo.categories) {
-        this.firstCategory = this.volume.volumeInfo.categories.shift();
-        console.log(this.firstCategory)
+        this.bookCategory = this.volume.volumeInfo.categories[0];
       }
     }
   }

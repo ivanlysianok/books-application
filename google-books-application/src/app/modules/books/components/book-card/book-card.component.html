@@ -1,13 +1,13 @@
-<div class="card card-customizing">
+<div class="card">
   <img
     class="card-img-top"
     [src]="volume?.volumeInfo?.imageLinks?.thumbnail"
     alt="No image"
   />
   <div class="card-body">
-    <h5 class="card-title">Title: {{ volume?.volumeInfo?.title }}</h5>
-    <p class="card-text">Category: {{ firstCategory ? firstCategory : ''}}</p>
-    <p class="card-text" *ngFor="let author of volume?.volumeInfo?.authors">Authors: {{author}}, </p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <h6 class="card-title">{{ volume?.volumeInfo?.title }}</h6>
+    <p class="card-text">{{ bookCategory}}</p>
+    <span class="d-flex text-muted" *ngFor="let author of volume?.volumeInfo?.authors">{{author}}, </span>
+    <button class="btn btn-primary btn-sm mt-3">More information</button>
   </div>
 </div>

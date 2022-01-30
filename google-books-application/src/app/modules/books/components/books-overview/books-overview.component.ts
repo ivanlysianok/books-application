@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
 import { VolumesPagination } from '../../constants/volumes-pagination.constant';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
@@ -12,44 +11,37 @@ import { BooksSearchComponent } from '../books-search/books-search.component';
 })
 export class BooksOverviewComponent {
   @ViewChild(BooksSearchComponent)
-  booksSearchReference: BooksSearchComponent | null = null;
-  public volumesPagination = VolumesPagination;
-  public volumesCollection: Volume[] = [];
-  public volumesTotalCount = 0;
-  public maxResults = VolumesPagination.startStep;
-  public showVolumes = false;
+  public booksSearchReference: BooksSearchComponent | null = null;
+
   constructor(private booksService: BooksService) {}
 
-  getSearchData(data: CollectionResultModel<Volume[]>): void {
-    this.volumesCollection = data.items;
-    this.volumesTotalCount = data.totalItems;
+  public volumesPagination = VolumesPagination;
+  public startIndex = 0;
+  public volumesCollection: Volume[] = [];
+  public volumesCount = 0;
+  public showVolumes = false;
+
+  getVolumes(data: Volume[]): void {
+    this.volumesCollection = data;
     this.showVolumes = true;
   }
 
-  onLessResults(): void {
-    console.log(this.volumesCollection);
-    if (this.maxResults > 3) {
-      this.maxResults = this.maxResults - VolumesPagination.basicStep;
-      this.volumesCollection.splice(
-        this.maxResults,
-        VolumesPagination.basicStep
-      );
-    }
+  getVolumesCount(data: number): void {
+    this.volumesCount = data;
   }
 
   onMoreResults(): void {
     if (this.booksSearchReference) {
-      this.maxResults = this.maxResults + VolumesPagination.basicStep;
-      this.booksSearchReference.dataFormGroup.controls['maxResults'].patchValue(
-        this.maxResults
+      this.startIndex = this.startIndex + this.volumesPagination.basicStep;
+      this.booksSearchReference.dataFormGroup.controls['startIndex'].patchValue(
+        this.startIndex
       );
       this.booksService
         .getBooksCollection(this.booksSearchReference.dataFormGroup.value)
         .subscribe((response) => {
-          if (response) {
-            this.volumesCollection = response.items;
-          }
-        });
+          this.volumesCollection.push(...response.items)
+          this.volumesCount = response.totalItems;
+        })
     }
   }
 }

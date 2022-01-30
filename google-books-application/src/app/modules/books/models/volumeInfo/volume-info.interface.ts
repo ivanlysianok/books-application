@@ -7,7 +7,7 @@ export interface VolumeInfo {
   allowAnonLogging: boolean;
   authors: string[];
   canonicalVolumeLink: string;
-  categories: string[];
+  categories?: string[];
   contentVersion: string;
   description: string;
   imageLinks: ImageLinks;

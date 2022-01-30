@@ -1,34 +1,27 @@
 <div class="container border border-primary">
   <app-books-search
-    (dataEmitter)="getSearchData($event)"
-    [maxResults]="maxResults"
+    (volumesEmmiter)="getVolumes($event)"
+    (volumesCount)="getVolumesCount($event)"
   ></app-books-search>
 </div>
 <div class="container mt-4">
   <div *ngIf="showVolumes">
-    <div *ngIf="volumesTotalCount == 0">There are no books found</div>
-    <div *ngIf="volumesTotalCount > 0">
-      Books found: {{ volumesTotalCount }}
-    </div>
+    <div *ngIf="volumesCount == 0">There are no books found</div>
+    <div *ngIf="volumesCount > 0">Books found: {{ volumesCount }}</div>
     <div class="cards-grid">
       <app-book-card
         *ngFor="let item of volumesCollection"
         [volume]="item"
       ></app-book-card>
     </div>
-    <button
-      class="btn btn-outline-dark btn-sm me-2"
-      (click)="onLessResults()"
-      *ngIf="maxResults > volumesPagination.startStep"
-    >
-      Less results
-    </button>
-    <button
-      class="btn btn-outline-primary btn-sm"
-      (click)="onMoreResults()"
-      *ngIf="volumesTotalCount > 0"
-    >
-      More results
-    </button>
+    <div class="d-flex justify-content-end align-items-center mt-3 mb-3">
+      <button
+        class="btn btn-outline-primary btn-sm"
+        (click)="onMoreResults()"
+        *ngIf="volumesCount > 0"
+      >
+        More results
+      </button>
+    </div>
   </div>
 </div>

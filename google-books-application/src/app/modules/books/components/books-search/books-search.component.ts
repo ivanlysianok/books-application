@@ -19,8 +19,9 @@ import { BooksService } from '../../services/books.service';
   templateUrl: './books-search.component.html',
   styleUrls: ['./books-search.component.scss'],
 })
-export class BooksSearchComponent implements OnInit, OnChanges {
-  @Output() dataEmitter = new EventEmitter<CollectionResultModel<Volume[]>>();
+export class BooksSearchComponent implements OnInit {
+  @Output() volumesEmmiter = new EventEmitter<Volume[]>();
+  @Output() volumesCount = new EventEmitter<number>();
   @Input() maxResults: number | null = null;
   public dataFormGroup: FormGroup;
   public categories: string[] = [];
@@ -33,13 +34,8 @@ export class BooksSearchComponent implements OnInit, OnChanges {
       subject: [''],
       orderBy: [''],
       startIndex: [VolumesPagination.startIndex],
-      maxResults: [null],
+      maxResults: [VolumesPagination.basicStep],
     });
-  }
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      this.updateMaxResults();
-    }
   }
 
   public ngOnInit(): void {
@@ -63,14 +59,9 @@ export class BooksSearchComponent implements OnInit, OnChanges {
     this.booksService
       .getBooksCollection(this.dataFormGroup.value)
       .subscribe((response) => {
-        this.dataEmitter.emit(response);
+        this.volumesEmmiter.emit(response.items)
+        this.volumesCount.emit(response.totalItems)
       });
-  }
-
-  private updateMaxResults(): void {
-    if (this.maxResults) {
-      this.dataFormGroup.controls['maxResults'].patchValue(this.maxResults);
-    }
   }
 
   public get q() {

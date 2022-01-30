@@ -1,13 +1,9 @@
-<div class="card">
-  <img
-    class="card-img-top"
-    [src]="volume?.volumeInfo?.imageLinks?.thumbnail"
-    alt="No image"
-  />
-  <div class="card-body">
-    <h6 class="card-title">{{ volume?.volumeInfo?.title }}</h6>
-    <p class="card-text">{{ bookCategory}}</p>
-    <span class="d-flex text-muted" *ngFor="let author of volume?.volumeInfo?.authors">{{author}}, </span>
-    <button class="btn btn-primary btn-sm mt-3">More information</button>
+<div class="border border-primary p-1">
+  <h6>{{ title }}</h6>
+  <p>{{ category }}</p>
+  <div *ngFor="let a of authors; let i = index">
+    <span>{{a}}</span>
+    <span *ngIf="i < authors.length - 1">,</span>
   </div>
+  <button class="btn btn-sm btn-primary" [routerLink]="['/book-detail', volume?.id]">More Info</button>
 </div>

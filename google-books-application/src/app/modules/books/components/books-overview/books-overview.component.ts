@@ -21,16 +21,22 @@ export class BooksOverviewComponent {
   public volumesCount = 0;
   public showVolumes = false;
 
-  getVolumes(data: Volume[]): void {
+  public getVolumes(data: Volume[]): void {
     this.volumesCollection = data;
     this.showVolumes = true;
   }
 
-  getVolumesCount(data: number): void {
+  public getVolumesCount(data: number): void {
     this.volumesCount = data;
   }
 
-  onMoreResults(): void {
+  public onResetResults(): void {
+    this.volumesCollection.splice(0, this.volumesCollection.length);
+    this.volumesCount = 0;
+    this.showVolumes = false;
+  }
+
+  public onMoreResults(): void {
     if (this.booksSearchReference) {
       this.startIndex = this.startIndex + this.volumesPagination.basicStep;
       this.booksSearchReference.dataFormGroup.controls['startIndex'].patchValue(
@@ -39,9 +45,9 @@ export class BooksOverviewComponent {
       this.booksService
         .getBooksCollection(this.booksSearchReference.dataFormGroup.value)
         .subscribe((response) => {
-          this.volumesCollection.push(...response.items)
+          this.volumesCollection.push(...response.items);
           this.volumesCount = response.totalItems;
-        })
+        });
     }
   }
 }

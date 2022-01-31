@@ -17,9 +17,7 @@
       />
       <div
         class="invalid-feedback"
-        *ngIf="
-          q?.invalid && (q?.dirty || q?.touched)
-        "
+        *ngIf="q?.invalid && (q?.dirty || q?.touched)"
       >
         Please fill this field
       </div>
@@ -52,11 +50,15 @@
         />
         <label class="form-check-label"> Newest </label>
       </div>
+      <div class="text-muted" *ngIf="orderBy?.invalid && orderBy?.value === null">
+        Please choose at least one option
+      </div>
     </div>
     <div class="mb-2">
-      <button type="submit" class="btn btn-primary btn-sm">
-        Search books!
+      <button type="button" class="button-outline me-2" (click)="onReset()">
+        Reset
       </button>
+      <button type="submit" class="button">Search books!</button>
     </div>
   </div>
 </form>

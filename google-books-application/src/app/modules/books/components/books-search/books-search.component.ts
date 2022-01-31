@@ -7,7 +7,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
 import { OrderBy } from '../../constants/order-by.constant';
 import { VolumesPagination } from '../../constants/volumes-pagination.constant';
@@ -32,7 +32,7 @@ export class BooksSearchComponent implements OnInit {
     this.dataFormGroup = this.formBuilder.group({
       q: ['', Validators.required],
       subject: [''],
-      orderBy: [''],
+      orderBy: ['', Validators.required],
       startIndex: [VolumesPagination.startIndex],
       maxResults: [VolumesPagination.basicStep],
     });
@@ -51,6 +51,12 @@ export class BooksSearchComponent implements OnInit {
     });
   }
 
+  public onReset(): void {
+    this.q.reset();
+    this.subject.reset();
+    this.orderBy.reset();
+  }
+
   public onSearch(): void {
     if (this.dataFormGroup.invalid) {
       this.q?.markAsTouched();
@@ -64,7 +70,15 @@ export class BooksSearchComponent implements OnInit {
       });
   }
 
-  public get q() {
-    return this.dataFormGroup.get('q');
+  public get q(): AbstractControl {
+    return this.dataFormGroup.get('q') as AbstractControl;
+  }
+
+  public get subject(): AbstractControl {
+    return this.dataFormGroup.get('subject') as AbstractControl;
+  }
+
+  public get orderBy(): AbstractControl {
+    return this.dataFormGroup.get('orderBy') as AbstractControl;
   }
 }

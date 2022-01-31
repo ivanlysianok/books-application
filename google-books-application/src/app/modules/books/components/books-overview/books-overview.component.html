@@ -16,9 +16,14 @@
     </div>
     <div class="d-flex justify-content-end align-items-center mt-3 mb-3">
       <button
-        class="btn btn-outline-primary btn-sm"
+        class="button-outline me-2"
+        (click)="onResetResults()"
+      >
+        Reset
+      </button>
+      <button
+        class="button"
         (click)="onMoreResults()"
-        *ngIf="volumesCount > 0"
       >
         More results
       </button>

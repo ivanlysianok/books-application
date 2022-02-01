@@ -17,9 +17,10 @@ export class BooksOverviewComponent {
 
   public volumesPagination = VolumesPagination;
   public startIndex = 0;
-  public volumesCollection: Volume[] = [];
   public volumesCount = 0;
+  public volumesCollection: Volume[] = [];
   public showVolumes = false;
+  public isLoading = false;
 
   public getVolumes(data: Volume[]): void {
     this.volumesCollection = data;
@@ -42,11 +43,13 @@ export class BooksOverviewComponent {
       this.booksSearchReference.dataFormGroup.controls['startIndex'].patchValue(
         this.startIndex
       );
+      this.isLoading = true;
       this.booksService
         .getBooksCollection(this.booksSearchReference.dataFormGroup.value)
         .subscribe((response) => {
           this.volumesCollection.push(...response.items);
           this.volumesCount = response.totalItems;
+          this.isLoading = false;
         });
     }
   }

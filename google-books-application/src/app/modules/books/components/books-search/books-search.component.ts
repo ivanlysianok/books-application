@@ -1,14 +1,10 @@
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import {
-  Component,
-  Output,
-  EventEmitter,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { OrderBy } from '../../constants/order-by.constant';
 import { VolumesPagination } from '../../constants/volumes-pagination.constant';
 import { Volume } from '../../models/volumes.interface';
@@ -23,8 +19,10 @@ export class BooksSearchComponent implements OnInit {
   @Output() volumesEmmiter = new EventEmitter<Volume[]>();
   @Output() volumesCount = new EventEmitter<number>();
   @Input() maxResults: number | null = null;
+
   public dataFormGroup: FormGroup;
   public categories: string[] = [];
+  public isLoading = false;
   constructor(
     private booksService: BooksService,
     private formBuilder: FormBuilder
@@ -62,11 +60,13 @@ export class BooksSearchComponent implements OnInit {
       this.q?.markAsTouched();
       return;
     }
+    this.isLoading = true;
     this.booksService
       .getBooksCollection(this.dataFormGroup.value)
       .subscribe((response) => {
-        this.volumesEmmiter.emit(response.items)
-        this.volumesCount.emit(response.totalItems)
+        this.volumesEmmiter.emit(response.items);
+        this.volumesCount.emit(response.totalItems);
+        this.isLoading = false;
       });
   }
 

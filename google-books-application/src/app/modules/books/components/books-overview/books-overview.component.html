@@ -1,32 +1,35 @@
-<div class="container border border-primary">
-  <app-books-search
-    (volumesEmmiter)="getVolumes($event)"
-    (volumesCount)="getVolumesCount($event)"
-  ></app-books-search>
-</div>
-<div class="container mt-4">
-  <div *ngIf="showVolumes">
-    <div *ngIf="volumesCount == 0">There are no books found</div>
-    <div *ngIf="volumesCount > 0">Books found: {{ volumesCount }}</div>
-    <div class="cards-grid">
-      <app-book-card
-        *ngFor="let item of volumesCollection"
-        [volume]="item"
-      ></app-book-card>
+<div class="container">
+  <div class="border border-primary px-2 py-1">
+    <app-books-search
+      (volumesEmmiter)="getVolumes($event)"
+      (volumesCount)="getVolumesCount($event)"
+    ></app-books-search>
+  </div>
+  <div class="mt-4 px-2 py-1">
+    <div class="loader" *ngIf="booksSearchReference?.isLoading || isLoading">
+      <div
+        class="spinner-border text-secondary"
+        role="status"
+        style="width: 4rem; height: 4rem"
+      >
+        <span class="sr-only"></span>
+      </div>
     </div>
-    <div class="d-flex justify-content-end align-items-center mt-3 mb-3">
-      <button
-        class="button-outline me-2"
-        (click)="onResetResults()"
-      >
-        Reset
-      </button>
-      <button
-        class="button"
-        (click)="onMoreResults()"
-      >
-        More results
-      </button>
+    <div *ngIf="showVolumes">
+      <div *ngIf="volumesCount == 0">There are no books found</div>
+      <div *ngIf="volumesCount > 0">Books found: {{ volumesCount }}</div>
+      <div class="cards-grid">
+        <app-book-card
+          *ngFor="let item of volumesCollection"
+          [volume]="item"
+        ></app-book-card>
+      </div>
+      <div class="d-flex justify-content-end align-items-center mt-3 mb-3">
+        <button class="button-second me-2" (click)="onResetResults()">
+          Reset
+        </button>
+        <button class="button" (click)="onMoreResults()">More results</button>
+      </div>
     </div>
   </div>
 </div>

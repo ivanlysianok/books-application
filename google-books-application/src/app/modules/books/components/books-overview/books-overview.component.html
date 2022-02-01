@@ -6,15 +6,9 @@
     ></app-books-search>
   </div>
   <div class="mt-4 px-2 py-1">
-    <div class="loader" *ngIf="booksSearchReference?.isLoading || isLoading">
-      <div
-        class="spinner-border text-secondary"
-        role="status"
-        style="width: 4rem; height: 4rem"
-      >
-        <span class="sr-only"></span>
-      </div>
-    </div>
+    <app-loader
+      *ngIf="booksSearchReference?.isLoading || isLoading"
+    ></app-loader>
     <div *ngIf="showVolumes">
       <div *ngIf="volumesCount == 0">There are no books found</div>
       <div *ngIf="volumesCount > 0">Books found: {{ volumesCount }}</div>

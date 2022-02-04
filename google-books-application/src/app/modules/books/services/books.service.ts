@@ -48,7 +48,7 @@ export class BooksService {
   public getBookById(volumeId: string): Observable<Volume> {
     return this.httpClient.get<Volume>(`${this.baseUri}/volumes/${volumeId}`)
   }
-  
+
   /**
    * This method is used to get select categories
    * @returns Observable with collection of categories

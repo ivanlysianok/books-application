@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { ErrorHeader } from '../../constants/error-headers.constant';
 import { OrderBy } from '../../constants/order-by.constant';
 import { VolumesPagination } from '../../constants/volumes-pagination.constant';
 import { Volume } from '../../models/volumes.interface';
@@ -25,7 +27,8 @@ export class BooksSearchComponent implements OnInit {
   public isLoading = false;
   constructor(
     private booksService: BooksService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastrService: ToastrService,
   ) {
     this.dataFormGroup = this.formBuilder.group({
       q: ['', Validators.required],
@@ -61,13 +64,17 @@ export class BooksSearchComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    this.booksService
-      .getBooksCollection(this.dataFormGroup.value)
-      .subscribe((response) => {
+    this.booksService.getBooksCollection(this.dataFormGroup.value).subscribe({
+      next: (response) => {
         this.volumesEmmiter.emit(response.items);
         this.volumesCount.emit(response.totalItems);
         this.isLoading = false;
-      });
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.error.message, ErrorHeader);
+        this.isLoading = false;
+      }
+    });
   }
 
   public get q(): AbstractControl {

@@ -20,7 +20,7 @@ import { SharedModule } from './shared/shared.module';
     BooksOverviewRoutingModule,
     ReactiveFormsModule,
     CommonModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [BooksService],
 })

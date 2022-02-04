@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ErrorHeader } from '../../constants/error-headers.constant';
+import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
 
 @Component({
@@ -9,16 +12,27 @@ import { BooksService } from '../../services/books.service';
 })
 export class BookDetailComponent implements OnInit {
   public volumeId: string | null = null;
+  public volume: Volume | null = null;
+  public isLoading = false;
   constructor(
     private route: ActivatedRoute,
-    private booksService: BooksService
+    private booksService: BooksService,
+    private toastrService: ToastrService
   ) {}
   ngOnInit(): void {
     this.volumeId = this.route.snapshot.paramMap.get('id');
-    // if (this.volumeId) {
-    //   this.booksService.getBookById(this.volumeId).subscribe((response) => {
-    //     console.log(response);
-    //   });
-    // }
+    if (this.volumeId) {
+      this.isLoading = true;
+      this.booksService.getBookById(this.volumeId).subscribe({
+        next: (response) => {
+          this.volume = response;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.toastrService.error(err.error.error.message, ErrorHeader)
+          this.isLoading = false;
+        },
+      });
+    }
   }
 }

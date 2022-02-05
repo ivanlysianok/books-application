@@ -1,3 +1,13 @@
-<div class="container border border-primary">
+<div class="container">
   <app-loader *ngIf="isLoading"></app-loader>
+  <app-navigate-back header="Back to books overview" (backButtonClicked)="navigateBack()"></app-navigate-back>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <img [src]="volume?.volumeInfo?.imageLinks?.thumbnail" alt="No image...">
+    </div>
+    <div class="col">
+      <h2>{{volume?.volumeInfo?.title}}</h2>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorHeader } from '../../constants/error-headers.constant';
 import { Volume } from '../../models/volumes.interface';
@@ -17,7 +17,8 @@ export class BookDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private booksService: BooksService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.volumeId = this.route.snapshot.paramMap.get('id');
@@ -34,5 +35,9 @@ export class BookDetailComponent implements OnInit {
         },
       });
     }
+  }
+
+  navigateBack(): void {
+    this.router.navigate(['../../'], { relativeTo: this.route });
   }
 }

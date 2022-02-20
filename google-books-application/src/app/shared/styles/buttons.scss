@@ -1,0 +1,48 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import './colors.scss';
+
+.button-base {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .px-4;
+  @extend .py-2;
+}
+
+.button-search {
+  @extend .button-base;
+  color: $white;
+  background-color: $purple;
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(71, 56, 203, 0.45) !important;
+    color: $white;
+  }
+  &:hover {
+    background-color: lighten($purple, 2%);
+    color: $white;
+  }
+}
+
+.button-search-reset {
+  @extend .button-base;
+  background-color: $white;
+  color: $black;
+  &:hover {
+    background-color: lighten($white, 5%);
+  }
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(240, 240, 241, 0.25) !important;
+  }
+}
+
+.button-primary {
+  @extend .button-base;
+  color: $white;
+  background-color: $purple;
+}
+
+.button-secondary {
+  @extend .button-base;
+  background-color: transparent;
+  border: $purple 2px solid;
+  color: $purple;
+}

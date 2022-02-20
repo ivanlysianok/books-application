@@ -1,7 +1,11 @@
-@import "../../shared/styles/style-elements.scss";
+@import '../../../../shared/styles/base.scss';
 
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
+}
+
+.books-search {
+  background-color: $dark-blue;
 }

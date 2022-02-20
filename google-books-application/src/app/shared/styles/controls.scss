@@ -1,0 +1,24 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import './colors.scss';
+
+.form-control-base {
+  @extend .form-control;
+  @extend .form-control-sm;
+}
+
+.form-control-primary {
+  @extend .form-control-base;
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(71, 56, 203, 0.45) !important;
+  }
+}
+
+.is-invalid-text {
+  @extend .invalid-feedback;
+  color: $pink !important;
+}
+
+.is-invalid-border {
+  @extend .is-invalid;
+  border-color: $pink !important;
+}

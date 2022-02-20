@@ -1,10 +1,14 @@
-<div class="container">
-  <div class="border border-primary px-2 py-1">
-    <app-books-search
-      (volumesEmmiter)="getVolumes($event)"
-      (volumesCount)="getVolumesCount($event)"
-    ></app-books-search>
+<div class="bg books-search">
+  <div class="container">
+    <div class="px-2 py-1">
+      <app-books-search
+        (volumesEmmiter)="getVolumes($event)"
+        (volumesCount)="getVolumesCount($event)"
+      ></app-books-search>
+    </div>
   </div>
+</div>
+<div class="container">
   <div class="mt-4 px-2 py-1">
     <app-loader
       *ngIf="booksSearchReference?.isLoading || isLoading"
@@ -19,10 +23,10 @@
         ></app-book-card>
       </div>
       <div class="d-flex justify-content-end align-items-center mt-3 mb-3">
-        <button class="button-second me-2" (click)="onResetResults()">
+        <button class="button-secondary me-2" (click)="onResetResults()">
           Reset
         </button>
-        <button class="button" (click)="onMoreResults()">More results</button>
+        <button class="button-primary" (click)="onMoreResults()">More results</button>
       </div>
     </div>
   </div>

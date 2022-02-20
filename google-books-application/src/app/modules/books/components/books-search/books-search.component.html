@@ -5,31 +5,28 @@
 >
   <div class="form-group">
     <div class="mb-2 mt-2">
-      <label>Search term</label>
+      <label class="text-white">Search term</label>
       <input
         type="text"
-        [ngClass]="
-          q?.invalid && (q?.dirty || q?.touched)
-            ? 'is-invalid form-control form-control-sm'
-            : 'form-control form-control-sm'
-        "
+        [ngClass]="q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid-border' : ''"
+        class="form-control-primary"
         formControlName="q"
       />
       <div
-        class="invalid-feedback"
+        class="is-invalid-text"
         *ngIf="q?.invalid && (q?.dirty || q?.touched)"
       >
         Please fill this field
       </div>
     </div>
     <div class="mb-2">
-      <label>Select category</label>
-      <select class="form-control form-control-sm" formControlName="subject">
+      <label class="text-white">Select category</label>
+      <select class="form-control-primary" formControlName="subject">
         <option *ngFor="let c of categories" [ngValue]="c">{{ c }}</option>
       </select>
     </div>
     <div class="mb-3">
-      <label>Sorting by</label>
+      <label class="text-white">Sorting by</label>
       <div class="form-check">
         <input
           class="form-check-input"
@@ -38,7 +35,7 @@
           value="relevance"
           name="orderBy"
         />
-        <label class="form-check-label"> Relevance </label>
+        <label class="form-check-label text-white"> Relevance </label>
       </div>
       <div class="form-check">
         <input
@@ -48,17 +45,24 @@
           value="newest"
           name="orderBy"
         />
-        <label class="form-check-label"> Newest </label>
+        <label class="form-check-label text-white"> Newest </label>
       </div>
-      <div class="text-muted" *ngIf="orderBy?.invalid && orderBy?.value === null">
+      <div
+        class="text-white"
+        *ngIf="orderBy?.invalid && orderBy?.value === null"
+      >
         Please choose at least one option
       </div>
     </div>
     <div class="mb-2">
-      <button type="button" class="button-second me-2" (click)="onReset()">
+      <button
+        type="button"
+        class="button-search-reset me-2"
+        (click)="onReset()"
+      >
         Reset
       </button>
-      <button type="submit" class="button">Search books!</button>
+      <button type="submit" class="button-search">Search books!</button>
     </div>
   </div>
 </form>

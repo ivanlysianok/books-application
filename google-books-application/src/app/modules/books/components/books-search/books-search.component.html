@@ -8,7 +8,9 @@
       <label class="text-white">Search term</label>
       <input
         type="text"
-        [ngClass]="q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid-border' : ''"
+        [ngClass]="
+          q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid-border' : ''
+        "
         class="form-control-primary"
         formControlName="q"
       />
@@ -29,7 +31,7 @@
       <label class="text-white">Sorting by</label>
       <div class="form-check">
         <input
-          class="form-check-input"
+          class="form-control-checkbox"
           type="radio"
           formControlName="orderBy"
           value="relevance"
@@ -39,7 +41,7 @@
       </div>
       <div class="form-check">
         <input
-          class="form-check-input"
+          class="form-control-checkbox"
           type="radio"
           formControlName="orderBy"
           value="newest"
@@ -48,20 +50,21 @@
         <label class="form-check-label text-white"> Newest </label>
       </div>
       <div
-        class="text-white"
+        class="text-gray"
         *ngIf="orderBy?.invalid && orderBy?.value === null"
       >
-        Please choose at least one option
+        * Please choose at least one sorting option
       </div>
     </div>
-    <div class="mb-2">
+    <div class="mb-2 d-flex align-items-center flex-sm-row flex-column">
       <button
         type="button"
-        class="button-search-reset me-2"
+        class="button-search-reset me-0 me-sm-2 mb-2 mb-sm-0"
         (click)="onReset()"
       >
         Reset
       </button>
+
       <button type="submit" class="button-search">Search books!</button>
     </div>
   </div>

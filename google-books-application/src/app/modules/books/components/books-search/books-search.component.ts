@@ -20,6 +20,7 @@ import { BooksService } from '../../services/books.service';
 export class BooksSearchComponent implements OnInit {
   @Output() volumesEmmiter = new EventEmitter<Volume[]>();
   @Output() volumesCount = new EventEmitter<number>();
+  @Output() searchTerm = new EventEmitter<string>();
   @Input() maxResults: number | null = null;
 
   public dataFormGroup: FormGroup;
@@ -64,6 +65,7 @@ export class BooksSearchComponent implements OnInit {
       return;
     }
     this.isLoading = true;
+    this.searchTerm.emit(this.dataFormGroup.controls['q'].value)
     this.booksService.getBooksCollection(this.dataFormGroup.value).subscribe({
       next: (response) => {
         this.volumesEmmiter.emit(response.items);

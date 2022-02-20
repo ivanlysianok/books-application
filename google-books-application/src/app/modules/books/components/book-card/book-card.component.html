@@ -1,9 +1,15 @@
-<div class="border border-primary p-1">
-  <h6>{{ title }}</h6>
-  <p>{{ category }}</p>
-  <div *ngFor="let a of authors; let i = index">
-    <span>{{a}}</span>
-    <span *ngIf="i < authors.length - 1">,</span>
+<div class="card p-1">
+  <div class="card-image-container w-100">
+    <img [src]="coverSrc" alt="No image" class="card-image w-100 h-100">
   </div>
-  <button class="btn btn-sm btn-primary" [routerLink]="['/book-detail', volume?.id]">More Info</button>
+  <div class="card-content-container">
+    <h6 class="text-white mb-2">{{ title }}</h6>
+    <hr class="text-white m-0">
+    <p class="text-white">{{ category }}</p>
+    <div *ngFor="let author of authors; let i = index">
+      <span class="text-white">{{author}}</span>
+      <span class="text-white" *ngIf="i < authors.length - 1">,</span>
+    </div>
+    <button class="btn btn-sm btn-primary" [routerLink]="['/book-detail', volume?.id]">More Info</button>
+  </div>
 </div>

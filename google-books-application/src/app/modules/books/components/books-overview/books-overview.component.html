@@ -4,6 +4,7 @@
       <app-books-search
         (volumesEmmiter)="getVolumes($event)"
         (volumesCount)="getVolumesCount($event)"
+        (searchTerm)="getSearchTerm($event)"
       ></app-books-search>
     </div>
   </div>
@@ -14,19 +15,22 @@
       *ngIf="booksSearchReference?.isLoading || isLoading"
     ></app-loader>
     <div *ngIf="showVolumes">
-      <div *ngIf="volumesCount == 0">There are no books found</div>
-      <div *ngIf="volumesCount > 0">Books found: {{ volumesCount }}</div>
+      <h4 class="mb-1">Search results for "{{ searchTerm }}"</h4>
+      <div *ngIf="volumesCount == 0" class="mb-2">Your search did not return any results</div>
+      <div *ngIf="volumesCount > 0" class="mb-2">Showing {{ volumesCount }} results</div>
       <div class="cards-grid">
         <app-book-card
           *ngFor="let item of volumesCollection"
           [volume]="item"
         ></app-book-card>
       </div>
-      <div class="d-flex justify-content-end align-items-center mt-3 mb-3">
+      <div class="d-flex justify-content-end align-items-center mt-3 mb-3" *ngIf="volumesCount > 0">
         <button class="button-secondary me-2" (click)="onResetResults()">
           Reset
         </button>
-        <button class="button-primary" (click)="onMoreResults()">More results</button>
+        <button class="button-primary" (click)="onMoreResults()">
+          More results
+        </button>
       </div>
     </div>
   </div>

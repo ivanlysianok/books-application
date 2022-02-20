@@ -9,17 +9,27 @@ import { Volume } from '../../models/volumes.interface';
 export class BookCardComponent implements OnChanges {
   @Input() volume: Volume | null = null;
 
+  public coverSrc: string | null = null;
   public title: string | null = null;
   public category: string | null = null;
   public authors: string[] = [];
 
   ngOnChanges(): void {
     if (this.volume) {
-      this.title = this.volume.volumeInfo.title ? this.volume.volumeInfo.title : null;
+      if (this.volume.volumeInfo.imageLinks) {
+        this.coverSrc = this.volume.volumeInfo.imageLinks.thumbnail
+          ? this.volume.volumeInfo.imageLinks.thumbnail
+          : null;
+      }
+      this.title = this.volume.volumeInfo.title
+        ? this.volume.volumeInfo.title
+        : null;
       this.category = this.volume.volumeInfo.categories
         ? this.volume.volumeInfo.categories[0]
         : null;
-      this.authors = this.volume.volumeInfo.authors ? this.volume.volumeInfo.authors : [];
+      this.authors = this.volume.volumeInfo.authors
+        ? this.volume.volumeInfo.authors
+        : [];
     }
   }
 }

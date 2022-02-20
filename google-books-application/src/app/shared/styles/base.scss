@@ -3,5 +3,9 @@
 @import './colors.scss';
 
 .text-white {
-  color: $white;
+  color: $_white;
+}
+
+.text-gray {
+  color: $_gray;
 }

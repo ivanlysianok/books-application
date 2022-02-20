@@ -1,11 +1,11 @@
-@import '../../../../shared/styles/base.scss';
+@import '../../../../shared/styles/colors.scss';
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
   gap: 1rem;
 }
 
 .books-search {
-  background-color: $dark-blue;
+  background-color: $_bg;
 }

@@ -1,4 +1,4 @@
 export interface ImageLinks {
-  smallThumbnail: string;
-  thumbnail: string;
+  smallThumbnail?: string;
+  thumbnail?: string;
 }

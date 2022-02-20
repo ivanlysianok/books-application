@@ -1,1 +1,15 @@
+@import '../../../../shared/styles/colors.scss';
 
+.card {
+  background-color: $_bg;
+  min-height: 25rem;
+}
+
+.card-image-container {
+  position: relative;
+  height: 15rem;
+}
+
+.card-image {
+  object-fit: cover;
+}

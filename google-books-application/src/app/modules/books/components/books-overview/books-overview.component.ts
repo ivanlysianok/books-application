@@ -20,6 +20,7 @@ export class BooksOverviewComponent {
   public volumesPagination = VolumesPagination;
   public startIndex = 0;
   public volumesCount = 0;
+  public searchTerm: string = '';
   public volumesCollection: Volume[] = [];
   public showVolumes = false;
   public isLoading = false;
@@ -31,6 +32,10 @@ export class BooksOverviewComponent {
 
   public getVolumesCount(data: number): void {
     this.volumesCount = data;
+  }
+
+  public getSearchTerm(data: string): void {
+    this.searchTerm = data;
   }
 
   public onResetResults(): void {
@@ -50,8 +55,10 @@ export class BooksOverviewComponent {
         .getBooksCollection(this.booksSearchReference.dataFormGroup.value)
         .subscribe({
           next: (response) => {
-            this.volumesCollection.push(...response.items);
-            this.volumesCount = response.totalItems;
+            if (response.items) {
+              this.volumesCollection.push(...response.items);
+              this.volumesCount = response.totalItems;
+            }
             this.isLoading = false;
           },
           error: (err) => {

@@ -21,7 +21,8 @@
       <div class="cards-grid">
         <app-book-card
           *ngFor="let item of volumesCollection"
-          [volume]="item"
+          [volumeInfo]="item.volumeInfo"
+          [volumeId]="item.id"
         ></app-book-card>
       </div>
       <div class="d-flex justify-content-end align-items-center mt-3 mb-3" *ngIf="volumesCount > 0">

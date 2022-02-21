@@ -14,13 +14,7 @@
 }
 
 .is-invalid-text {
-  @extend .invalid-feedback;
-  color: $_invalid !important;
-}
-
-.is-invalid-border {
-  @extend .is-invalid;
-  border-color: $_invalid !important;
+  color: $red;
 }
 
 .form-control-checkbox {

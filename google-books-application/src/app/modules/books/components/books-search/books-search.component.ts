@@ -29,12 +29,12 @@ export class BooksSearchComponent implements OnInit {
   constructor(
     private booksService: BooksService,
     private formBuilder: FormBuilder,
-    private toastrService: ToastrService,
+    private toastrService: ToastrService
   ) {
     this.dataFormGroup = this.formBuilder.group({
       q: ['', Validators.required],
       subject: [''],
-      orderBy: ['', Validators.required],
+      orderBy: [''],
       startIndex: [VolumesPagination.startIndex],
       maxResults: [VolumesPagination.basicStep],
     });
@@ -44,37 +44,7 @@ export class BooksSearchComponent implements OnInit {
     this.booksService.getCategories().subscribe((response) => {
       if (response) {
         this.categories = response;
-        // Because of API fails when query param orderBy is null,
-        // here is provided patching of default value
-        this.dataFormGroup.patchValue({
-          orderBy: OrderBy.relevance,
-        });
-      }
-    });
-  }
-
-  public onReset(): void {
-    this.q.reset();
-    this.subject.reset();
-    this.orderBy.reset();
-  }
-
-  public onSearch(): void {
-    if (this.dataFormGroup.invalid) {
-      this.q?.markAsTouched();
-      return;
-    }
-    this.isLoading = true;
-    this.searchTerm.emit(this.dataFormGroup.controls['q'].value)
-    this.booksService.getBooksCollection(this.dataFormGroup.value).subscribe({
-      next: (response) => {
-        this.volumesEmmiter.emit(response.items);
-        this.volumesCount.emit(response.totalItems);
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.toastrService.error(err.error.error.message, ErrorHeader);
-        this.isLoading = false;
+        this.orderByPatchDefaultValue();
       }
     });
   }
@@ -89,5 +59,42 @@ export class BooksSearchComponent implements OnInit {
 
   public get orderBy(): AbstractControl {
     return this.dataFormGroup.get('orderBy') as AbstractControl;
+  }
+
+  public onReset(): void {
+    this.q.reset();
+    this.subject.reset();
+    this.orderBy.reset();
+  }
+
+  public onSearch(): void {
+    if (this.dataFormGroup.invalid) {
+      this.q?.markAsTouched();
+      return;
+    }
+    if (this.orderBy.value === null || this.orderBy.value === undefined) {
+      this.orderByPatchDefaultValue();
+    }
+    this.isLoading = true;
+    this.searchTerm.emit(this.dataFormGroup.controls['q'].value);
+    this.booksService.getBooksCollection(this.dataFormGroup.value).subscribe({
+      next: (response) => {
+        this.volumesEmmiter.emit(response.items);
+        this.volumesCount.emit(response.totalItems);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.toastrService.error(err.error.error.message, ErrorHeader);
+        this.isLoading = false;
+      },
+    });
+  }
+
+  // Because of API fails when query param orderBy is null,
+  // here is provided patching of default value
+  public orderByPatchDefaultValue(): void {
+    this.dataFormGroup.patchValue({
+      orderBy: OrderBy.relevance,
+    });
   }
 }

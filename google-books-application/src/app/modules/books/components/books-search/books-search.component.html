@@ -5,19 +5,17 @@
 >
   <div class="form-group">
     <div class="mb-2 mt-2">
-      <label class="text-white">Search term</label>
+      <label class="text-white me-1">Search term</label>
+      <span class="is-invalid-text">*</span>
       <input
         type="text"
         [ngClass]="
-          q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid-border' : ''
+          q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid' : ''
         "
         class="form-control-primary"
         formControlName="q"
       />
-      <div
-        class="is-invalid-text"
-        *ngIf="q?.invalid && (q?.dirty || q?.touched)"
-      >
+      <div class="is-invalid-text" *ngIf="q?.invalid && (q?.dirty || q?.touched)">
         Please fill this field
       </div>
     </div>
@@ -48,12 +46,6 @@
           name="orderBy"
         />
         <label class="form-check-label text-white"> Newest </label>
-      </div>
-      <div
-        class="text-gray"
-        *ngIf="orderBy?.invalid && orderBy?.value === null"
-      >
-        * Please choose at least one sorting option
       </div>
     </div>
     <div class="mb-2 d-flex align-items-center flex-sm-row flex-column">

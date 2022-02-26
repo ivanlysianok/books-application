@@ -1,6 +1,6 @@
 <div class="bg books-search">
   <div class="container">
-    <div class="px-2 py-1">
+    <div class="px-2 py-2">
       <app-books-search
         (volumesEmmiter)="getVolumes($event)"
         (volumesCount)="getVolumesCount($event)"
@@ -25,13 +25,23 @@
           [volumeId]="item.id"
         ></app-book-card>
       </div>
-      <div class="d-flex justify-content-end align-items-center mt-3 mb-3" *ngIf="volumesCount > 0">
-        <button class="button-secondary me-2" (click)="onResetResults()">
-          Reset
-        </button>
-        <button class="button-primary" (click)="onMoreResults()">
-          More results
-        </button>
+      <div class="row float-right">
+
+
+      </div>
+      <div class="d-flex flex-column flex-sm-row justify-content-sm-end my-4">
+        <div class="">
+          <button
+            type="button"
+            class="button-reset me-2 mb-2 mb-sm-0"
+            (click)="onResetResults()"
+          >
+            Reset
+          </button>
+        </div>
+        <div class="">
+          <button class="button-main" (click)="onMoreResults()">More results</button>
+        </div>
       </div>
     </div>
   </div>

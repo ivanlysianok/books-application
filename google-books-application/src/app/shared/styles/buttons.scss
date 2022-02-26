@@ -6,9 +6,10 @@
   @extend .btn-sm;
   @extend .px-4;
   @extend .py-2;
+  width: 100%;
 }
 
-.button-search {
+.button-main {
   @extend .button-base;
   color: $_white;
   background-color: $_main;
@@ -34,15 +35,15 @@
   }
 }
 
-.button-primary {
-  @extend .button-base;
-  color: $_white;
-  background-color: $_main;
-}
-
-.button-secondary {
+.button-reset {
   @extend .button-base;
   background-color: transparent;
   border: $_main 2px solid;
   color: $_main;
+}
+
+@media (min-width: map-get($grid-breakpoints, sm)) {
+  .button-search-reset, .button-main, .button-reset {
+    width: 10rem;
+  }
 }

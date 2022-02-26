@@ -9,13 +9,14 @@
       <span class="is-invalid-text">*</span>
       <input
         type="text"
-        [ngClass]="
-          q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid' : ''
-        "
+        [ngClass]="q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid' : ''"
         class="form-control-primary"
         formControlName="q"
       />
-      <div class="is-invalid-text" *ngIf="q?.invalid && (q?.dirty || q?.touched)">
+      <div
+        class="is-invalid-text"
+        *ngIf="q?.invalid && (q?.dirty || q?.touched)"
+      >
         Please fill this field
       </div>
     </div>
@@ -48,16 +49,19 @@
         <label class="form-check-label text-white"> Newest </label>
       </div>
     </div>
-    <div class="mb-2 d-flex align-items-center flex-sm-row flex-column">
-      <button
-        type="button"
-        class="button-search-reset me-0 me-sm-2 mb-2 mb-sm-0"
-        (click)="onReset()"
-      >
-        Reset
-      </button>
-
-      <button type="submit" class="button-search">Search books!</button>
+    <div class="d-flex flex-column flex-sm-row">
+      <div class="">
+        <button
+          type="button"
+          class="button-search-reset me-0 me-sm-2 mb-2 mb-sm-0"
+          (click)="onReset()"
+        >
+          Reset
+        </button>
+      </div>
+      <div class="">
+        <button type="submit" class="button-main">Search books!</button>
+      </div>
     </div>
   </div>
 </form>

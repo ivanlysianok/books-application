@@ -1,11 +1,4 @@
 @import './controls.scss';
+@import './classes.scss';
 @import './buttons.scss';
 @import './colors.scss';
-
-.text-white {
-  color: $_white;
-}
-
-.text-gray {
-  color: $_gray;
-}

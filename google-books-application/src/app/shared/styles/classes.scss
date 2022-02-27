@@ -1,0 +1,21 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import './colors.scss';
+
+.text-white {
+  color: $_white;
+}
+
+.text-gray {
+  color: $_gray;
+}
+
+.display-in-row {
+  display: flex;
+  align-items: center;
+}
+
+.display-in-row-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,5 +1,8 @@
 <div class="card p-1">
-  <div class="card-image-container w-100">
+  <div
+    class="card-image-container w-100"
+    [routerLink]="['/book-detail', volumeId]"
+  >
     <img
       [src]="
         volumeInfo?.imageLinks?.thumbnail ||
@@ -9,20 +12,28 @@
       alt="No image"
       class="card-image w-100 h-100"
     />
+    <div class="card-image-overlay"></div>
   </div>
   <div class="card-content-container">
-    <h6 class="text-white my-2">{{ volumeInfo?.title }}</h6>
-    <hr class="text-white m-0" />
-    <p class="text-gray fst-italic mb-1">{{ firstCategory }}</p>
-    <div *ngFor="let author of authors; let i = index">
-      <span class="text-white">{{ author }}</span>
-      <span class="text-white" *ngIf="i < authors.length - 1">,</span>
+    <h6 class="text-white my-2 book-header">
+      {{ volumeInfo?.title | truncate: 45 }}
+    </h6>
+    <div class="mb-1 book-category">
+      <span class="me-1 text-white">Category:</span>
+      <span class="fst-italic text-gray">{{ firstCategory }}</span>
     </div>
-    <button
-      class="btn btn-sm btn-primary"
-      [routerLink]="['/book-detail', volumeId]"
-    >
-      More Info
-    </button>
+    <div class="mb-1 book-authors">
+      <span class="me-1 text-white">Author(s):</span>
+      <span
+        *ngFor="let author of authors; let i = index"
+        class="text-gray fst-italic"
+      >
+        {{ author }}
+        <span class="" *ngIf="authors.length === 2 && i === 0">,</span>
+      </span>
+    </div>
+    <div class="book-link">
+      <span class="text-white">More details</span>
+    </div>
   </div>
 </div>

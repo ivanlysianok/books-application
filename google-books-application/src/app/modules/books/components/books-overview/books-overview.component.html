@@ -16,8 +16,12 @@
     ></app-loader>
     <div *ngIf="showVolumes">
       <h4 class="mb-1">Search results for "{{ searchTerm }}"</h4>
-      <div *ngIf="volumesCount == 0" class="mb-2">Your search did not return any results</div>
-      <div *ngIf="volumesCount > 0" class="mb-2">Showing {{ volumesCount }} results</div>
+      <div *ngIf="volumesCount == 0" class="mb-2">
+        Your search did not return any results
+      </div>
+      <div *ngIf="volumesCount > 0" class="mb-2">
+        Showing {{ volumesCount }} results
+      </div>
       <div class="cards-grid">
         <app-book-card
           *ngFor="let item of volumesCollection"
@@ -25,23 +29,18 @@
           [volumeId]="item.id"
         ></app-book-card>
       </div>
-      <div class="row float-right">
-
-
-      </div>
+      <div class="row float-right"></div>
       <div class="d-flex flex-column flex-sm-row justify-content-sm-end my-4">
-        <div class="">
-          <button
-            type="button"
-            class="button-reset me-2 mb-2 mb-sm-0"
-            (click)="onResetResults()"
-          >
-            Reset
-          </button>
-        </div>
-        <div class="">
-          <button class="button-main" (click)="onMoreResults()">More results</button>
-        </div>
+        <button
+          type="button"
+          class="button-reset me-2 mb-2 mb-sm-0"
+          (click)="onResetResults()"
+        >
+          Reset
+        </button>
+        <button class="button-main" (click)="onMoreResults()">
+          More results
+        </button>
       </div>
     </div>
   </div>

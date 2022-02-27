@@ -13,14 +13,21 @@ export class BookCardComponent implements OnChanges {
 
   public imagePlaceholder = ImageUrls.bookCoverPlaceholder;
   public authors: string[] = [];
-  public firstCategory: string | null = null;
+  public firstCategory: string | undefined;
 
   ngOnChanges(): void {
     if (this.volumeInfo) {
-      this.authors = this.volumeInfo?.authors ? this.volumeInfo.authors : [];
-      this.firstCategory = this.volumeInfo?.categories
-        ? this.volumeInfo?.categories[0]
-        : null;
+      // For design reasons only first 2 authors are displayed
+      if (this.volumeInfo.authors) {
+        this.volumeInfo.authors.forEach((author, index) => {
+          if (index <= 1) {
+            this.authors.push(author);
+          }
+        });
+      }
+      this.firstCategory = this.volumeInfo.categories
+        ? this.volumeInfo.categories[0]
+        : '';
     }
   }
 }

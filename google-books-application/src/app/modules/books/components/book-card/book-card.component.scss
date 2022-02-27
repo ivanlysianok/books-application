@@ -1,4 +1,5 @@
-@import '../../../../shared/styles/colors.scss';
+@import "../../../../shared/styles/colors.scss";
+@import "../../../../shared/styles/classes.scss";
 
 .card {
   background-color: $_bg;
@@ -8,8 +9,47 @@
 .card-image-container {
   position: relative;
   height: 15rem;
+  cursor: pointer;
 }
 
 .card-image {
   object-fit: cover;
 }
+
+.card-image-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.2s ease all;
+  background-color: $_main;
+}
+
+.card-image-overlay:hover {
+  opacity: 0.2;
+}
+
+.book-base {
+  display: block;
+  overflow: scroll;
+}
+
+.book-header {
+  @extend .book-base;
+  height: 2.5rem;
+}
+
+.book-category {
+  @extend .book-base;
+  height: 3rem;
+}
+
+.book-authors {
+  @extend .book-base;
+  height: 3rem;
+}
+

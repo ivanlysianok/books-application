@@ -35,7 +35,6 @@
 
 .book-base {
   display: block;
-  overflow: scroll;
 }
 
 .book-header {
@@ -50,6 +49,25 @@
 
 .book-authors {
   @extend .book-base;
-  height: 3rem;
+  height: 3.5rem;
+  overflow-y: auto;
 }
 
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: $_light-gray;
+  &::-webkit-scrollbar {
+    width: 0.325rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(240, 240, 241, 0.315);
+    border-radius: 1.35rem;
+  }
+}
+
+
+@media screen and (max-width: map-get($grid-breakpoints, xl)) {
+  .book-authors {
+    height: 4.5rem;
+  }
+}

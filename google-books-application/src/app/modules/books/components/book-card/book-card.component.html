@@ -22,7 +22,7 @@
       <span class="me-1 text-white">Category:</span>
       <span class="fst-italic text-gray">{{ firstCategory }}</span>
     </div>
-    <div class="mb-1 book-authors">
+    <div class="mb-1 book-authors custom-scrollbar">
       <span class="me-1 text-white">Author(s):</span>
       <span
         *ngFor="let author of authors; let i = index"
@@ -32,8 +32,10 @@
         <span class="" *ngIf="authors.length === 2 && i === 0">,</span>
       </span>
     </div>
-    <div class="book-link">
-      <span class="text-white">More details</span>
+    <!-- TODO - Link styling -->
+    <hr class="text-gray my-2">
+    <div class="book-redirect">
+      <a href="#">More info</a>
     </div>
   </div>
 </div>

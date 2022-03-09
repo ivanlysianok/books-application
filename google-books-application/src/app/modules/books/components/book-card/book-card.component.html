@@ -1,7 +1,7 @@
 <div class="card p-1">
   <div
     class="card-image-container w-100"
-    [routerLink]="['/book-detail', volumeId]"
+    (click)="navigateToBookDetail(volumeId)"
   >
     <img
       [src]="
@@ -32,10 +32,9 @@
         <span class="" *ngIf="authors.length === 2 && i === 0">,</span>
       </span>
     </div>
-    <!-- TODO - Link styling -->
     <hr class="text-gray my-2">
-    <div class="book-redirect">
-      <a href="#">More info</a>
+    <div class="book-redirect display-in-row-centered">
+      <span (click)="navigateToBookDetail(volumeId)" class="book-redirect-link">Book detail</span>
     </div>
   </div>
 </div>

@@ -53,6 +53,15 @@
   overflow-y: auto;
 }
 
+.book-redirect {
+  height: 2.5rem;
+}
+
+.book-redirect-link {
+  color: $_white;
+  cursor: pointer;
+}
+
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: $_light-gray;

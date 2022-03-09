@@ -30,4 +30,11 @@ export class BookCardComponent implements OnChanges {
         : '';
     }
   }
+
+  navigateToBookDetail(volumeId: string | null): void {
+    if (volumeId) {
+      const url = location.href + `book-detail/${volumeId}`
+      window.open(url, '_blank');
+    }
+  }
 }

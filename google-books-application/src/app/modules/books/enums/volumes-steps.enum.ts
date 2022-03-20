@@ -1,4 +1,4 @@
 export enum VolumesSteps {
-  Zero = 0,
+  ZeroStep = 0,
   BaseStep = 30,
 }

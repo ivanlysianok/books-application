@@ -1,6 +1,6 @@
 <div class="books-search">
   <div class="container">
-    <div class="p-2">
+    <div class="py-2">
       <app-books-search
         (volumesEmmiter)="getVolumes($event)"
       ></app-books-search>
@@ -9,7 +9,7 @@
 </div>
 <div class="container">
   <app-loader></app-loader>
-  <div class="mt-4 px-2 py-1">
+  <div class="mt-4">
     <div *ngIf="volumesCount === 0">Your search did not return any results</div>
     <div *ngIf="volumesCollection?.length">
       <div class="mb-3">
@@ -23,11 +23,11 @@
           [volumeId]="item.id"
         ></app-book-card>
       </div>
-      <div class="d-flex flex-column flex-sm-row justify-content-sm-end my-4">
+      <div class="d-sm-flex justify-content-sm-end my-4">
         <button
           type="button"
           class="button-reset me-2 mb-2 mb-sm-0"
-          (click)="volumesCollection = []"
+          (click)="onResetResults()"
         >
           Reset
         </button>

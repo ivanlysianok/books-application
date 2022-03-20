@@ -40,7 +40,7 @@ export class BooksSearchComponent {
       q: ['', Validators.required],
       subject: [''],
       orderBy: [OrderBy.relevance],
-      startIndex: [VolumesSteps.Zero],
+      startIndex: [VolumesSteps.ZeroStep],
       maxResults: [VolumesSteps.BaseStep],
     });
   }

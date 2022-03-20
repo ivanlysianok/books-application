@@ -33,6 +33,13 @@ export class BooksOverviewComponent {
     this.searchTerm = this.booksSearchReference?.dataFormGroup.get('q')?.value;
   }
 
+  public onResetResults(): void {
+    this.volumesCollection?.splice(0, this.volumesCollection.length);
+    if (this.booksSearchReference?.searchParams) {
+      this.booksSearchReference.searchParams.startIndex = VolumesSteps.ZeroStep;
+    }
+  }
+
   public onMoreResults(): void {
     if (this.booksSearchReference?.searchParams) {
       this.booksSearchReference.searchParams.startIndex +=

@@ -5,7 +5,7 @@
 >
   <div class="form-group">
     <div class="mb-2">
-      <label class="text-white me-1">Search term</label>
+      <label class="text-white me-1">Search</label>
       <span class="is-invalid-text">*</span>
       <input
         type="text"
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="mb-2">
-      <label class="text-white">Select category</label>
+      <label class="text-white">Category</label>
       <select class="form-control-primary" formControlName="subject">
         <option *ngFor="let c of categories" [ngValue]="c">{{ c }}</option>
       </select>

@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { ErrorHeader } from '../../constants/error-headers.constant';
-import { VolumesPagination } from '../../constants/volumes-pagination.constant';
+import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
+import { VolumesSteps } from '../../enums/volumes-steps.enum';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
+import { NotificationService } from '../../shared/services/error.service';
+import { LoaderService } from '../../shared/services/loader.service';
 import { BooksSearchComponent } from '../books-search/books-search.component';
 
 @Component({
@@ -15,56 +17,40 @@ export class BooksOverviewComponent {
   @ViewChild(BooksSearchComponent)
   public booksSearchReference: BooksSearchComponent | null = null;
 
-  constructor(private booksService: BooksService, private toastrService: ToastrService) {}
+  constructor(
+    private booksService: BooksService,
+    private loaderService: LoaderService,
+    private notificationService: NotificationService
+  ) {}
 
-  public volumesPagination = VolumesPagination;
-  public startIndex = 0;
-  public volumesCount = 0;
-  public searchTerm: string = '';
-  public volumesCollection: Volume[] = [];
-  public showVolumes = false;
-  public isLoading = false;
+  public volumesCount: number | null = null;
+  public volumesCollection: Volume[] | undefined;
+  public searchTerm = '';
 
-  public getVolumes(data: Volume[]): void {
-    this.volumesCollection = data;
-    this.showVolumes = true;
-  }
-
-  public getVolumesCount(data: number): void {
-    this.volumesCount = data;
-  }
-
-  public getSearchTerm(data: string): void {
-    this.searchTerm = data;
-  }
-
-  public onResetResults(): void {
-    this.volumesCollection.splice(0, this.volumesCollection.length);
-    this.volumesCount = 0;
-    this.showVolumes = false;
+  public getVolumes(data: CollectionResultModel<Volume[]>): void {
+    this.volumesCollection = data.items;
+    this.volumesCount = data.totalItems;
+    this.searchTerm = this.booksSearchReference?.dataFormGroup.get('q')?.value;
   }
 
   public onMoreResults(): void {
-    if (this.booksSearchReference) {
-      this.startIndex = this.startIndex + this.volumesPagination.basicStep;
-      this.booksSearchReference.dataFormGroup.controls['startIndex'].patchValue(
-        this.startIndex
-      );
-      this.isLoading = true;
+    if (this.booksSearchReference?.searchParams) {
+      this.booksSearchReference.searchParams.startIndex +=
+        VolumesSteps.BaseStep;
+      this.loaderService.start();
       this.booksService
-        .getBooksCollection(this.booksSearchReference.dataFormGroup.value)
+        .getBooksCollection(this.booksSearchReference.searchParams)
         .subscribe({
           next: (response) => {
             if (response.items) {
-              this.volumesCollection.push(...response.items);
-              this.volumesCount = response.totalItems;
+              this.volumesCollection?.push(...response.items);
+              this.loaderService.stop();
             }
-            this.isLoading = false;
           },
           error: (err) => {
-            this.toastrService.error(err.error.error.message, ErrorHeader);
-            this.isLoading = false;
-          }
+            this.notificationService.error(err);
+            this.loaderService.stop();
+          },
         });
     }
   }

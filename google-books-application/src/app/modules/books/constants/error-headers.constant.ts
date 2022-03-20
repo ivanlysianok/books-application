@@ -1,1 +1,3 @@
-export const ErrorHeader = 'An error has occurred';
+export const ErrorHeader = {
+  error: 'An error has occurred'
+}

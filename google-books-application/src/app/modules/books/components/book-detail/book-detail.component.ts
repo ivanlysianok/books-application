@@ -27,11 +27,10 @@ export class BookDetailComponent implements OnInit {
       this.booksService.getBookById(this.volumeId).subscribe({
         next: (response) => {
           this.volume = response;
-          console.log(this.volume)
           this.isLoading = false;
         },
         error: (err) => {
-          this.toastrService.error(err.error.error.message, ErrorHeader)
+          this.toastrService.error(err.error.error.message, ErrorHeader.error)
           this.isLoading = false;
         },
       });

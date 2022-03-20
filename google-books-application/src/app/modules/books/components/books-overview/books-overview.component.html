@@ -1,25 +1,19 @@
-<div class="bg books-search">
+<div class="books-search">
   <div class="container">
-    <div class="px-2 py-2">
+    <div class="p-2">
       <app-books-search
         (volumesEmmiter)="getVolumes($event)"
-        (volumesCount)="getVolumesCount($event)"
-        (searchTerm)="getSearchTerm($event)"
       ></app-books-search>
     </div>
   </div>
 </div>
 <div class="container">
+  <app-loader></app-loader>
   <div class="mt-4 px-2 py-1">
-    <app-loader
-      *ngIf="booksSearchReference?.isLoading || isLoading"
-    ></app-loader>
-    <div *ngIf="showVolumes">
-      <h4 class="mb-1">Search results for "{{ searchTerm }}"</h4>
-      <div *ngIf="volumesCount == 0" class="mb-2">
-        Your search did not return any results
-      </div>
-      <div *ngIf="volumesCount > 0" class="mb-2">
+    <div *ngIf="volumesCount === 0">Your search did not return any results</div>
+    <div *ngIf="volumesCollection?.length">
+      <div class="mb-3">
+        <h4>Search results for "{{ searchTerm }}"</h4>
         Showing {{ volumesCount }} results
       </div>
       <div class="cards-grid">
@@ -29,12 +23,11 @@
           [volumeId]="item.id"
         ></app-book-card>
       </div>
-      <div class="row float-right"></div>
       <div class="d-flex flex-column flex-sm-row justify-content-sm-end my-4">
         <button
           type="button"
           class="button-reset me-2 mb-2 mb-sm-0"
-          (click)="onResetResults()"
+          (click)="volumesCollection = []"
         >
           Reset
         </button>

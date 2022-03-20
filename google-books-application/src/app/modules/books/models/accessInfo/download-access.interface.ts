@@ -1,5 +1,5 @@
 export interface DownloadAccess {
-  kind: 'books#downloadAccessRestriction';
+  kind: string;
   volumeId: string;
   restricted: boolean;
   deviceAllowed: boolean;

@@ -1,40 +1,33 @@
 <div class="card p-1">
-  <div
-    class="card-image-container w-100"
-    (click)="navigateToBookDetail(volumeId)"
-  >
-    <img
-      [src]="
-        volumeInfo?.imageLinks?.thumbnail ||
-        volumeInfo?.imageLinks?.smallThumbnail ||
-        imagePlaceholder
-      "
-      alt="No image"
-      class="card-image w-100 h-100"
-    />
-    <div class="card-image-overlay"></div>
-  </div>
-  <div class="card-content-container">
-    <h6 class="text-white my-2 book-header">
-      {{ volumeInfo?.title | truncate: 45 }}
+  <app-volume-cover
+    [volume]="volume"
+    (click)="navigateToBookDetail(volume?.id)"
+  ></app-volume-cover>
+  <div class="text-white">
+    <h6 class="my-2 book-header">
+      {{ volume?.volumeInfo?.title | truncate: 45 }}
     </h6>
-    <div class="mb-1 book-category">
-      <span class="me-1 text-white">Category:</span>
-      <span class="fst-italic text-gray">{{ firstCategory }}</span>
+    <div class="book-category">
+      <app-display-list-items
+        header="Category:"
+        [list]="volume?.volumeInfo?.categories"
+        [itemsCount]="1"
+      ></app-display-list-items>
     </div>
-    <div class="mb-1 book-authors custom-scrollbar">
-      <span class="me-1 text-white">Author(s):</span>
+    <div class="book-authors custom-scrollbar">
+      <app-display-list-items
+        header="Author(s):"
+        [list]="volume?.volumeInfo?.authors"
+        [itemsCount]="2"
+      ></app-display-list-items>
+    </div>
+    <hr class="my-2" />
+    <div class="book-redirect">
       <span
-        *ngFor="let author of authors; let i = index"
-        class="text-gray fst-italic"
+        (click)="navigateToBookDetail(volume?.id)"
+        style="cursor: pointer;"
+        >Book detail</span
       >
-        {{ author }}
-        <span class="" *ngIf="authors.length === 2 && i === 0">,</span>
-      </span>
-    </div>
-    <hr class="text-gray my-2">
-    <div class="book-redirect display-in-row-centered">
-      <span (click)="navigateToBookDetail(volumeId)" class="book-redirect-link">Book detail</span>
     </div>
   </div>
 </div>

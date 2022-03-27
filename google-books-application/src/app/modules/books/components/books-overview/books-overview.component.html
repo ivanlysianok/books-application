@@ -1,4 +1,4 @@
-<div class="books-search">
+<div class="background">
   <div class="container">
     <div class="py-2">
       <app-books-search
@@ -19,8 +19,7 @@
       <div class="cards-grid">
         <app-book-card
           *ngFor="let item of volumesCollection"
-          [volumeInfo]="item.volumeInfo"
-          [volumeId]="item.id"
+          [volume]="item"
         ></app-book-card>
       </div>
       <div class="d-sm-flex justify-content-sm-end my-4">

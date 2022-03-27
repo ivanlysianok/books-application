@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { ErrorHeader } from '../../constants/error-headers.constant';
+import { ActivatedRoute } from '@angular/router';
+import { saleStatus } from '../../constants/sale-status.constant';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
+import { NotificationService } from '../../shared/services/error.service';
+import { LoaderService } from '../../shared/services/loader.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -11,33 +12,37 @@ import { BooksService } from '../../services/books.service';
   styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
-  public volumeId: string | null = null;
   public volume: Volume | null = null;
-  public isLoading = false;
+  public isForSale = false;
+
   constructor(
     private route: ActivatedRoute,
     private booksService: BooksService,
-    private toastrService: ToastrService,
-    private router: Router
+    private loaderService: LoaderService,
+    private notificationService: NotificationService
   ) {}
+
   ngOnInit(): void {
-    this.volumeId = this.route.snapshot.paramMap.get('id');
-    if (this.volumeId) {
-      this.isLoading = true;
-      this.booksService.getBookById(this.volumeId).subscribe({
+    const volumeId = this.route.snapshot.paramMap.get('id');
+    if (volumeId) {
+      this.loaderService.start();
+      this.booksService.getBookById(volumeId).subscribe({
         next: (response) => {
           this.volume = response;
-          this.isLoading = false;
+          console.log(this.volume)
+          if (this.volume.saleInfo.saleability) {
+            this.isForSale =
+              this.volume.saleInfo.saleability === saleStatus.forSale
+                ? true
+                : false;
+          }
+          this.loaderService.stop();
         },
         error: (err) => {
-          this.toastrService.error(err.error.error.message, ErrorHeader.error)
-          this.isLoading = false;
+          this.notificationService.error(err);
+          this.loaderService.stop();
         },
       });
     }
-  }
-
-  navigateBack(): void {
-    this.router.navigate(['../../'], { relativeTo: this.route });
   }
 }

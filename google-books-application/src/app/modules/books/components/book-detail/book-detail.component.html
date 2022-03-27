@@ -1,11 +1,83 @@
-<div class="container">
-  <app-loader *ngIf="isLoading"></app-loader>
-  <div class="row">
-    <div class="col">
-      <img [src]="volume?.volumeInfo?.imageLinks?.thumbnail" alt="No image...">
-    </div>
-    <div class="col">
-      <h2>{{volume?.volumeInfo?.title}}</h2>
+<app-loader></app-loader>
+<div class="background">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+        <app-volume-cover
+          [detailedView]="true"
+          [volume]="volume"
+        ></app-volume-cover>
+      </div>
+      <div class="col-12 col-sm-6 col-md-7 col-lg-8 col-xl-9 text-white">
+        <div class="mb-2">
+          <h3>{{ volume?.volumeInfo?.title }}</h3>
+          <p class="mb-0">{{ volume?.volumeInfo?.subtitle }}</p>
+        </div>
+        <div
+          class="mb-2 d-flex align-items-center"
+          *ngIf="volume?.volumeInfo?.averageRating"
+        >
+          <img
+            src="../../../../../assets/star.svg"
+            alt="No image..."
+            style="width: 1rem"
+          />
+          <span class="fw-bold ms-1">
+            {{ volume?.volumeInfo?.averageRating }}
+          </span>
+        </div>
+        <hr />
+        <app-display-list-items
+          header="Author(s):"
+          [list]="volume?.volumeInfo?.authors"
+        ></app-display-list-items>
+        <app-display-list-items
+          header="Category/Categories:"
+          [list]="volume?.volumeInfo?.categories"
+        ></app-display-list-items>
+        <div class="mb-2">
+          <span>Publisher:</span>
+          <span class="text-gray ms-1">{{
+            volume?.volumeInfo?.publisher
+          }}</span>
+        </div>
+        <div class="mb-2">
+          <span>Publish date:</span>
+          <span class="text-gray ms-1">{{
+            volume?.volumeInfo?.publishedDate
+          }}</span>
+        </div>
+        <div class="mb-2">
+          <span>Page count:</span>
+          <span class="text-gray ms-1">{{
+            volume?.volumeInfo?.pageCount
+          }}</span>
+        </div>
+        <div class="mb-2">
+          <span>ISBN codes:</span>
+          <ul
+            class="mb-0 text-gray"
+            *ngFor="let identifier of volume?.volumeInfo?.industryIdentifiers"
+          >
+            <li>{{ identifier.type }}: {{ identifier.identifier }}</li>
+          </ul>
+        </div>
+        <div class="mb-2">
+          <span>For sale:</span>
+          <span class="text-gray ms-1">{{ isForSale ? "Yes" : "No" }}</span>
+        </div>
+        <div class="mb-2" *ngIf="isForSale">
+          <span>Price:</span>
+          <span class="text-gray ms-1">{{
+            (volume?.saleInfo?.retailPrice)!.amount +
+              " " +
+              (volume?.saleInfo?.retailPrice)!.currencyCode
+          }}</span>
+        </div>
+        <button class="button-main mb-2" [disabled]="!isForSale">
+          Buy now!
+        </button>
+      </div>
     </div>
   </div>
 </div>

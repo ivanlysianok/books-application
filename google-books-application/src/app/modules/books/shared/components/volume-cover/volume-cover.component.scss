@@ -1,0 +1,54 @@
+@import '../../../../../shared/styles/colors.scss';
+
+@mixin container-image-base($height, $cursor) {
+  position: relative;
+  width: 100%;
+  height: $height;
+  cursor: $cursor
+}
+
+@mixin image-base($objectFit) {
+  width: 100%;
+  height: 100%;
+  object-fit: $objectFit;
+}
+
+.container-overview {
+  @include container-image-base(15rem, pointer)
+}
+
+.image-overview {
+  @include image-base(cover)
+}
+
+.container-detailed {
+  @include container-image-base(25rem, auto)
+}
+
+.image-detailed {
+  @include image-base(contain)
+}
+
+// TODO - try to refactor this
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.2s ease all;
+  background-color: $_main;
+}
+
+.overlay:hover {
+  opacity: 0.2;
+}
+
+@media screen and (min-width: 576px) {
+  .image-detailed {
+    object-fit: cover;
+  }
+}

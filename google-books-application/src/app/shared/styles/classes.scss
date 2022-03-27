@@ -7,15 +7,13 @@
 
 .text-gray {
   color: $_gray;
+  @extend .fst-italic
 }
 
-.display-in-row {
-  display: flex;
-  align-items: center;
+.text-dark-gray {
+  color: $_dark-gray
 }
 
-.display-in-row-centered {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.background {
+  background-color: $_bg;
 }

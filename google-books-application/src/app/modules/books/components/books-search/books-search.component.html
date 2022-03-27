@@ -3,9 +3,9 @@
   (ngSubmit)="onSearch()"
   (keyup.enter)="onSearch()"
 >
-  <div class="form-group">
+  <div class="form-group text-white">
     <div class="mb-2">
-      <label class="text-white me-1">Search</label>
+      <label class="me-1">Search</label>
       <span class="is-invalid-text">*</span>
       <input
         type="text"
@@ -21,13 +21,13 @@
       </div>
     </div>
     <div class="mb-2">
-      <label class="text-white">Category</label>
+      <label>Category</label>
       <select class="form-control-primary" formControlName="subject">
         <option *ngFor="let c of categories" [ngValue]="c">{{ c }}</option>
       </select>
     </div>
     <div class="mb-3">
-      <label class="text-white">Sorting by</label>
+      <label>Sorting by</label>
       <div class="form-check">
         <input
           class="form-control-checkbox"
@@ -36,7 +36,7 @@
           value="relevance"
           name="orderBy"
         />
-        <label class="form-check-label text-white"> Relevance </label>
+        <label class="form-check-label"> Relevance </label>
       </div>
       <div class="form-check">
         <input
@@ -46,7 +46,7 @@
           value="newest"
           name="orderBy"
         />
-        <label class="form-check-label text-white"> Newest </label>
+        <label class="form-check-label"> Newest </label>
       </div>
     </div>
     <div class="d-sm-flex">

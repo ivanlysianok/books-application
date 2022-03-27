@@ -1,65 +1,33 @@
 @import "../../../../shared/styles/colors.scss";
-@import "../../../../shared/styles/classes.scss";
 
 .card {
   background-color: $_bg;
   min-height: 25rem;
 }
 
-.card-image-container {
-  position: relative;
-  height: 15rem;
-  cursor: pointer;
-}
-
-.card-image {
-  object-fit: cover;
-}
-
-.card-image-overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: 0.2s ease all;
-  background-color: $_main;
-}
-
-.card-image-overlay:hover {
-  opacity: 0.2;
-}
-
-.book-base {
+@mixin book-base($height) {
   display: block;
+  height: $height;
 }
 
 .book-header {
-  @extend .book-base;
-  height: 2.5rem;
+  @include book-base(2.5rem);
 }
 
 .book-category {
-  @extend .book-base;
-  height: 3rem;
+  @include book-base(3rem);
 }
 
 .book-authors {
-  @extend .book-base;
-  height: 3.5rem;
+  @include book-base(3.5rem);
   overflow-y: auto;
 }
 
 .book-redirect {
-  height: 2.5rem;
-}
-
-.book-redirect-link {
-  color: $_white;
-  cursor: pointer;
+  @include book-base(2.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .custom-scrollbar {
@@ -74,8 +42,8 @@
   }
 }
 
-
-@media screen and (max-width: map-get($grid-breakpoints, xl)) {
+// TODO - maybe delete this?...
+@media screen and (max-width: 1200px) {
   .book-authors {
     height: 4.5rem;
   }

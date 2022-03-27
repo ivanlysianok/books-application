@@ -1,0 +1,12 @@
+<div [ngClass]="detailedView ? 'container-detailed' : 'container-overview'">
+  <img
+    [src]="
+      volume?.volumeInfo?.imageLinks?.thumbnail ||
+      volume?.volumeInfo?.imageLinks?.smallThumbnail ||
+      imagePlaceholder
+    "
+    alt="No image"
+    [ngClass]="detailedView ? 'image-detailed' : 'image-overview'"
+  />
+  <div class="overlay" *ngIf="!detailedView"></div>
+</div>

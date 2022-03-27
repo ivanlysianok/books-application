@@ -14,7 +14,6 @@ import { LoaderService } from '../../shared/services/loader.service';
 import { SearchParams } from '../../models/search-params.interface';
 import { VolumesSteps } from '../../enums/volumes-steps.enum';
 import { NotificationService } from '../../shared/services/error.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-books-search',

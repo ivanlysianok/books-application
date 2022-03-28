@@ -7,11 +7,11 @@
 
 .text-gray {
   color: $_gray;
-  @extend .fst-italic
+  @extend .fst-italic;
 }
 
 .text-dark-gray {
-  color: $_dark-gray
+  color: $_dark-gray;
 }
 
 .background {

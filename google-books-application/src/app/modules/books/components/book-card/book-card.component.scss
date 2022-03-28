@@ -1,3 +1,4 @@
+@import "../../../../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../../../shared/styles/colors.scss";
 
 .card {
@@ -5,13 +6,13 @@
   min-height: 25rem;
 }
 
-@mixin book-base($height) {
+@mixin book-base($height: 2.5rem) {
   display: block;
   height: $height;
 }
 
 .book-header {
-  @include book-base(2.5rem);
+  @include book-base();
 }
 
 .book-category {
@@ -24,7 +25,7 @@
 }
 
 .book-redirect {
-  @include book-base(2.5rem);
+  @include book-base();
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,8 +43,7 @@
   }
 }
 
-// TODO - maybe delete this?...
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: map-get($grid-breakpoints, xl)) {
   .book-authors {
     height: 4.5rem;
   }

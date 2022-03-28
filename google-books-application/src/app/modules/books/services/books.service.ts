@@ -20,12 +20,15 @@ export class BooksService {
   public getBooksCollection(
     searchParams: SearchParams
   ): Observable<CollectionResultModel<Volume[]>> {
-    return this.httpClient.get<any>(`${VolumeUrls.baseUrl}/volumes`, {
-      params: {
-        ...searchParams,
-        key: keys.googleBooksApiKey,
-      },
-    });
+    return this.httpClient.get<CollectionResultModel<Volume[]>>(
+      `${VolumeUrls.baseUrl}/volumes`,
+      {
+        params: {
+          ...searchParams,
+          key: keys.googleBooksApiKey,
+        },
+      }
+    );
   }
 
   /**
@@ -35,6 +38,8 @@ export class BooksService {
    * @see getBooksCollection
    */
   public getBookById(volumeId: string): Observable<Volume> {
-    return this.httpClient.get<Volume>(`${VolumeUrls.baseUrl}/volumes/${volumeId}`)
+    return this.httpClient.get<Volume>(
+      `${VolumeUrls.baseUrl}/volumes/${volumeId}`
+    );
   }
 }

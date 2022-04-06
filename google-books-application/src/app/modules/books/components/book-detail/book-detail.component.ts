@@ -13,7 +13,7 @@ import { LoaderService } from '../../shared/services/loader.service';
 })
 export class BookDetailComponent implements OnInit {
   public volume: Volume | null = null;
-  public isForSale = false;
+  public saleStatus = saleStatus;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,13 +29,7 @@ export class BookDetailComponent implements OnInit {
       this.booksService.getBookById(volumeId).subscribe({
         next: (response) => {
           this.volume = response;
-          console.log(this.volume)
-          if (this.volume.saleInfo.saleability) {
-            this.isForSale =
-              this.volume.saleInfo.saleability === saleStatus.forSale
-                ? true
-                : false;
-          }
+          console.log(this.volume);
           this.loaderService.stop();
         },
         error: (err) => {
@@ -43,6 +37,20 @@ export class BookDetailComponent implements OnInit {
           this.loaderService.stop();
         },
       });
+    }
+  }
+
+  // TODO - refactor buttons
+
+  downloadBook(): void {
+    if (this.volume?.accessInfo.pdf.downloadLink) {
+      window.open(this.volume.accessInfo.pdf.downloadLink, '_blank');
+    }
+  }
+
+  orderBook(): void {
+    if (this.volume?.saleInfo.buyLink) {
+      window.location.href = this.volume.saleInfo.buyLink;
     }
   }
 }

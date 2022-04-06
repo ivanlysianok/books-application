@@ -2,7 +2,7 @@
 @import "../../../../shared/styles/colors.scss";
 
 .card {
-  background-color: $_bg;
+  background-color: $_dark-purple;
   min-height: 25rem;
 }
 
@@ -29,6 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .custom-scrollbar {

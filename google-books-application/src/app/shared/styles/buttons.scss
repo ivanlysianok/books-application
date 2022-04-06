@@ -10,13 +10,25 @@
 }
 
 .button-main {
-  @include button-base($_white, $_main);
+  @include button-base($_white, $_purple);
   &:focus {
     box-shadow: 0 0 0 0.25rem rgba(71, 56, 203, 0.45) !important;
     color: $_white;
   }
   &:hover {
-    background-color: lighten($_main, 2%);
+    background-color: lighten($_purple, 2%);
+    color: $_white;
+  }
+}
+
+.button-secondary {
+  @include button-base($_white, $_blue);
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(84, 56, 150, 0.45) !important;
+    color: $_white;
+  }
+  &:hover {
+    background-color: lighten($_blue, 2%);
     color: $_white;
   }
 }
@@ -32,12 +44,13 @@
 }
 
 .button-reset {
-  @include button-base($_main, transparent, $_main 2px solid);
+  @include button-base($_purple, transparent, $_purple 2px solid);
 }
 
 @media (min-width: map-get($grid-breakpoints, sm)) {
   .button-search-reset,
   .button-main,
+  .button-secondary,
   .button-reset {
     width: 10rem;
   }

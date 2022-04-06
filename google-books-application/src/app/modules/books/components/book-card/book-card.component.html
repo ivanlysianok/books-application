@@ -8,26 +8,22 @@
       {{ volume?.volumeInfo?.title | truncate: 45 }}
     </h6>
     <div class="book-category">
-      <app-display-list-items
-        header="Category:"
-        [list]="volume?.volumeInfo?.categories"
+      <app-display-volume-item
+        header="Category"
+        [displayList]="volume?.volumeInfo?.categories"
         [itemsCount]="1"
-      ></app-display-list-items>
+      ></app-display-volume-item>
     </div>
     <div class="book-authors custom-scrollbar">
-      <app-display-list-items
-        header="Author(s):"
-        [list]="volume?.volumeInfo?.authors"
+      <app-display-volume-item
+        header="Author(s)"
+        [displayList]="volume?.volumeInfo?.authors"
         [itemsCount]="2"
-      ></app-display-list-items>
+      ></app-display-volume-item>
     </div>
     <hr class="my-2" />
     <div class="book-redirect">
-      <span
-        (click)="navigateToBookDetail(volume?.id)"
-        style="cursor: pointer;"
-        >Book detail</span
-      >
+      <span (click)="navigateToBookDetail(volume?.id)">Book detail</span>
     </div>
   </div>
 </div>

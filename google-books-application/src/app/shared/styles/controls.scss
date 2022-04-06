@@ -20,8 +20,8 @@
 .form-control-checkbox {
   @extend .form-check-input;
   &:checked {
-    border-color: $_main !important;
-    background-color: $_main !important;
+    border-color: $_purple !important;
+    background-color: $_purple !important;
   }
   &:focus {
     box-shadow: 0 0 0 0.25rem rgba(71, 56, 203, 0.45) !important

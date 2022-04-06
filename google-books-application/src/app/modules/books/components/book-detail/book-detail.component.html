@@ -2,7 +2,9 @@
 <div class="background">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+      <div
+        class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 py-2 d-sm-flex justify-content-center align-items-center"
+      >
         <app-volume-cover
           [detailedView]="true"
           [volume]="volume"
@@ -27,32 +29,31 @@
           </span>
         </div>
         <hr />
-        <app-display-list-items
-          header="Author(s):"
-          [list]="volume?.volumeInfo?.authors"
-        ></app-display-list-items>
-        <app-display-list-items
-          header="Category/Categories:"
-          [list]="volume?.volumeInfo?.categories"
-        ></app-display-list-items>
-        <div class="mb-2">
-          <span>Publisher:</span>
-          <span class="text-gray ms-1">{{
-            volume?.volumeInfo?.publisher
-          }}</span>
-        </div>
-        <div class="mb-2">
-          <span>Publish date:</span>
-          <span class="text-gray ms-1">{{
-            volume?.volumeInfo?.publishedDate
-          }}</span>
-        </div>
-        <div class="mb-2">
-          <span>Page count:</span>
-          <span class="text-gray ms-1">{{
-            volume?.volumeInfo?.pageCount
-          }}</span>
-        </div>
+        <app-display-volume-item
+          header="Author(s)"
+          [displayList]="volume?.volumeInfo?.authors"
+        >
+        </app-display-volume-item>
+        <app-display-volume-item
+          header="Category/Categories"
+          [displayList]="volume?.volumeInfo?.categories"
+        >
+        </app-display-volume-item>
+        <app-display-volume-item
+          header="Publisher"
+          [displayItem]="volume?.volumeInfo?.publisher"
+        >
+        </app-display-volume-item>
+        <app-display-volume-item
+          header="Publish date"
+          [displayItem]="volume?.volumeInfo?.publishedDate"
+        >
+        </app-display-volume-item>
+        <app-display-volume-item
+          header="Page count"
+          [displayItem]="volume?.volumeInfo?.pageCount"
+        >
+        </app-display-volume-item>
         <div class="mb-2">
           <span>ISBN codes:</span>
           <ul
@@ -62,20 +63,36 @@
             <li>{{ identifier.type }}: {{ identifier.identifier }}</li>
           </ul>
         </div>
-        <div class="mb-2">
-          <span>For sale:</span>
-          <span class="text-gray ms-1">{{ isForSale ? "Yes" : "No" }}</span>
-        </div>
-        <div class="mb-2" *ngIf="isForSale">
-          <span>Price:</span>
-          <span class="text-gray ms-1">{{
-            (volume?.saleInfo?.retailPrice)!.amount +
-              " " +
-              (volume?.saleInfo?.retailPrice)!.currencyCode
-          }}</span>
-        </div>
-        <button class="button-main mb-2" [disabled]="!isForSale">
-          Buy now!
+        <app-display-volume-item
+          *ngIf="volume?.saleInfo?.retailPrice?.amount"
+          header="Price"
+          [displayItem]="
+            volume?.saleInfo?.retailPrice?.amount +
+            ' ' +
+            volume?.saleInfo?.retailPrice?.currencyCode
+          "
+        ></app-display-volume-item>
+        <!-- TODO - refactor buttons -->
+        <button
+          *ngIf="volume?.accessInfo?.pdf?.downloadLink"
+          (click)="downloadBook()"
+          class="button-secondary mb-2"
+        >
+          Download book in PDF
+        </button>
+        <button
+          *ngIf="volume?.accessInfo?.epub?.downloadLink"
+          (click)="downloadBook()"
+          class="button-secondary mb-2"
+        >
+          Download book in EPUB
+        </button>
+        <button
+          class="button-main mb-2"
+          *ngIf="volume?.saleInfo?.saleability === saleStatus.forSale"
+          (click)="orderBook()"
+        >
+          Order this book
         </button>
       </div>
     </div>

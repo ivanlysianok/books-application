@@ -1,7 +1,0 @@
-<div *ngIf="list?.length" class="mb-2">
-  <span class="me-1">{{ header }}</span>
-  <span *ngFor="let item of list; let index = index" class="text-gray">
-    <span>{{ item }}</span>
-    <span class="me-1" *ngIf="index < list!.length - 1">,</span>
-  </span>
-</div>

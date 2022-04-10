@@ -1,5 +1,5 @@
 @import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
-@import './colors.scss';
+@import "./colors.scss";
 
 .text-white {
   color: $_white;
@@ -16,4 +16,12 @@
 
 .background {
   background-color: $_dark-purple;
+}
+
+.item-in-row {
+  @extend .d-flex, .align-items-center;
+}
+
+.item-in-row-centered {
+  @extend .d-flex, .align-items-center, .justify-content-center;
 }

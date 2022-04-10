@@ -40,17 +40,9 @@ export class BookDetailComponent implements OnInit {
     }
   }
 
-  // TODO - refactor buttons
-
-  downloadBook(): void {
-    if (this.volume?.accessInfo.pdf.downloadLink) {
-      window.open(this.volume.accessInfo.pdf.downloadLink, '_blank');
-    }
-  }
-
-  orderBook(): void {
-    if (this.volume?.saleInfo.buyLink) {
-      window.location.href = this.volume.saleInfo.buyLink;
+  onLinkOpen(link?: string): void {
+    if (link) {
+      window.location.href = link;
     }
   }
 }

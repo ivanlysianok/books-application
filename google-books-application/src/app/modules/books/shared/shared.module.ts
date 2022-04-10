@@ -4,12 +4,23 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { NotificationService } from './services/error.service';
 import { LoaderService } from './services/loader.service';
 import { VolumeCoverComponent } from './components/volume-cover/volume-cover.component';
-import { DisplayVolumeItem } from './components/display-volume-item/display-volume-item.component';
+import { DisplayItemComponent } from './components/display-item/display-item.component';
+import { DisplayListItemsComponent } from './components/display-list-items/display-list-items.component';
 
 @NgModule({
-  declarations: [LoaderComponent, VolumeCoverComponent, DisplayVolumeItem],
+  declarations: [
+    LoaderComponent,
+    VolumeCoverComponent,
+    DisplayItemComponent,
+    DisplayListItemsComponent,
+  ],
   imports: [CommonModule],
-  exports: [LoaderComponent, VolumeCoverComponent, DisplayVolumeItem],
+  exports: [
+    LoaderComponent,
+    VolumeCoverComponent,
+    DisplayItemComponent,
+    DisplayListItemsComponent,
+  ],
   providers: [LoaderService, NotificationService],
 })
 export class SharedModule {}

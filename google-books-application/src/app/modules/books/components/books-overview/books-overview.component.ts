@@ -1,12 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
 import { VolumesSteps } from '../../enums/volumes-steps.enum';
+import { SearchParams } from '../../models/search-params.interface';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
 import { NotificationService } from '../../shared/services/error.service';
 import { LoaderService } from '../../shared/services/loader.service';
-import { BooksSearchComponent } from '../books-search/books-search.component';
 
 @Component({
   selector: 'app-books-overview',
@@ -14,8 +13,10 @@ import { BooksSearchComponent } from '../books-search/books-search.component';
   styleUrls: ['./books-overview.component.scss'],
 })
 export class BooksOverviewComponent {
-  @ViewChild(BooksSearchComponent)
-  public booksSearchReference: BooksSearchComponent | null = null;
+  public volumesCollection: CollectionResultModel<Volume[]> | null = null;
+  public searchParams: SearchParams | null = null;
+  public volumesCountStep = VolumesSteps.BaseStep;
+  public volumesSteps = VolumesSteps;
 
   constructor(
     private booksService: BooksService,
@@ -23,42 +24,54 @@ export class BooksOverviewComponent {
     private notificationService: NotificationService
   ) {}
 
-  public volumesCount: number | null = null;
-  public volumesCollection: Volume[] | undefined;
-  public searchTerm = '';
-
-  public getVolumes(data: CollectionResultModel<Volume[]>): void {
-    this.volumesCollection = data.items;
-    this.volumesCount = data.totalItems;
-    this.searchTerm = this.booksSearchReference?.dataFormGroup.get('q')?.value;
-  }
-
-  public onResetResults(): void {
-    this.volumesCollection?.splice(0, this.volumesCollection.length);
-    if (this.booksSearchReference?.searchParams) {
-      this.booksSearchReference.searchParams.startIndex = VolumesSteps.ZeroStep;
+  public getSearchParams(data: SearchParams): void {
+    this.searchParams = data;
+    if (this.searchParams) {
+      this.getVolumesCollection(this.searchParams, true);
     }
   }
 
-  public onMoreResults(): void {
-    if (this.booksSearchReference?.searchParams) {
-      this.booksSearchReference.searchParams.startIndex +=
-        VolumesSteps.BaseStep;
-      this.loaderService.start();
-      this.booksService
-        .getBooksCollection(this.booksSearchReference.searchParams)
-        .subscribe({
-          next: (response) => {
-            if (response.items) {
-              this.volumesCollection?.push(...response.items);
-              this.loaderService.stop();
-            }
-          },
-          error: (err) => {
-            this.notificationService.error(err);
-            this.loaderService.stop();
-          },
-        });
+  public onPreviousResults(): void {
+    if (this.searchParams) {
+      if (this.searchParams.startIndex > VolumesSteps.ZeroStep) {
+        this.searchParams.startIndex -= VolumesSteps.BaseStep;
+        this.volumesCountStep -= VolumesSteps.BaseStep;
+        this.getVolumesCollection(this.searchParams);
+      }
     }
+  }
+
+  public onNextResults(): void {
+    if (this.searchParams) {
+      this.searchParams.startIndex += VolumesSteps.BaseStep;
+      this.volumesCountStep += VolumesSteps.BaseStep;
+      this.getVolumesCollection(this.searchParams);
+    }
+  }
+
+  private getVolumesCollection(
+    searchParams: SearchParams,
+    onSearchLoading?: boolean
+  ): void {
+    this.loaderService.start();
+    this.booksService.getBooksCollection(searchParams).subscribe({
+      next: (response) => {
+        /* onSearchLoading flag is used here because collection
+        totalCount is dynamically changes every time api is called,
+        so for UX reasons totalCount value is need it to get only
+        when "search" button is hitted */
+        if (onSearchLoading) {
+          this.volumesCollection = response;
+        }
+        if (this.volumesCollection?.items) {
+          this.volumesCollection.items = response.items;
+        }
+        this.loaderService.stop();
+      },
+      error: (err) => {
+        this.notificationService.error(err);
+        this.loaderService.stop();
+      },
+    });
   }
 }

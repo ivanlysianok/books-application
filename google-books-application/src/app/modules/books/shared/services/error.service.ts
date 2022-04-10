@@ -7,6 +7,8 @@ import { ErrorHeader } from '../../constants/error-headers.constant';
 export class NotificationService {
   constructor(private toastrService: ToastrService) {}
 
+  // TODO - rename this file to notification service
+
   /**
    * This method fired error toast
    * @param errResponse HTTP error response from api

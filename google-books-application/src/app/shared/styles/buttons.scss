@@ -1,12 +1,11 @@
 @import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./colors.scss";
 
-@mixin button-base($color, $bg-color, $border: none) {
+@mixin button-base($color, $bg-color) {
   @extend .btn, .btn-sm, .px-4, .py-2;
-  width: 100%;
   color: $color;
   background-color: $bg-color;
-  border: $border;
+  width: 100%;
 }
 
 .button-main {
@@ -33,7 +32,7 @@
   }
 }
 
-.button-search-reset {
+.button-light {
   @include button-base($_black, $_white);
   &:focus {
     box-shadow: 0 0 0 0.25rem rgba(240, 240, 241, 0.25) !important;
@@ -43,15 +42,22 @@
   }
 }
 
-.button-reset {
-  @include button-base($_purple, transparent, $_purple 2px solid);
+.button-secondary-light {
+  @include button-base($_black, $_gray);
+  padding: 0 !important;
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(224, 224, 224, 0.25) !important;
+  }
+  &:hover {
+    background-color: lighten($_gray, 2%);
+  }
 }
 
 @media (min-width: map-get($grid-breakpoints, sm)) {
-  .button-search-reset,
+  .button-light,
   .button-main,
   .button-secondary,
-  .button-reset {
+  .button-secondary-light {
     width: 10rem;
   }
 }

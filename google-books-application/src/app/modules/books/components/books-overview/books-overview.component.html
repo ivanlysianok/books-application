@@ -2,7 +2,7 @@
   <div class="container">
     <div class="py-2">
       <app-books-search
-        (volumesEmmiter)="getVolumes($event)"
+        (formGroupValuesEmmit)="getSearchParams($event)"
       ></app-books-search>
     </div>
   </div>
@@ -10,28 +10,38 @@
 <div class="container">
   <app-loader></app-loader>
   <div class="mt-4">
-    <div *ngIf="volumesCount === 0">Your search did not return any results</div>
-    <div *ngIf="volumesCollection?.length">
+    <div *ngIf="volumesCollection?.totalItems === 0">
+      Your search did not return any results
+    </div>
+    <div *ngIf="volumesCollection">
       <div class="mb-3">
-        <h4>Search results for "{{ searchTerm }}"</h4>
-        Showing {{ volumesCount }} results
+        <h4>Search results for "{{ searchParams?.q }}"</h4>
+        Showing {{ volumesCollection?.totalItems }} results
       </div>
       <div class="cards-grid">
         <app-book-card
-          *ngFor="let item of volumesCollection"
+          *ngFor="let item of volumesCollection?.items"
           [volume]="item"
         ></app-book-card>
       </div>
-      <div class="d-sm-flex justify-content-sm-end my-4">
+      <div
+        class="item-in-row-centered my-3"
+        *ngIf="volumesCollection?.totalItems! > volumesSteps.BaseStep"
+      >
         <button
-          type="button"
-          class="button-reset me-2 mb-2 mb-sm-0"
-          (click)="onResetResults()"
+          class="me-1 me-sm-3 button-secondary-light"
+          (click)="onPreviousResults()"
         >
-          Reset
+          <i class="bi bi-arrow-left-short pagination-icon"></i>
         </button>
-        <button class="button-main" (click)="onMoreResults()">
-          More results
+        <span class="d-none d-sm-inline-block">
+          View {{ volumesCountStep }} of {{ volumesCollection?.totalItems }}
+        </span>
+        <button
+          class="ms-1 ms-sm-3 button-secondary-light"
+          (click)="onNextResults()"
+        >
+          <i class="bi bi-arrow-right-short pagination-icon"></i>
         </button>
       </div>
     </div>

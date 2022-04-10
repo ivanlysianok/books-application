@@ -1,7 +1,7 @@
 <app-loader></app-loader>
 <div class="background">
   <div class="container">
-    <div class="row">
+    <div class="row py-2">
       <div
         class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 py-2 d-sm-flex justify-content-center align-items-center"
       >
@@ -15,10 +15,7 @@
           <h3>{{ volume?.volumeInfo?.title }}</h3>
           <p class="mb-0">{{ volume?.volumeInfo?.subtitle }}</p>
         </div>
-        <div
-          class="mb-2 d-flex align-items-center"
-          *ngIf="volume?.volumeInfo?.averageRating"
-        >
+        <div class="mb-2 item-in-row" *ngIf="volume?.volumeInfo?.averageRating">
           <img
             src="../../../../../assets/star.svg"
             alt="No image..."
@@ -29,31 +26,31 @@
           </span>
         </div>
         <hr />
-        <app-display-volume-item
+        <app-display-list-items
           header="Author(s)"
           [displayList]="volume?.volumeInfo?.authors"
         >
-        </app-display-volume-item>
-        <app-display-volume-item
+        </app-display-list-items>
+        <app-display-list-items
           header="Category/Categories"
           [displayList]="volume?.volumeInfo?.categories"
         >
-        </app-display-volume-item>
-        <app-display-volume-item
+        </app-display-list-items>
+        <app-display-item
           header="Publisher"
           [displayItem]="volume?.volumeInfo?.publisher"
         >
-        </app-display-volume-item>
-        <app-display-volume-item
+        </app-display-item>
+        <app-display-item
           header="Publish date"
           [displayItem]="volume?.volumeInfo?.publishedDate"
         >
-        </app-display-volume-item>
-        <app-display-volume-item
+        </app-display-item>
+        <app-display-item
           header="Page count"
           [displayItem]="volume?.volumeInfo?.pageCount"
         >
-        </app-display-volume-item>
+        </app-display-item>
         <div class="mb-2">
           <span>ISBN codes:</span>
           <ul
@@ -63,7 +60,7 @@
             <li>{{ identifier.type }}: {{ identifier.identifier }}</li>
           </ul>
         </div>
-        <app-display-volume-item
+        <app-display-item
           *ngIf="volume?.saleInfo?.retailPrice?.amount"
           header="Price"
           [displayItem]="
@@ -71,30 +68,28 @@
             ' ' +
             volume?.saleInfo?.retailPrice?.currencyCode
           "
-        ></app-display-volume-item>
-        <!-- TODO - refactor buttons -->
-        <button
-          *ngIf="volume?.accessInfo?.pdf?.downloadLink"
-          (click)="downloadBook()"
-          class="button-secondary mb-2"
-        >
-          Download book in PDF
-        </button>
-        <button
-          *ngIf="volume?.accessInfo?.epub?.downloadLink"
-          (click)="downloadBook()"
-          class="button-secondary mb-2"
-        >
-          Download book in EPUB
-        </button>
-        <button
-          class="button-main mb-2"
-          *ngIf="volume?.saleInfo?.saleability === saleStatus.forSale"
-          (click)="orderBook()"
-        >
-          Order this book
-        </button>
+        ></app-display-item>
+        <div class="mt-2">
+          <button
+            *ngIf="volume?.volumeInfo?.infoLink"
+            (click)="onLinkOpen(volume?.volumeInfo?.infoLink)"
+            class="button-secondary mb-2"
+          >
+            Get info
+          </button>
+          <button
+            class="button-main mb-2"
+            *ngIf="volume?.saleInfo?.saleability === saleStatus.forSale"
+            (click)="onLinkOpen(volume?.saleInfo?.buyLink)"
+          >
+            Order
+          </button>
+        </div>
       </div>
     </div>
   </div>
+</div>
+<div class="container mt-3" *ngIf="volume?.volumeInfo?.description">
+  <h5>Description:</h5>
+  <p class="text-dark-gray">{{ volume?.volumeInfo?.description }}</p>
 </div>

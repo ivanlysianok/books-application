@@ -1,0 +1,7 @@
+<div class="mb-2">
+  <span class="me-1">{{ header }}:</span>
+  <span *ngFor="let item of displayList; let index = index" class="text-gray">
+    {{ item }}
+    <span class="me-1" *ngIf="index < displayList!.length - 1">,</span>
+  </span>
+</div>

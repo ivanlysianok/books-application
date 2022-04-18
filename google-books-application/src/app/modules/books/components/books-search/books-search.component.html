@@ -6,17 +6,15 @@
   <div class="form-group text-white">
     <div class="mb-2">
       <label class="me-1">Search</label>
-      <span class="is-invalid-text">*</span>
+      <span class="invalid-state">*</span>
       <input
         type="text"
         [ngClass]="q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid' : ''"
         class="form-control-primary"
         formControlName="q"
+        placeholder="Search for books by name / author / keyword..."
       />
-      <div
-        class="is-invalid-text"
-        *ngIf="q?.invalid && (q?.dirty || q?.touched)"
-      >
+      <div class="invalid-state" *ngIf="q?.invalid && (q?.dirty || q?.touched)">
         Please fill this field
       </div>
     </div>

@@ -10,18 +10,10 @@
   @extend .fst-italic;
 }
 
-.text-dark-gray {
-  color: $_dark-gray;
-}
-
 .background {
   background-color: $_dark-purple;
 }
 
-.item-in-row {
-  @extend .d-flex, .align-items-center;
-}
-
-.item-in-row-centered {
+.item-centered {
   @extend .d-flex, .align-items-center, .justify-content-center;
 }

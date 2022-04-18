@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LoaderComponent } from './components/loader/loader.component';
-import { NotificationService } from './services/error.service';
+import { ErrorService } from './services/error.service';
 import { LoaderService } from './services/loader.service';
 import { VolumeCoverComponent } from './components/volume-cover/volume-cover.component';
 import { DisplayItemComponent } from './components/display-item/display-item.component';
@@ -21,6 +21,6 @@ import { DisplayListItemsComponent } from './components/display-list-items/displ
     DisplayItemComponent,
     DisplayListItemsComponent,
   ],
-  providers: [LoaderService, NotificationService],
+  providers: [LoaderService, ErrorService],
 })
 export class SharedModule {}

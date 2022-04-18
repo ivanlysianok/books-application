@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { keys } from 'src/app/credentials/api-keys';
-import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
 import { VolumeUrls } from '../constants/volume-urls.constant';
 import { SearchParams } from '../models/search-params.interface';
 import { Volume } from '../models/volumes.interface';
+import { CollectionResultModel } from '../shared/models/collection-result.interface';
 
 @Injectable()
 export class BooksService {
@@ -21,7 +21,7 @@ export class BooksService {
     searchParams: SearchParams
   ): Observable<CollectionResultModel<Volume[]>> {
     return this.httpClient.get<CollectionResultModel<Volume[]>>(
-      `${VolumeUrls.baseUrl}/volumes`,
+      VolumeUrls.baseUrl,
       {
         params: {
           ...searchParams,
@@ -38,8 +38,6 @@ export class BooksService {
    * @see getBooksCollection
    */
   public getBookById(volumeId: string): Observable<Volume> {
-    return this.httpClient.get<Volume>(
-      `${VolumeUrls.baseUrl}/volumes/${volumeId}`
-    );
+    return this.httpClient.get<Volume>(`${VolumeUrls.baseUrl}/${volumeId}`);
   }
 }

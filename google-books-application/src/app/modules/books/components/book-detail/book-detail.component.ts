@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { saleStatus } from '../../constants/sale-status.constant';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
-import { NotificationService } from '../../shared/services/error.service';
+import { ErrorService } from '../../shared/services/error.service';
 import { LoaderService } from '../../shared/services/loader.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class BookDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private booksService: BooksService,
     private loaderService: LoaderService,
-    private notificationService: NotificationService
+    private errorService: ErrorService
   ) {}
 
   ngOnInit(): void {
@@ -29,11 +29,10 @@ export class BookDetailComponent implements OnInit {
       this.booksService.getBookById(volumeId).subscribe({
         next: (response) => {
           this.volume = response;
-          console.log(this.volume);
           this.loaderService.stop();
         },
         error: (err) => {
-          this.notificationService.error(err);
+          this.errorService.error(err);
           this.loaderService.stop();
         },
       });

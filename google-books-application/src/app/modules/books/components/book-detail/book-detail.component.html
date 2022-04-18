@@ -1,10 +1,7 @@
-<app-loader></app-loader>
 <div class="background">
   <div class="container">
-    <div class="row py-2">
-      <div
-        class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 py-2 d-sm-flex justify-content-center align-items-center"
-      >
+    <div class="row py-3">
+      <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 item-centered">
         <app-volume-cover
           [detailedView]="true"
           [volume]="volume"
@@ -15,7 +12,10 @@
           <h3>{{ volume?.volumeInfo?.title }}</h3>
           <p class="mb-0">{{ volume?.volumeInfo?.subtitle }}</p>
         </div>
-        <div class="mb-2 item-in-row" *ngIf="volume?.volumeInfo?.averageRating">
+        <div
+          class="mb-2 d-flex align-items-center"
+          *ngIf="volume?.volumeInfo?.averageRating"
+        >
           <img
             src="../../../../../assets/star.svg"
             alt="No image..."
@@ -73,13 +73,16 @@
           <button
             *ngIf="volume?.volumeInfo?.infoLink"
             (click)="onLinkOpen(volume?.volumeInfo?.infoLink)"
-            class="button-secondary mb-2"
+            class="button-secondary mb-2 me-0 me-md-2"
           >
             Get info
           </button>
           <button
             class="button-main mb-2"
-            *ngIf="volume?.saleInfo?.saleability === saleStatus.forSale"
+            *ngIf="
+              volume?.saleInfo?.saleability === saleStatus.forSale &&
+              volume?.saleInfo?.buyLink
+            "
             (click)="onLinkOpen(volume?.saleInfo?.buyLink)"
           >
             Order
@@ -89,7 +92,8 @@
     </div>
   </div>
 </div>
+<app-loader></app-loader>
 <div class="container mt-3" *ngIf="volume?.volumeInfo?.description">
   <h5>Description:</h5>
-  <p class="text-dark-gray">{{ volume?.volumeInfo?.description }}</p>
+  <p class="description-text">{{ volume?.volumeInfo?.description }}</p>
 </div>

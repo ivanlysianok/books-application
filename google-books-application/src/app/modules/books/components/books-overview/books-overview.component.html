@@ -10,13 +10,14 @@
 <div class="container">
   <app-loader></app-loader>
   <div class="mt-4">
-    <div *ngIf="volumesCollection?.totalItems === 0">
+    <div *ngIf="volumesCollection?.totalItems === volumesSteps.Zero">
       Your search did not return any results
     </div>
-    <div *ngIf="volumesCollection">
+    <div *ngIf="volumesCollection?.totalItems! > volumesSteps.Zero">
       <div class="mb-3">
         <h4>Search results for "{{ searchParams?.q }}"</h4>
-        Showing {{ volumesCollection?.totalItems }} results
+        Showing {{ searchParams!.startIndex + 1 }} -
+        {{ searchParams!.startIndex + volumesSteps.BaseStep }} results
       </div>
       <div class="cards-grid">
         <app-book-card
@@ -25,23 +26,31 @@
         ></app-book-card>
       </div>
       <div
-        class="item-in-row-centered my-3"
+        class="item-centered my-3"
         *ngIf="volumesCollection?.totalItems! > volumesSteps.BaseStep"
       >
         <button
           class="me-1 me-sm-3 button-secondary-light"
           (click)="onPreviousResults()"
+          [disabled]="searchParams!.startIndex <= volumesSteps.Zero"
         >
-          <i class="bi bi-arrow-left-short pagination-icon"></i>
+          <div class="item-centered">
+            <i class="bi bi-arrow-left-short pagination-icon"></i>
+            Previous page
+          </div>
         </button>
-        <span class="d-none d-sm-inline-block">
-          View {{ volumesCountStep }} of {{ volumesCollection?.totalItems }}
-        </span>
         <button
           class="ms-1 ms-sm-3 button-secondary-light"
           (click)="onNextResults()"
+          [disabled]="
+            searchParams!.startIndex >
+            volumesCollection!.totalItems - volumesSteps.BaseStep
+          "
         >
-          <i class="bi bi-arrow-right-short pagination-icon"></i>
+          <div class="item-centered">
+            Next page
+            <i class="bi bi-arrow-right-short pagination-icon"></i>
+          </div>
         </button>
       </div>
     </div>

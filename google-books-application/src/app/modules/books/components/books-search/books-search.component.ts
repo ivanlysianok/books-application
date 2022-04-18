@@ -5,10 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { CollectionResultModel } from 'src/app/shared/models/collection-result.intereface';
 import { OrderBy } from '../../constants/order-by.constant';
 import { SelectCategories } from '../../constants/volume-categories.constant';
-import { Volume } from '../../models/volumes.interface';
 import { SearchParams } from '../../models/search-params.interface';
 import { VolumesSteps } from '../../enums/volumes-steps.enum';
 
@@ -28,7 +26,7 @@ export class BooksSearchComponent {
       q: ['', Validators.required],
       subject: [''],
       orderBy: [OrderBy.relevance],
-      startIndex: [VolumesSteps.ZeroStep],
+      startIndex: [VolumesSteps.Zero],
       maxResults: [VolumesSteps.BaseStep],
     });
   }
@@ -48,18 +46,12 @@ export class BooksSearchComponent {
   public onReset(): void {
     this.q.reset();
     this.subject.reset();
-    this.orderBy.reset();
   }
 
   public onSearch(): void {
     if (this.dataFormGroup.invalid) {
       this.q?.markAsTouched();
       return;
-    }
-    if (this.orderBy.value === null) {
-      // Because of API fails when query param orderBy is null,
-      // here is provided patching of default value
-      this.dataFormGroup.get('orderBy')?.patchValue(OrderBy.relevance);
     }
     this.formGroupValuesEmmit.emit(this.dataFormGroup.value);
   }

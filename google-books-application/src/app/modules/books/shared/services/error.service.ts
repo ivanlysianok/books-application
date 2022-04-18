@@ -4,10 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ErrorHeader } from '../../constants/error-headers.constant';
 
 @Injectable()
-export class NotificationService {
+export class ErrorService {
   constructor(private toastrService: ToastrService) {}
-
-  // TODO - rename this file to notification service
 
   /**
    * This method fired error toast

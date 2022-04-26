@@ -1,8 +1,7 @@
 // Bootstrap
-@import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~bootstrap-icons/font/bootstrap-icons.css';
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 // Other libraries
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr";
 // Global
-@import 'app/shared/styles/base.scss'
+@import "app/shared/styles/base.scss";

@@ -11,12 +11,11 @@ const routes: Routes = [
   {
     path: 'book-detail/:id',
     component: BookDetailComponent,
-  }
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-
 export class BooksOverviewRoutingModule {}

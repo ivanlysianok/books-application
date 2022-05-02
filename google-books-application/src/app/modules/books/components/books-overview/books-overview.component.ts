@@ -3,9 +3,9 @@ import { VolumesSteps } from '../../enums/volumes-steps.enum';
 import { SearchParams } from '../../models/search-params.interface';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
-import { CollectionResultModel } from '../../shared/models/collection-result.interface';
-import { ErrorService } from '../../shared/services/error.service';
-import { LoaderService } from '../../shared/services/loader.service';
+import { CollectionResultModel } from '../../../../shared/models/collection-result.interface';
+import { LoaderService } from 'src/app/shared/services/loader.service';
+import { ErrorService } from 'src/app/shared/services/error.service';
 
 @Component({
   selector: 'app-books-overview',
@@ -23,11 +23,11 @@ export class BooksOverviewComponent {
     private errorService: ErrorService
   ) {}
 
-  /* !!! Important remark: Because of Google Books API return every time different totalItems
+  /* Important remark: Because of Google Books API return every time different totalItems
   (for unknown reason...), it is impossible to make pagination in "right" and "user-friendly" way
   (When user see total items count, when user see number of pages and can click through them and so on...).
   And that is reason, why I made pagination system in this way. Stack Over Flow discussion about this issue:
-  https://stackoverflow.com/questions/7266838/google-books-api-returns-json-with-a-seemingly-wrong-totalitem-value !!! */
+  https://stackoverflow.com/questions/7266838/google-books-api-returns-json-with-a-seemingly-wrong-totalitem-value */
 
   public getSearchParams(data: SearchParams): void {
     this.searchParams = data;

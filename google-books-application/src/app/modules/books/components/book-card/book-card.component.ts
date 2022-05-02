@@ -11,7 +11,7 @@ export class BookCardComponent {
 
   navigateToBookDetail(volumeId: string | undefined): void {
     if (volumeId) {
-      const url = location.href + `book-detail/${volumeId}`;
+      const url = location.origin + `/book-detail/${volumeId}`;
       window.open(url, '_blank');
     }
   }

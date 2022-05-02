@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Images } from '../../../constants/images.consrant';
-import { Volume } from '../../../models/volumes.interface';
+import { Images } from 'src/app/modules/books/constants/images.consrant';
+import { Volume } from 'src/app/modules/books/models/volumes.interface';
 
 @Component({
   selector: 'app-volume-cover',

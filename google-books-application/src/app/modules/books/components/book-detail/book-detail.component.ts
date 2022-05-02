@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { saleStatus } from '../../constants/sale-status.constant';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
-import { ErrorService } from '../../shared/services/error.service';
-import { LoaderService } from '../../shared/services/loader.service';
+import { ErrorService } from 'src/app/shared/services/error.service';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 
 @Component({
   selector: 'app-book-detail',

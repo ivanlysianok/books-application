@@ -7,8 +7,7 @@ import { BooksService } from './services/books.service';
 import { BooksSearchComponent } from './components/books-search/books-search.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
-import { SharedModule } from './shared/shared.module';
-import { TruncatePipe } from './shared/pipes/truncate-text.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { TruncatePipe } from './shared/pipes/truncate-text.pipe';
     BooksSearchComponent,
     BookCardComponent,
     BookDetailComponent,
-    TruncatePipe
   ],
   imports: [
     BooksOverviewRoutingModule,

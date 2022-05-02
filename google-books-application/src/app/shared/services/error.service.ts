@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ErrorHeader } from '../../constants/error-headers.constant';
+import { ErrorHeader } from 'src/app/modules/books/constants/error-headers.constant';
 
 @Injectable()
 export class ErrorService {

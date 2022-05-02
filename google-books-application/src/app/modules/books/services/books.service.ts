@@ -5,7 +5,7 @@ import { keys } from 'src/app/credentials/api-keys';
 import { VolumeUrls } from '../constants/volume-urls.constant';
 import { SearchParams } from '../models/search-params.interface';
 import { Volume } from '../models/volumes.interface';
-import { CollectionResultModel } from '../shared/models/collection-result.interface';
+import { CollectionResultModel } from '../../../shared/models/collection-result.interface';
 
 @Injectable()
 export class BooksService {

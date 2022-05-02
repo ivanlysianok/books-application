@@ -1,11 +1,11 @@
-@import '../../../../../shared/styles/colors.scss';
-@import "../../../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../styles/colors.scss";
+@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
 
 @mixin container-image-base($height: 15rem, $cursor: pointer) {
   position: relative;
   width: 100%;
   height: $height;
-  cursor: $cursor
+  cursor: $cursor;
 }
 
 @mixin image-base($objectFit: cover) {

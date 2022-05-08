@@ -2,11 +2,13 @@
 
 ### Overview
 
-Web application that allows you search and browse through books based on given search params. Also you have possibility to view detailed information
-about book including price, links to preview and buy page and a lot of other usefull data. Front-end has been written in Angular, data and all search operations are provided by Google Books API.
+This application allows you search and browse through books based on given search params. Also you have possibility to view detailed information
+about book. Front-end has been written in Angular, data and all search operations provided Google Books API.
 See live demo: https://lysianok-search-books-app.netlify.app/books-overview
-![Alt text](/google-books-application/src/assets/application_preview_photo_01.png?raw=true "Overview page")
-![Alt text](/google-books-application/src/assets/application_preview_photo_02.png?raw=true "Detailed page")
+
+## ![Alt text](/google-books-application/src/assets/application_preview_photo_01.png?raw=true "Overview page")
+
+## ![Alt text](/google-books-application/src/assets/application_preview_photo_02.png?raw=true "Detailed page")
 
 ### Setup
 
@@ -34,8 +36,8 @@ $ ng serve
 ### Features
 
 - Search is provided by search term, selected category (art, biography, computers...) and relevance/newest option
-- Books displayed in grid
-- Simple pagination with "Previoous page" and "Next page" buttons
+- Books are displayed in grid
+- Simple pagination with "Previous page" and "Next page" buttons
 - Load indicator when calling requests
-- Error toast when some api call returns error
+- Error toast when some api call return error
 - Mobile first approach, responsive desing

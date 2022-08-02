@@ -4,7 +4,6 @@
 
 This application allows you search and browse through books based on given search params. Also you have possibility to view detailed information
 about book. Front-end has been written in Angular, data and all search operations provided Google Books API.
-See live demo: https://lysianok-search-books-app.netlify.app/books-overview
 
 ## ![Alt text](/google-books-application/src/assets/application_preview_photo_01.png?raw=true "Overview page")
 

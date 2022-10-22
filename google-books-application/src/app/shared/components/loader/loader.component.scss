@@ -1,6 +1,14 @@
+@import "../../styles/colors.scss";
+
 .loader {
   position: fixed;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
+}
+
+.spinner-border {
+  width: 4rem;
+  height: 4rem;
 }

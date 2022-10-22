@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { VolumesSteps } from '../../enums/volumes-steps.enum';
 import { SearchParams } from '../../models/search-params.interface';
 import { Volume } from '../../models/volumes.interface';
 import { BooksService } from '../../services/books.service';
@@ -13,9 +12,9 @@ import { ErrorService } from 'src/app/shared/services/error.service';
   styleUrls: ['./books-overview.component.scss'],
 })
 export class BooksOverviewComponent {
-  public volumesCollection: CollectionResultModel<Volume[]> | null = null;
+  public booksCollection: CollectionResultModel<Volume[]> | null = null;
   public searchParams: SearchParams | null = null;
-  public volumesSteps = VolumesSteps;
+  public paginationStep = 30;
 
   constructor(
     private booksService: BooksService,
@@ -29,40 +28,49 @@ export class BooksOverviewComponent {
   And that is reason, why I made pagination system in this way. Stack Over Flow discussion about this issue:
   https://stackoverflow.com/questions/7266838/google-books-api-returns-json-with-a-seemingly-wrong-totalitem-value */
 
-  public getSearchParams(data: SearchParams): void {
+  public getSearchParams(data: SearchParams | null): void {
+    if (!data) {
+      return;
+    }
     this.searchParams = data;
-    if (this.searchParams) {
-      this.getVolumesCollection(this.searchParams);
+    this.searchParams.startIndex = 0;
+    this.loadBooksCollection();
+  }
+
+  public onPreviousPageClick(): void {
+    if (!this.searchParams) {
+      return;
+    }
+
+    if (this.searchParams.startIndex > 0) {
+      this.searchParams.startIndex -= this.paginationStep;
+      this.loadBooksCollection();
     }
   }
 
-  public onPreviousResults(): void {
-    if (this.searchParams) {
-      if (this.searchParams.startIndex > VolumesSteps.Zero) {
-        this.searchParams.startIndex -= VolumesSteps.BaseStep;
-        this.getVolumesCollection(this.searchParams);
-      }
+  public onNextPageClick(): void {
+    if (!this.searchParams || !this.booksCollection?.totalItems) {
+      return;
+    }
+
+    if (
+      this.searchParams.startIndex <
+      this.booksCollection.totalItems - this.paginationStep
+    ) {
+      this.searchParams.startIndex += this.paginationStep;
+      this.loadBooksCollection();
     }
   }
 
-  public onNextResults(): void {
-    if (this.searchParams && this.volumesCollection?.totalItems) {
-      if (
-        this.searchParams.startIndex <
-        this.volumesCollection.totalItems - VolumesSteps.BaseStep
-      ) {
-        this.searchParams.startIndex += VolumesSteps.BaseStep;
-        this.getVolumesCollection(this.searchParams);
-      }
+  private loadBooksCollection(): void {
+    if (!this.searchParams) {
+      return;
     }
-  }
-
-  private getVolumesCollection(searchParams: SearchParams): void {
     this.loaderService.start();
-    this.booksService.getBooksCollection(searchParams).subscribe({
+    this.booksService.getBooks(this.searchParams).subscribe({
       next: (response) => {
         if (response) {
-          this.volumesCollection = response;
+          this.booksCollection = response;
           window.scrollTo(0, 0);
         }
         this.loaderService.stop();

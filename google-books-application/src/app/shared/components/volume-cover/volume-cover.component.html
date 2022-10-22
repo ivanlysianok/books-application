@@ -3,7 +3,7 @@
     [src]="
       volume?.volumeInfo?.imageLinks?.thumbnail ||
       volume?.volumeInfo?.imageLinks?.smallThumbnail ||
-      imagePlaceholder
+      placeholderImageSrc
     "
     alt="No image"
     [ngClass]="detailedView ? 'image-detailed' : 'image-overview'"

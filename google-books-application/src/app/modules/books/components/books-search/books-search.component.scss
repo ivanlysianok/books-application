@@ -1,7 +1,11 @@
 @import "../../../../../../node_modules/bootstrap/scss/bootstrap.scss";
-@import "../../../../shared/styles/colors.scss";
+@import "../../../../shared/styles/base.scss";
 
-.invalid {
+label {
+  color: $_white;
+}
+
+.danger {
   color: $red;
 }
 

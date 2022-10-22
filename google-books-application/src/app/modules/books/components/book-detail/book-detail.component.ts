@@ -12,7 +12,7 @@ import { LoaderService } from 'src/app/shared/services/loader.service';
   styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
-  public volume: Volume | null = null;
+  public book: Volume | null = null;
   public saleStatus = saleStatus;
 
   constructor(
@@ -23,12 +23,12 @@ export class BookDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const volumeId = this.route.snapshot.paramMap.get('id');
-    if (volumeId) {
+    const bookId = this.route.snapshot.paramMap.get('id');
+    if (bookId) {
       this.loaderService.start();
-      this.booksService.getBookById(volumeId).subscribe({
+      this.booksService.getBook(bookId).subscribe({
         next: (response) => {
-          this.volume = response;
+          this.book = response;
           this.loaderService.stop();
         },
         error: (err) => {

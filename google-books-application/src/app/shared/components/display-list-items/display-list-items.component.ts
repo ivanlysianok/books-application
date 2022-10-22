@@ -3,6 +3,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 @Component({
   selector: 'app-display-list-items',
   templateUrl: './display-list-items.component.html',
+  styleUrls: ['./display-list.component.scss'],
 })
 export class DisplayListItemsComponent implements OnChanges {
   @Input() header = '';

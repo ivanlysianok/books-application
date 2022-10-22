@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class LoaderService {
-  public loading = new Subject<boolean>();
+  public isLoading: BehaviorSubject<boolean | null> = new BehaviorSubject<
+    boolean | null
+  >(null);
+  public isLoading$ = this.isLoading.asObservable();
 
   /**
    * This method fires loader, loading subject value
    * sets to TRUE
    */
   start(): void {
-    this.loading.next(true);
+    this.isLoading.next(true);
   }
 
   /**
@@ -18,6 +21,7 @@ export class LoaderService {
    * sets to FALSE
    */
   stop(): void {
-    this.loading.next(false);
+    console.log('fired');
+    this.isLoading.next(false);
   }
 }

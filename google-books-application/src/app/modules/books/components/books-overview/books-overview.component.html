@@ -1,58 +1,49 @@
-<div class="background">
-  <div class="container">
-    <div class="py-2">
-      <app-books-search
-        (formGroupValuesEmmit)="getSearchParams($event)"
-      ></app-books-search>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <app-loader></app-loader>
-  <div class="mt-4">
-    <div *ngIf="volumesCollection?.totalItems === volumesSteps.Zero">
+<ng-container class="position-relative">
+  <app-books-search
+    (searchButtonClick)="getSearchParams($event)"
+  ></app-books-search>
+
+  <div class="container" *ngIf="booksCollection && searchParams">
+    <div *ngIf="!booksCollection.items; else collectionNotEmpty">
       Your search did not return any results
     </div>
-    <div *ngIf="volumesCollection?.totalItems! > volumesSteps.Zero">
-      <div class="mb-3">
-        <h4>Search results for "{{ searchParams?.q }}"</h4>
-        Showing {{ searchParams!.startIndex + 1 }} -
-        {{ searchParams!.startIndex + volumesSteps.BaseStep }} results
-      </div>
-      <div class="cards-grid">
+    <ng-template #collectionNotEmpty>
+      <h4>Search results for "{{ searchParams.searchTerm }}"</h4>
+      Showing {{ searchParams.startIndex + 1 }} -
+      {{ searchParams.startIndex + paginationStep }} results
+
+      <div class="cards-grid mt-3">
         <app-book-card
-          *ngFor="let item of volumesCollection?.items"
+          *ngFor="let item of booksCollection.items"
           [volume]="item"
         ></app-book-card>
       </div>
+
       <div
         class="item-centered my-3"
-        *ngIf="volumesCollection?.totalItems! > volumesSteps.BaseStep"
+        *ngIf="booksCollection.totalItems > paginationStep"
       >
-        <button
-          class="me-1 me-sm-3 button-secondary-light"
-          (click)="onPreviousResults()"
-          [disabled]="searchParams!.startIndex <= volumesSteps.Zero"
+        <app-pagination-button
+          class="me-1"
+          [isDisabled]="searchParams.startIndex <= 0"
+          (buttonClick)="onPreviousPageClick()"
         >
-          <div class="item-centered">
-            <i class="bi bi-arrow-left-short pagination-icon"></i>
-            Previous page
-          </div>
-        </button>
-        <button
-          class="ms-1 ms-sm-3 button-secondary-light"
-          (click)="onNextResults()"
-          [disabled]="
-            searchParams!.startIndex >
-            volumesCollection!.totalItems - volumesSteps.BaseStep
+          <i class="bi bi-arrow-left-short pagination-icon"></i>
+          Previous page
+        </app-pagination-button>
+        <app-pagination-button
+          class="ms-1"
+          [isDisabled]="
+            searchParams.startIndex >
+            booksCollection.totalItems - paginationStep
           "
+          (buttonClick)="onNextPageClick()"
         >
-          <div class="item-centered">
-            Next page
-            <i class="bi bi-arrow-right-short pagination-icon"></i>
-          </div>
-        </button>
+          Next page
+          <i class="bi bi-arrow-right-short pagination-icon"></i>
+        </app-pagination-button>
       </div>
-    </div>
+    </ng-template>
   </div>
-</div>
+</ng-container>
+<app-loader></app-loader>

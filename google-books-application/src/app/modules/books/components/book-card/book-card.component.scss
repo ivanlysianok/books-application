@@ -13,6 +13,7 @@
 
 .book-header {
   @include book-base();
+  color: $_white;
 }
 
 .book-category {
@@ -30,6 +31,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: $_white;
 }
 
 .custom-scrollbar {

@@ -1,7 +1,6 @@
 export interface SearchParams {
-  q: string;
-  subject: string;
+  searchTerm: string;
+  category: string;
   orderBy: string;
   startIndex: number;
-  maxResults: number;
 }

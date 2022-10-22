@@ -5,46 +5,44 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { OrderBy } from '../../constants/order-by.constant';
-import { SelectCategories } from '../../constants/volume-categories.constant';
 import { SearchParams } from '../../models/search-params.interface';
-import { VolumesSteps } from '../../enums/volumes-steps.enum';
-
 @Component({
   selector: 'app-books-search',
   templateUrl: './books-search.component.html',
   styleUrls: ['./books-search.component.scss'],
 })
 export class BooksSearchComponent {
-  @Output() formGroupValuesEmmit = new EventEmitter<SearchParams>();
+  public formGroup: FormGroup;
+  public searchCategories: string[] = [
+    'All',
+    'Art',
+    'Biography',
+    'Computers',
+    'History',
+    'Medical',
+    'Poetry',
+  ];
 
-  public dataFormGroup: FormGroup;
-  public categories = SelectCategories;
+  @Output() searchButtonClick: EventEmitter<SearchParams | null> =
+    new EventEmitter<SearchParams | null>();
 
   constructor(private formBuilder: FormBuilder) {
-    this.dataFormGroup = this.formBuilder.group({
-      q: ['', Validators.required],
-      subject: [''],
-      orderBy: [OrderBy.relevance],
-      startIndex: [VolumesSteps.Zero],
-      maxResults: [VolumesSteps.BaseStep],
+    this.formGroup = this.formBuilder.group({
+      searchTerm: ['', Validators.required],
+      category: [''],
+      orderBy: [''],
     });
   }
 
-  public get q(): AbstractControl {
-    return this.dataFormGroup.get('q') as AbstractControl;
-  }
-
-  public onReset(): void {
-    this.q.reset();
-    this.dataFormGroup.get('subject')?.reset();
+  public get searchTerm(): AbstractControl {
+    return this.formGroup.get('searchTerm') as AbstractControl;
   }
 
   public onSearch(): void {
-    if (this.dataFormGroup.invalid) {
-      this.q?.markAsTouched();
+    if (this.formGroup.invalid) {
+      this.searchTerm.markAsTouched();
       return;
     }
-    this.formGroupValuesEmmit.emit(this.dataFormGroup.value);
+    this.searchButtonClick.emit(this.formGroup.value);
   }
 }

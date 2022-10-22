@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DisplayItemComponent } from './components/display-item/display-item.component';
 import { DisplayListItemsComponent } from './components/display-list-items/display-list-items.component';
@@ -19,7 +20,7 @@ import { LoaderService } from './services/loader.service';
     PageNotFoundComponent,
     TruncatePipe,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
   exports: [
     LoaderComponent,
     VolumeCoverComponent,
@@ -27,6 +28,10 @@ import { LoaderService } from './services/loader.service';
     DisplayListItemsComponent,
     PageNotFoundComponent,
     TruncatePipe,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
   ],
   providers: [LoaderService, ErrorService],
 })

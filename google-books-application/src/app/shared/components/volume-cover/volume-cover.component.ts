@@ -9,7 +9,7 @@ import { Volume } from 'src/app/modules/books/models/volumes.interface';
 })
 export class VolumeCoverComponent {
   @Input() volume: Volume | null = null;
-  @Input() detailedView: boolean | undefined = false;
+  @Input() detailedView = false;
 
   public imagePlaceholder = Images.bookCoverPlaceholder;
 }

@@ -35,17 +35,9 @@ export class BooksSearchComponent {
     return this.dataFormGroup.get('q') as AbstractControl;
   }
 
-  public get subject(): AbstractControl {
-    return this.dataFormGroup.get('subject') as AbstractControl;
-  }
-
-  public get orderBy(): AbstractControl {
-    return this.dataFormGroup.get('orderBy') as AbstractControl;
-  }
-
   public onReset(): void {
     this.q.reset();
-    this.subject.reset();
+    this.dataFormGroup.get('subject')?.reset();
   }
 
   public onSearch(): void {

@@ -6,7 +6,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 })
 export class DisplayListItemsComponent implements OnChanges {
   @Input() header = '';
-  @Input() displayList: string[] | undefined;
+  @Input() displayList?: string[];
   @Input() itemsCount = 0;
 
   ngOnChanges(): void {

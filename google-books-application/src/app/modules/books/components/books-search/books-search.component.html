@@ -1,20 +1,16 @@
-<form
-  [formGroup]="dataFormGroup"
-  (ngSubmit)="onSearch()"
-  (keyup.enter)="onSearch()"
->
-  <div class="form-group text-white">
+<form [formGroup]="dataFormGroup">
+  <div class="text-white">
     <div class="mb-2">
       <label class="me-1">Search</label>
-      <span class="invalid-state">*</span>
+      <span class="invalid">*</span>
       <input
         type="text"
-        [ngClass]="q?.invalid && (q?.dirty || q?.touched) ? 'is-invalid' : ''"
-        class="form-control-primary"
+        [ngClass]="{ 'is-invalid': q.invalid && (q.dirty || q.touched) }"
+        class="form-control-primary input-focus"
         formControlName="q"
         placeholder="Search for books by name / author / keyword..."
       />
-      <div class="invalid-state" *ngIf="q?.invalid && (q?.dirty || q?.touched)">
+      <div class="invalid" *ngIf="q.invalid && (q.dirty || q.touched)">
         Please fill this field
       </div>
     </div>
@@ -24,11 +20,11 @@
         <option *ngFor="let c of categories" [ngValue]="c">{{ c }}</option>
       </select>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 d-flex flex-column">
       <label>Sorting by</label>
-      <div class="form-check">
+      <div>
         <input
-          class="form-control-checkbox"
+          class="form-check-input me-2"
           type="radio"
           formControlName="orderBy"
           value="relevance"
@@ -36,9 +32,10 @@
         />
         <label class="form-check-label"> Relevance </label>
       </div>
-      <div class="form-check">
+
+      <div>
         <input
-          class="form-control-checkbox"
+          class="form-check-input input-focus me-2"
           type="radio"
           formControlName="orderBy"
           value="newest"
@@ -49,13 +46,12 @@
     </div>
     <div class="d-sm-flex">
       <button
-        type="button"
         class="button-light me-0 me-sm-2 mb-2 mb-sm-0"
         (click)="onReset()"
       >
         Reset
       </button>
-      <button type="submit" class="button-main">Search books!</button>
+      <button class="button-main" (click)="onSearch()">Search books!</button>
     </div>
   </div>
 </form>

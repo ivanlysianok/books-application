@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BooksOverviewRoutingModule } from './books-overview-routing.module';
 import { BooksOverviewComponent } from './components/books-overview/books-overview.component';
 import { BooksService } from './services/books.service';
@@ -16,12 +14,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     BookCardComponent,
     BookDetailComponent,
   ],
-  imports: [
-    BooksOverviewRoutingModule,
-    ReactiveFormsModule,
-    CommonModule,
-    SharedModule,
-  ],
+  imports: [BooksOverviewRoutingModule, SharedModule],
   providers: [BooksService],
 })
 export class BooksOverviewModule {}

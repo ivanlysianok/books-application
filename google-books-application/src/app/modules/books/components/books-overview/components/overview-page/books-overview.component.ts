@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { SearchParams } from '../../models/search-params.interface';
-import { Volume } from '../../models/volumes.interface';
-import { BooksService } from '../../services/books.service';
-import { CollectionResultModel } from '../../../../shared/models/collection-result.interface';
-import { LoaderService } from 'src/app/shared/services/loader.service';
-import { ErrorService } from 'src/app/shared/services/error.service';
+import { LoaderService } from '../../../../../../shared/services/loader.service';
+import { ErrorService } from '../../../../../../shared/services/error.service';
+import { BooksService } from '../../../../services/books.service';
+import { CollectionResultModel } from '../../../../../../shared/models/collection-result.interface';
+import { Volume } from '../../../../models/volume.interface';
+import { SearchParams } from 'src/app/modules/books/models/search-params.interface';
 
 @Component({
   selector: 'app-books-overview',

@@ -1,22 +1,19 @@
 import { NgModule } from '@angular/core';
-import { BooksOverviewComponent } from './components/books-overview/books-overview.component';
 import { BooksService } from './services/books.service';
-import { BooksSearchComponent } from './components/books-search/books-search.component';
-import { BookCardComponent } from './components/book-card/book-card.component';
-import { BookDetailComponent } from './components/book-detail/book-detail.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { BooksRoutingModule } from './books-routing.module';
-import { PaginationButtonComponent } from './components/books-overview/pagination-button/pagination-button.component';
+import { BooksSearchModule } from './components/books-search/books-search.module';
+import { BooksOverviewModule } from './components/books-overview/books-overview.module';
+import { BookDetailModule } from './components/book-detail/book-detail.module';
+import { BookCardModule } from './components/book-card/book-card.module';
 
 @NgModule({
-  declarations: [
-    BooksOverviewComponent,
-    BooksSearchComponent,
-    BookCardComponent,
-    BookDetailComponent,
-    PaginationButtonComponent,
+  imports: [
+    BooksRoutingModule,
+    BooksSearchModule,
+    BooksOverviewModule,
+    BookDetailModule,
+    BookCardModule,
   ],
-  imports: [BooksRoutingModule, SharedModule],
   providers: [BooksService],
 })
 export class BooksModule {}

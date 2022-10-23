@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ErrorHeader } from 'src/app/modules/books/constants/error-headers.constant';
 
 @Injectable()
 export class ErrorService {
@@ -14,7 +13,7 @@ export class ErrorService {
   public error(errResponse: HttpErrorResponse): void {
     this.toastrService.error(
       errResponse.error.error.message,
-      ErrorHeader.error
+      'An error has occurred'
     );
   }
 }

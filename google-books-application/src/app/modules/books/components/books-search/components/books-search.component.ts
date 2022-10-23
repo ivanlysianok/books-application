@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { SearchParams } from '../../models/search-params.interface';
+import { SearchParams } from '../../../models/search-params.interface';
 @Component({
   selector: 'app-books-search',
   templateUrl: './books-search.component.html',

@@ -1,0 +1,9 @@
+<ng-container class="position-relative" *ngIf="volume">
+  <app-book-detail-content [volume]="volume"></app-book-detail-content>
+
+  <div class="container mt-3" *ngIf="volume.volumeInfo?.description">
+    <h5>Description:</h5>
+    <p class="description-text">{{ volume.volumeInfo.description }}</p>
+  </div>
+</ng-container>
+<app-loader></app-loader>

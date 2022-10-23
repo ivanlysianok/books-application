@@ -13,3 +13,7 @@
 .item-centered {
   @extend .d-flex, .align-items-center, .justify-content-center;
 }
+
+.c-pointer {
+  cursor: pointer;
+}

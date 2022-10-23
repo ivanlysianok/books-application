@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { keys } from 'src/app/credentials/api-keys';
 import { SearchParams } from '../models/search-params.interface';
-import { Volume } from '../models/volumes.interface';
+import { Volume } from '../models/volume.interface';
 import { CollectionResultModel } from '../../../shared/models/collection-result.interface';
 
 @Injectable()

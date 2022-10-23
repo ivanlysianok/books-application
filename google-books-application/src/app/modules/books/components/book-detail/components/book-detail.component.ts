@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { saleStatus } from '../../constants/sale-status.constant';
-import { Volume } from '../../models/volumes.interface';
-import { BooksService } from '../../services/books.service';
 import { ErrorService } from 'src/app/shared/services/error.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
+import { Volume } from '../../../models/volume.interface';
+import { BooksService } from '../../../services/books.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -12,8 +11,8 @@ import { LoaderService } from 'src/app/shared/services/loader.service';
   styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
-  public book: Volume | null = null;
-  public saleStatus = saleStatus;
+  public volume: Volume | null = null;
+  public forSaleIdentifier = 'FOR_SALE';
 
   constructor(
     private route: ActivatedRoute,
@@ -24,19 +23,21 @@ export class BookDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const bookId = this.route.snapshot.paramMap.get('id');
-    if (bookId) {
-      this.loaderService.start();
-      this.booksService.getBook(bookId).subscribe({
-        next: (response) => {
-          this.book = response;
-          this.loaderService.stop();
-        },
-        error: (err) => {
-          this.errorService.error(err);
-          this.loaderService.stop();
-        },
-      });
+    if (!bookId) {
+      return;
     }
+
+    this.loaderService.start();
+    this.booksService.getBook(bookId).subscribe({
+      next: (response) => {
+        this.volume = response;
+        this.loaderService.stop();
+      },
+      error: (err) => {
+        this.errorService.error(err);
+        this.loaderService.stop();
+      },
+    });
   }
 
   onLinkOpen(link?: string): void {

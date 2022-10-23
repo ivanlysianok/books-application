@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Volume } from '../../models/volumes.interface';
+import { Volume } from '../../../../models/volume.interface';
 
 @Component({
   selector: 'app-book-card',
@@ -9,9 +9,9 @@ import { Volume } from '../../models/volumes.interface';
 export class BookCardComponent {
   @Input() volume: Volume | null = null;
 
-  navigateToBookDetail(volumeId?: string): void {
-    if (volumeId) {
-      const url = location.origin + `/book-detail/${volumeId}`;
+  openBookDetailPage(): void {
+    if (this.volume?.id) {
+      const url = location.origin + `/book-detail/${this.volume.id}`;
       window.open(url, '_blank');
     }
   }

@@ -1,9 +1,7 @@
 <div [ngClass]="detailedView ? 'container-detailed' : 'container-overview'">
   <img
     [src]="
-      volume?.volumeInfo?.imageLinks?.thumbnail ||
-      volume?.volumeInfo?.imageLinks?.smallThumbnail ||
-      placeholderImageSrc
+      imageLinks?.thumbnail || imageLinks?.smallThumbnail || placeholderImageSrc
     "
     alt="No image"
     [ngClass]="detailedView ? 'image-detailed' : 'image-overview'"

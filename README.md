@@ -1,9 +1,14 @@
-# Angular search books app using Google Books API
+# Books search application using Google Books API
 
-### Overview
+### Application overview
 
-This application allows you search and browse through books based on given search params. Also you have possibility to view detailed information
-about book. Front-end has been written in Angular, data and all search operations provided Google Books API.
+Application for finding books using Google books API https://developers.google.com/books
+
+App is devided to 2 pages. First page is *books overview page*, where is list of books displayed based on given params. In addition to the search query, you can specify a category (genre) of books and sorting option (sorting by relevance or newest). 
+
+Second page is *book detail page*, where you have more detailed information about specific book that you has choosed. For instance you can find out here who the publisher of the book is, how many pages the book has, book rating, book price etc...
+
+
 
 ## ![Alt text](/google-books-application/src/assets/application_preview_photo_01.png?raw=true "Overview page")
 

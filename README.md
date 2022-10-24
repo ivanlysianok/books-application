@@ -39,7 +39,7 @@ $ ng serve
 
 ### Features
 
-- [X] Search is provided by search query, selected category (art, biography, computers...) and relevance/newest option
+- [X] Search is provided by Google Books API
 - [X] Fully responsive design (320px +)
 - [X] Pagination
 - [X] Load indicator when calling requests

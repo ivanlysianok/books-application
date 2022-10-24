@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -12,8 +13,8 @@ import { SearchParams } from '../../../models/search-params.interface';
   styleUrls: ['./books-search.component.scss'],
 })
 export class BooksSearchComponent {
-  public formGroup: FormGroup;
-  public searchCategories: string[] = [
+  protected formGroup: FormGroup;
+  protected searchCategories: string[] = [
     'All',
     'Art',
     'Biography',
@@ -28,17 +29,17 @@ export class BooksSearchComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.formGroup = this.formBuilder.group({
-      searchTerm: ['', Validators.required],
-      category: [''],
-      orderBy: [''],
+      searchTerm: new FormControl('', Validators.required),
+      category: new FormControl(''),
+      orderBy: new FormControl(''),
     });
   }
 
-  public get searchTerm(): AbstractControl {
-    return this.formGroup.get('searchTerm') as AbstractControl;
+  protected get searchTerm(): AbstractControl<string> {
+    return this.formGroup.get('searchTerm') as AbstractControl<string>;
   }
 
-  public onSearch(): void {
+  protected onSearch(): void {
     if (this.formGroup.invalid) {
       this.searchTerm.markAsTouched();
       return;

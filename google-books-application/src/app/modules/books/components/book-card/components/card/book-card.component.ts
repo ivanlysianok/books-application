@@ -9,7 +9,7 @@ import { Volume } from '../../../../models/volume.interface';
 export class BookCardComponent {
   @Input() volume: Volume | null = null;
 
-  openBookDetailPage(): void {
+  protected openBookDetailPage(): void {
     if (this.volume?.id) {
       const url = location.origin + `/book-detail/${this.volume.id}`;
       window.open(url, '_blank');

@@ -2,13 +2,17 @@
 
 .loader {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $_dark-purple;
+  opacity: 0.6;
   z-index: 999;
 }
 
 .spinner-border {
+  color: $_white;
   width: 4rem;
   height: 4rem;
 }

@@ -12,7 +12,7 @@ export class BookCardContentComponent {
   @Output() detailButtonClick: EventEmitter<unknown> =
     new EventEmitter<unknown>();
 
-  onDetailButtonClick(): void {
+  protected onDetailButtonClick(): void {
     this.detailButtonClick.emit();
   }
 }

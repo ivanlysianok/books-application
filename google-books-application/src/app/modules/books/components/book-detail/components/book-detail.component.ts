@@ -11,8 +11,8 @@ import { BooksService } from '../../../services/books.service';
   styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
-  public volume: Volume | null = null;
-  public forSaleIdentifier = 'FOR_SALE';
+  protected volume: Volume | null = null;
+  protected forSaleIdentifier = 'FOR_SALE';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,11 +38,5 @@ export class BookDetailComponent implements OnInit {
         this.loaderService.stop();
       },
     });
-  }
-
-  onLinkOpen(link?: string): void {
-    if (link) {
-      window.location.href = link;
-    }
   }
 }

@@ -12,9 +12,9 @@ import { SearchParams } from 'src/app/modules/books/models/search-params.interfa
   styleUrls: ['./books-overview.component.scss'],
 })
 export class BooksOverviewComponent {
-  public booksCollection: CollectionResultModel<Volume[]> | null = null;
-  public searchParams: SearchParams | null = null;
-  public paginationStep = 30;
+  protected booksCollection: CollectionResultModel<Volume[]> | null = null;
+  protected searchParams: SearchParams | null = null;
+  protected paginationStep = 30;
 
   constructor(
     private booksService: BooksService,
@@ -28,7 +28,7 @@ export class BooksOverviewComponent {
   And that is reason, why I made pagination system in this way. Stack Over Flow discussion about this issue:
   https://stackoverflow.com/questions/7266838/google-books-api-returns-json-with-a-seemingly-wrong-totalitem-value */
 
-  public getSearchParams(data: SearchParams | null): void {
+  protected getSearchParams(data: SearchParams | null): void {
     if (!data) {
       return;
     }
@@ -37,7 +37,7 @@ export class BooksOverviewComponent {
     this.loadBooksCollection();
   }
 
-  public onPreviousPageClick(): void {
+  protected onPreviousPageClick(): void {
     if (!this.searchParams) {
       return;
     }
@@ -48,7 +48,7 @@ export class BooksOverviewComponent {
     }
   }
 
-  public onNextPageClick(): void {
+  protected onNextPageClick(): void {
     if (!this.searchParams || !this.booksCollection?.totalItems) {
       return;
     }

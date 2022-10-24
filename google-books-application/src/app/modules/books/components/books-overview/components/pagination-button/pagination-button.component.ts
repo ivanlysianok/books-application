@@ -8,7 +8,7 @@ export class PaginationButtonComponent {
   @Input() isDisabled = false;
   @Output() buttonClick = new EventEmitter();
 
-  onButtonClick(): void {
+  protected onButtonClick(): void {
     this.buttonClick.emit();
   }
 }

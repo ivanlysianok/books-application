@@ -1,0 +1,63 @@
+@import "./colors.scss";
+@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+@mixin button-style(
+  $color,
+  $bg-color,
+  $focus-shadow-color,
+  $hover-bg-color,
+  $hover-color: false
+) {
+  color: $color;
+  background-color: $bg-color;
+  width: 100%;
+  border: none;
+  &:focus {
+    box-shadow: $focus-shadow-color;
+    @if $hover-color {
+      color: $hover-color;
+    }
+  }
+  &:hover {
+    background-color: lighten($hover-bg-color, 2%);
+    @if $hover-color {
+      color: $hover-color;
+    }
+  }
+}
+
+.form-control {
+  &:focus {
+    box-shadow: $_shadow-purple;
+    border: none;
+    outline: 0;
+  }
+}
+
+.form-check-input {
+  &:checked {
+    border-color: $_purple;
+    background-color: $_purple;
+    box-shadow: $_shadow-purple;
+  }
+}
+
+.btn.btn-primary {
+  @include button-style($_white, $_purple, $_shadow-purple, $_purple, $_white);
+}
+
+.btn.btn-secondary {
+  @include button-style($_white, $_blue, $_shadow-blue, $_blue, $_white);
+}
+
+.btn.btn-light {
+  @include button-style($_black, $_white, $_shadow-gray, $_white);
+}
+
+@media (min-width: map-get($grid-breakpoints, sm)) {
+  .btn.btn-primary,
+  .btn.btn-secondary,
+  .btn.btn-light {
+    width: 10rem;
+  }
+}

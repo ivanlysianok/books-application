@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SearchParams } from '../../../models/search-params.interface';
+import { SEARCH_CATEGORIES } from '../constants/search-categories.const';
 @Component({
   selector: 'app-books-search',
   templateUrl: './books-search.component.html',
@@ -14,15 +15,7 @@ import { SearchParams } from '../../../models/search-params.interface';
 })
 export class BooksSearchComponent {
   protected formGroup: FormGroup;
-  protected searchCategories: string[] = [
-    'All',
-    'Art',
-    'Biography',
-    'Computers',
-    'History',
-    'Medical',
-    'Poetry',
-  ];
+  protected searchCategories: string[] = SEARCH_CATEGORIES;
 
   @Output() searchButtonClick: EventEmitter<SearchParams | null> =
     new EventEmitter<SearchParams | null>();

@@ -13,15 +13,13 @@ export class BooksService {
   constructor(private httpClient: HttpClient) {}
 
   /**
-   * This method is used for getting collection of volumes (books) according to
-   * given paramets
+   * Get collection of books according to given paramets
    * @param searchParams Search params
-   * @returns Observable with collection of volumes, type of Volume[];
+   * @returns Collection of books type of @see{@link Volume}
    */
   public getBooks(
     searchParams: SearchParams
   ): Observable<CollectionResultModel<Volume[]>> {
-    console.log(searchParams);
     return this.httpClient.get<CollectionResultModel<Volume[]>>(this.baseUri, {
       params: {
         q: searchParams.searchTerm,
@@ -35,7 +33,7 @@ export class BooksService {
   }
 
   /**
-   * This method is used for gets specific volume data
+   * Get specific book by ID
    * @param bookId ID of specific book
    * @returns Observable with specific volume
    * @see getBooksCollection

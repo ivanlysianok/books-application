@@ -1,4 +1,3 @@
-@import "../../../../../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../../../../shared/styles/base.scss";
 
 label {
@@ -7,21 +6,4 @@ label {
 
 .danger {
   color: $red;
-}
-
-.form-check-input {
-  &:checked {
-    border-color: $_purple;
-    background-color: $_purple;
-  }
-  &:focus {
-    box-shadow: $_dark-purple;
-  }
-}
-
-.form-control-primary {
-  @extend .form-control, .form-control-sm;
-  &:focus {
-    box-shadow: $_dark-purple !important;
-  }
 }

@@ -10,7 +10,7 @@
             'is-invalid':
               searchTerm.invalid && (searchTerm.dirty || searchTerm.touched)
           }"
-          class="form-control-primary"
+          class="form-control form-control-sm"
           placeholder="Search for books by name / author / keyword..."
         />
         <div
@@ -22,7 +22,7 @@
       </div>
       <div class="mb-2">
         <label>Category</label>
-        <select class="form-control-primary" formControlName="category">
+        <select class="form-control form-control-sm" formControlName="category">
           <option
             *ngFor="let category of searchCategories"
             [ngValue]="category"
@@ -57,12 +57,14 @@
       </div>
       <div class="d-sm-flex">
         <button
-          class="button-light me-0 me-sm-2 mb-2 mb-sm-0"
+          class="btn btn-sm btn-secondary px-4 py-2 me-0 me-sm-2 mb-2 mb-sm-0"
           (click)="formGroup.reset()"
         >
           Reset
         </button>
-        <button class="button-main" (click)="onSearch()">Search books!</button>
+        <button class="btn btn-sm btn-primary px-4 py-2" (click)="onSearch()">
+          Search books!
+        </button>
       </div>
     </form>
   </div>

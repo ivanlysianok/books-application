@@ -8,11 +8,10 @@ App is devided to 2 pages. First page is *books overview page*, where is list of
 
 Second page is *book detail page*, where you have more detailed information about specific book that you has choosed. For instance you can find out here who the publisher of the book is, how many pages the book has, How much does the book cost and so on...
 
+**Check out this video to see how application works:** https://www.youtube.com/watch?v=Z56ertXaNNo&ab_channel=IvanLysianok
 
+## ![Alt text](/google-books-application/src/assets/overview-page.png?raw=true "Overview page")
 
-## ![Alt text](/google-books-application/src/assets/application_preview_photo_01.png?raw=true "Overview page")
-
-## ![Alt text](/google-books-application/src/assets/application_preview_photo_02.png?raw=true "Detailed page")
 
 ### Setup
 

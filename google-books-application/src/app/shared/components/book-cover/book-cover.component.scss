@@ -1,52 +1,5 @@
-@import "../../styles/colors.scss";
-@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
-
-@mixin container-image-base($height: 15rem, $cursor: pointer) {
-  position: relative;
-  width: 100%;
-  height: $height;
-  cursor: $cursor;
-}
-
-@mixin image-base($objectFit: cover) {
+.cover-image {
   width: 100%;
   height: 100%;
-  object-fit: $objectFit;
-}
-
-.container-overview {
-  @include container-image-base();
-}
-
-.image-overview {
-  @include image-base();
-}
-
-.container-detailed {
-  @include container-image-base(25rem, auto);
-}
-
-.image-detailed {
-  @include image-base(contain);
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: 0.2s ease all;
-  background-color: $_purple;
-}
-
-.overlay:hover {
-  opacity: 0.3;
-}
-
-@media screen and (min-width: map-get($grid-breakpoints, sm)) {
-  .image-detailed {
-    object-fit: cover;
-  }
+  object-fit: cover;
 }

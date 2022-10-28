@@ -5,3 +5,24 @@
   min-height: 25rem;
   color: $_white;
 }
+
+.card-container {
+  position: relative;
+  width: 100%;
+  height: 15rem;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.2s ease all;
+  background-color: $_purple;
+
+  &:hover {
+    opacity: 0.3;
+  }
+}

@@ -23,7 +23,7 @@ export class BooksOverviewComponent {
   ) {}
 
   /* Important remark: Because of Google Books API return every time different totalItems
-  (for unknown reason...), it is impossible to make pagination in "right" and "user-friendly" way
+  (for unknown reason...), it is impossible to make pagination in more "user-friendly" way
   (When user see total items count, when user see number of pages and can click through them and so on...).
   And that is reason, why I made pagination system in this way. Stack Over Flow discussion about this issue:
   https://stackoverflow.com/questions/7266838/google-books-api-returns-json-with-a-seemingly-wrong-totalitem-value */

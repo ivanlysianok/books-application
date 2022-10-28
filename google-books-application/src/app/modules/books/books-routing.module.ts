@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '../../shared/components/page-not-found/page-not-found.component';
-import { BookDetailComponent } from './components/book-detail/components/book-detail.component';
+import { BookDetailComponent } from './components/book-detail/components/detail-page/book-detail.component';
 import { BooksOverviewComponent } from './components/books-overview/components/overview-page/books-overview.component';
 
 const routes: Routes = [

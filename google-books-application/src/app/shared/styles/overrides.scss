@@ -6,7 +6,7 @@
   $bg-color,
   $focus-shadow-color,
   $hover-bg-color,
-  $hover-color: false
+  $pseudo-class-color: false
 ) {
   color: $color;
   background-color: $bg-color;
@@ -14,14 +14,14 @@
   border: none;
   &:focus {
     box-shadow: $focus-shadow-color;
-    @if $hover-color {
-      color: $hover-color;
+    @if $pseudo-class-color {
+      color: $pseudo-class-color;
     }
   }
   &:hover {
     background-color: lighten($hover-bg-color, 2%);
-    @if $hover-color {
-      color: $hover-color;
+    @if $pseudo-class-color {
+      color: $pseudo-class-color;
     }
   }
 }

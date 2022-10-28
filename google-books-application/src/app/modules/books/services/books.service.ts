@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { keys } from 'src/app/credentials/api-keys';
 import { SearchParams } from '../models/search-params.interface';
 import { Volume } from '../models/volume.interface';

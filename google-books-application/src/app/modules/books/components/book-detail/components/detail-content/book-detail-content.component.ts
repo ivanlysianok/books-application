@@ -9,8 +9,8 @@ import { Volume } from '../../../../models/volume.interface';
 export class BookDetailContentComponent implements OnChanges {
   @Input() volume: Volume | null = null;
 
-  public forSaleIdentifier = 'FOR_SALE';
-  public bookPrice = '';
+  protected forSaleIdentifier = 'FOR_SALE';
+  protected bookPrice = '';
 
   ngOnChanges(): void {
     if (
@@ -22,7 +22,7 @@ export class BookDetailContentComponent implements OnChanges {
     this.bookPrice = `${this.volume?.saleInfo?.retailPrice.amount} ${this.volume.saleInfo.retailPrice.currencyCode}`;
   }
 
-  protected onLinkOpen(link?: string): void {
+  protected onExternalLinkOpen(link?: string): void {
     if (link) {
       window.location.href = link;
     }

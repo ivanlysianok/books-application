@@ -1,7 +1,6 @@
-@import "../../../../../../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../../../../../shared/styles/base.scss";
 
-$height-sizes: 40px, 48px, 56px;
+$height-sizes: 40px, 56px;
 
 @each $size in $height-sizes {
   .h-#{$size} {
@@ -9,7 +8,7 @@ $height-sizes: 40px, 48px, 56px;
   }
 }
 
-.book-authors {
+.custom-scrollbar {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: $_light-gray;
@@ -19,11 +18,5 @@ $height-sizes: 40px, 48px, 56px;
   &::-webkit-scrollbar-thumb {
     background-color: rgba(240, 240, 241, 0.315);
     border-radius: 1.35rem;
-  }
-}
-
-@media screen and (max-width: map-get($grid-breakpoints, xl)) {
-  .book-authors {
-    height: 72px;
   }
 }

@@ -21,7 +21,6 @@ export class LoaderService {
    * sets to FALSE
    */
   stop(): void {
-    console.log('fired');
     this.isLoading.next(false);
   }
 }

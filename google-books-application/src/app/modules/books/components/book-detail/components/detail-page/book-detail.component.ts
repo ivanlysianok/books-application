@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ErrorService } from 'src/app/shared/services/error.service';
-import { LoaderService } from 'src/app/shared/services/loader.service';
-import { Volume } from '../../../models/volume.interface';
-import { BooksService } from '../../../services/books.service';
+import { Volume } from '../../../../models/volume.interface';
+import { BooksService } from '../../../../services/books.service';
+import { ErrorService } from '../../../../../../shared/services/error.service';
+import { LoaderService } from '../../../../../../shared/services/loader.service';
 
 @Component({
   selector: 'app-book-detail',

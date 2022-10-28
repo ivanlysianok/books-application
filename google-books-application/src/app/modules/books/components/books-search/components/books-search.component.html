@@ -1,6 +1,6 @@
 <div class="background mb-4">
   <div class="container py-3">
-    <form [formGroup]="formGroup">
+    <form [formGroup]="formGroup" class="text-white">
       <div class="mb-2">
         <label class="me-1">Search <span class="danger">*</span></label>
         <input
@@ -31,7 +31,7 @@
           </option>
         </select>
       </div>
-      <div class="mb-2 d-flex flex-column">
+      <div class="mb-3 d-flex flex-column">
         <label>Sorting by</label>
         <div>
           <input
@@ -55,17 +55,16 @@
           <label class="form-check-label"> Newest </label>
         </div>
       </div>
-      <div class="d-sm-flex">
-        <button
-          class="btn btn-sm btn-secondary px-4 py-2 me-0 me-sm-2 mb-2 mb-sm-0"
-          (click)="formGroup.reset()"
-        >
-          Reset
-        </button>
-        <button class="btn btn-sm btn-primary px-4 py-2" (click)="onSearch()">
-          Search books!
-        </button>
-      </div>
+
+      <button
+        class="btn btn-sm btn-light px-4 py-2 me-2 mb-sm-0 mb-2"
+        (click)="formGroup.reset()"
+      >
+        Reset
+      </button>
+      <button class="btn btn-sm btn-primary px-4 py-2" (click)="onSearch()">
+        Search books!
+      </button>
     </form>
   </div>
 </div>

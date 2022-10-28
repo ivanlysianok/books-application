@@ -1,21 +1,20 @@
 <ng-container *ngIf="volumeInfo">
-  <div class="h-40px my-2">
-    <h6>
-      {{ volumeInfo.title | truncate: 45 }}
-    </h6>
-  </div>
-  <div class="h-48px mb-2">
+  <h6 class="h-40px my-2">
+    {{ volumeInfo.title | truncate: 45 }}
+  </h6>
+
+  <div class="h-56px custom-scrollbar">
     <app-book-list-items [items]="volumeInfo.categories">
       Categories:
     </app-book-list-items>
   </div>
-  <div class="book-authors h-56px">
+  <div class="h-56px custom-scrollbar">
     <app-book-list-items [items]="volumeInfo.authors">
       Author(s):
     </app-book-list-items>
   </div>
-  <hr class="my-2" />
-  <div class="item-centered c-pointer h-40px" (click)="onDetailButtonClick()">
+  <hr class="mb-1" />
+  <div class="h-40px item-centered c-pointer" (click)="onDetailButtonClick()">
     Book detail
   </div>
 </ng-container>

@@ -10,7 +10,7 @@ Second page is *book detail page*, where you have more detailed information abou
 
 **Check out this video to see how application works:** https://www.youtube.com/watch?v=Z56ertXaNNo&ab_channel=IvanLysianok
 
-## ![Alt text](/google-books-application/src/assets/overview-page.png?raw=true "Overview page")
+## ![Alt text](/google-books-application/src/assets/preview.png?raw=true "Overview page")
 
 
 ### Setup

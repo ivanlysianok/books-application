@@ -1,42 +1,47 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { SearchParams } from '../../../models/search-params.interface';
-import { SEARCH_CATEGORIES } from '../constants/search-categories.const';
+import { SEARCH_CATEGORIES } from '../../../constants/search-categories.const';
 @Component({
   selector: 'app-books-search',
   templateUrl: './books-search.component.html',
   styleUrls: ['./books-search.component.scss'],
 })
 export class BooksSearchComponent {
-  protected formGroup: FormGroup;
-  protected searchCategories: string[] = SEARCH_CATEGORIES;
+  /**
+   * Emits form data after user clicked on search button
+   */
+  @Output() searchButtonClick = new EventEmitter<SearchParams>();
 
-  @Output() searchButtonClick: EventEmitter<SearchParams | null> =
-    new EventEmitter<SearchParams | null>();
+  /**
+   * Form group to get search query from user
+   */
+  protected formGroup;
+  /**
+   * Avalible search categories
+   */
+  protected SEARCH_CATEGORIES = SEARCH_CATEGORIES;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: NonNullableFormBuilder) {
     this.formGroup = this.formBuilder.group({
-      searchTerm: new FormControl('', Validators.required),
-      category: new FormControl(''),
-      orderBy: new FormControl(''),
+      searchTerm: this.formBuilder.control<string>('', Validators.required),
+      category: this.formBuilder.control<string>(''),
+      orderBy: this.formBuilder.control<string>(''),
     });
   }
 
-  protected get searchTerm(): AbstractControl<string> {
-    return this.formGroup.get('searchTerm') as AbstractControl<string>;
-  }
-
-  protected onSearch(): void {
-    if (this.formGroup.invalid) {
-      this.searchTerm.markAsTouched();
-      return;
+  /**
+   * Fire books searching and emit data to searchButtonClick
+   */
+  protected searchBooks(): void {
+    if (!this.formGroup.valid) {
+      this.formGroup.controls.searchTerm.markAsTouched();
     }
-    this.searchButtonClick.emit(this.formGroup.value);
+    this.searchButtonClick.emit({
+      searchTerm: this.formGroup.controls.searchTerm.value,
+      category: this.formGroup.controls.category.value,
+      orderBy: this.formGroup.controls.orderBy.value,
+      startIndex: 0,
+    });
   }
 }

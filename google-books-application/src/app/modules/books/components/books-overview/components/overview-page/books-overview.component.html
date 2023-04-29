@@ -1,7 +1,5 @@
 <ng-container class="position-relative">
-  <app-books-search
-    (searchButtonClick)="getSearchParams($event)"
-  ></app-books-search>
+  <app-books-search (searchButtonClick)="loadBooks($event)"></app-books-search>
 
   <div class="container" *ngIf="booksCollection && searchParams">
     <div *ngIf="!booksCollection.items; else collectionNotEmpty">
@@ -15,7 +13,7 @@
       <div class="cards-grid mt-3">
         <app-book-card
           *ngFor="let item of booksCollection.items"
-          [volume]="item"
+          [bookItem]="item"
         ></app-book-card>
       </div>
 
@@ -23,25 +21,29 @@
         class="item-centered my-3"
         *ngIf="booksCollection.totalItems > paginationStep"
       >
-        <app-pagination-button
-          class="me-1"
-          [isDisabled]="searchParams.startIndex <= 0"
-          (buttonClick)="onPreviousPageClick()"
+        <button
+          class="btn btn-sm btn-light me-1"
+          [disabled]="searchParams.startIndex <= 0"
+          (click)="getPreviousResults()"
         >
-          <i class="bi bi-arrow-left-short pagination-icon"></i>
-          Previous page
-        </app-pagination-button>
-        <app-pagination-button
-          class="ms-1"
-          [isDisabled]="
+          <div class="item-centered">
+            <i class="bi bi-arrow-left-short pagination-icon"></i>
+            Previous page
+          </div>
+        </button>
+        <button
+          class="btn btn-sm btn-light"
+          [disabled]="
             searchParams.startIndex >
             booksCollection.totalItems - paginationStep
           "
-          (buttonClick)="onNextPageClick()"
+          (click)="getNextResults()"
         >
-          Next page
-          <i class="bi bi-arrow-right-short pagination-icon"></i>
-        </app-pagination-button>
+          <div class="item-centered">
+            Next page
+            <i class="bi bi-arrow-right-short pagination-icon"></i>
+          </div>
+        </button>
       </div>
     </ng-template>
   </div>

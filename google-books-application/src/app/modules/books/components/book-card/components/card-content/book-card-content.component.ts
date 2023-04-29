@@ -8,7 +8,6 @@ import { VolumeInfo } from '../../../../models/volumeInfo/volume-info.interface'
 })
 export class BookCardContentComponent {
   @Input() volumeInfo: VolumeInfo | null = null;
-
   @Output() detailButtonClick: EventEmitter<unknown> =
     new EventEmitter<unknown>();
 

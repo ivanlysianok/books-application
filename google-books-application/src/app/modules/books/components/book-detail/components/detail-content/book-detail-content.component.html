@@ -1,17 +1,17 @@
-<div class="background text-white" *ngIf="volume">
+<div class="background text-white" *ngIf="bookItem">
   <div class="container py-3">
     <div class="detail-image-container">
       <app-book-cover
-        [imageLinks]="volume.volumeInfo.imageLinks"
+        [imageLinks]="bookItem.volumeInfo.imageLinks"
       ></app-book-cover>
     </div>
 
     <div class="my-2">
-      <h3>{{ volume.volumeInfo.title }}</h3>
+      <h3>{{ bookItem.volumeInfo.title }}</h3>
     </div>
     <div
       class="mb-2 d-flex align-items-center"
-      *ngIf="volume.volumeInfo.averageRating"
+      *ngIf="bookItem.volumeInfo.averageRating"
     >
       <img
         src="../../../../../assets/star.svg"
@@ -19,41 +19,43 @@
         class="star-image"
       />
       <span class="fw-bold ms-1">
-        {{ volume.volumeInfo.averageRating }}
+        {{ bookItem.volumeInfo.averageRating }}
       </span>
     </div>
     <hr />
 
     <div class="mb-2">
-      <app-book-list-items [items]="volume.volumeInfo.authors">
+      <app-book-list-items [items]="bookItem.volumeInfo.authors">
         Author(s):
       </app-book-list-items>
     </div>
 
     <div class="mb-2">
-      <app-book-list-items [items]="volume.volumeInfo.categories">
+      <app-book-list-items [items]="bookItem.volumeInfo.categories">
         Category/Categories:
       </app-book-list-items>
     </div>
 
     <div class="mb-2">
       Language:
-      <span class="text-gray ms-1">{{ volume.volumeInfo.language }}</span>
+      <span class="text-gray ms-1">{{ bookItem.volumeInfo.language }}</span>
     </div>
 
     <div class="mb-2">
       Publisher:
-      <span class="text-gray ms-1">{{ volume.volumeInfo.publisher }}</span>
+      <span class="text-gray ms-1">{{ bookItem.volumeInfo.publisher }}</span>
     </div>
 
     <div class="mb-2">
       Publish date:
-      <span class="text-gray ms-1">{{ volume.volumeInfo.publishedDate }}</span>
+      <span class="text-gray ms-1">{{
+        bookItem.volumeInfo.publishedDate
+      }}</span>
     </div>
 
     <div class="mb-2">
       Page count:
-      <span class="text-gray ms-1">{{ volume.volumeInfo.pageCount }}</span>
+      <span class="text-gray ms-1">{{ bookItem.volumeInfo.pageCount }}</span>
     </div>
 
     <div class="mb-2" *ngIf="bookPrice">
@@ -63,8 +65,8 @@
 
     <div class="mt-3">
       <button
-        *ngIf="volume.volumeInfo.infoLink"
-        (click)="onExternalLinkOpen(volume.volumeInfo.infoLink)"
+        *ngIf="bookItem.volumeInfo.infoLink"
+        (click)="onExternalLinkOpen(bookItem.volumeInfo.infoLink)"
         class="btn btn-sm btn-secondary px-4 py-2 mb-2 me-0 me-2"
       >
         Get info
@@ -72,10 +74,10 @@
       <button
         class="btn btn-sm btn-primary px-4 py-2 mb-2"
         *ngIf="
-          volume.saleInfo.saleability === forSaleIdentifier &&
-          volume.saleInfo.buyLink
+          bookItem.saleInfo.saleability === SALE_IDENTIFIER &&
+          bookItem.saleInfo.buyLink
         "
-        (click)="onExternalLinkOpen(volume.saleInfo.buyLink)"
+        (click)="onExternalLinkOpen(bookItem.saleInfo.buyLink)"
       >
         Order
       </button>

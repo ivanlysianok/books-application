@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Volume } from '../../../../models/volume.interface';
+import { BookItem } from '../../../../models/book-item.interface';
 
 @Component({
   selector: 'app-book-card',
@@ -7,12 +7,18 @@ import { Volume } from '../../../../models/volume.interface';
   styleUrls: ['./book-card.component.scss'],
 })
 export class BookCardComponent {
-  @Input() volume: Volume | null = null;
+  /**
+   * Book item from books collection
+   */
+  @Input() bookItem: BookItem | null = null;
 
+  /**
+   * Opens specific book detail page by book ID
+   */
   protected openBookDetailPage(): void {
-    if (this.volume?.id) {
-      const url = location.origin + `/book-detail/${this.volume.id}`;
-      window.open(url, '_blank');
+    if (!this.bookItem?.id) {
+      return;
     }
+    window.open(`${location.origin}/book-detail/${this.bookItem.id}`, '_blank');
   }
 }

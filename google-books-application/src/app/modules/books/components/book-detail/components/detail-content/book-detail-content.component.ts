@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Volume } from '../../../../models/volume.interface';
+import { BookItem } from '../../../../models/book-item.interface';
+import { SALE_IDENTIFIER } from 'src/app/modules/books/constants/sale-identifier.const';
 
 @Component({
   selector: 'app-book-detail-content',
@@ -7,24 +8,38 @@ import { Volume } from '../../../../models/volume.interface';
   styleUrls: ['./book-detail-content.component.scss'],
 })
 export class BookDetailContentComponent implements OnChanges {
-  @Input() volume: Volume | null = null;
+  /**
+   * Current book item
+   */
+  @Input() bookItem: BookItem | null = null;
 
-  protected forSaleIdentifier = 'FOR_SALE';
+  /**
+   * Identifier for order button
+   */
+  protected SALE_IDENTIFIER = SALE_IDENTIFIER;
+  /**
+   * Price of current book
+   */
   protected bookPrice = '';
 
   ngOnChanges(): void {
     if (
-      !this.volume?.saleInfo?.retailPrice?.amount ||
-      !this.volume?.saleInfo?.retailPrice?.currencyCode
+      !this.bookItem?.saleInfo?.retailPrice?.amount ||
+      !this.bookItem?.saleInfo?.retailPrice?.currencyCode
     ) {
       return;
     }
-    this.bookPrice = `${this.volume?.saleInfo?.retailPrice.amount} ${this.volume.saleInfo.retailPrice.currencyCode}`;
+    this.bookPrice = `${this.bookItem?.saleInfo?.retailPrice.amount} ${this.bookItem.saleInfo.retailPrice.currencyCode}`;
   }
 
+  /**
+   * Opens external link
+   * @param link Link to external resource
+   */
   protected onExternalLinkOpen(link?: string): void {
-    if (link) {
-      window.location.href = link;
+    if (!link) {
+      return;
     }
+    window.location.href = link;
   }
 }

@@ -8,14 +8,20 @@
           type="text"
           [ngClass]="{
             'is-invalid':
-              searchTerm.invalid && (searchTerm.dirty || searchTerm.touched)
+              formGroup.controls.searchTerm.invalid &&
+              (formGroup.controls.searchTerm.dirty ||
+                formGroup.controls.searchTerm.touched)
           }"
           class="form-control form-control-sm"
           placeholder="Search for books by name / author / keyword..."
         />
         <div
           class="danger"
-          *ngIf="searchTerm.invalid && (searchTerm.dirty || searchTerm.touched)"
+          *ngIf="
+            formGroup.controls.searchTerm.invalid &&
+            (formGroup.controls.searchTerm.dirty ||
+              formGroup.controls.searchTerm.touched)
+          "
         >
           Please fill this field
         </div>
@@ -24,7 +30,7 @@
         <label>Category</label>
         <select class="form-control form-control-sm" formControlName="category">
           <option
-            *ngFor="let category of searchCategories"
+            *ngFor="let category of SEARCH_CATEGORIES"
             [ngValue]="category"
           >
             {{ category }}
@@ -62,7 +68,7 @@
       >
         Reset
       </button>
-      <button class="btn btn-sm btn-primary px-4 py-2" (click)="onSearch()">
+      <button class="btn btn-sm btn-primary px-4 py-2" (click)="searchBooks()">
         Search books!
       </button>
     </form>

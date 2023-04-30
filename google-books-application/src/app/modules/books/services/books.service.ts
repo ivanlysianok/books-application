@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { keys } from 'src/app/credentials/api-keys';
+import { CREDENTIALS } from 'src/app/credentials/credentials.conts';
 import { SearchParams } from '../models/search-params.interface';
 import { BookItem } from '../models/book-item.interface';
 import { CollectionResultModel } from '../../../shared/models/collection-result.interface';
@@ -29,7 +29,7 @@ export class BooksService {
           orderBy: searchParams.orderBy ? searchParams.orderBy : 'relevance',
           startIndex: searchParams.startIndex,
           maxResults: 30,
-          key: keys.googleBooksApiKey,
+          key: CREDENTIALS.GOOGLE_BOOKS_API_KEY,
         },
       }
     );

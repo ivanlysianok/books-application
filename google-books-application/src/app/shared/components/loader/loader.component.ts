@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { LoaderService } from '../../services/loader.service';
 })
 export class LoaderComponent implements OnInit, OnDestroy {
   public isLoading = false;
-  private loadingSub = new Subscription();
+  private destroySub$ = new Subject<void>();
 
   constructor(private loaderService: LoaderService) {}
 
@@ -18,17 +18,18 @@ export class LoaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.loadingSub.unsubscribe();
+    this.destroySub$.next();
+    this.destroySub$.unsubscribe();
   }
 
-  isLoadingSubscription(): void {
-    this.loadingSub = this.loaderService.isLoading$.subscribe(
-      (response: boolean | null) => {
+  private isLoadingSubscription(): void {
+    this.loaderService.isLoading$
+      .pipe(takeUntil(this.destroySub$))
+      .subscribe((response: boolean | null) => {
         if (response === null) {
           return;
         }
         this.isLoading = response;
-      }
-    );
+      });
   }
 }

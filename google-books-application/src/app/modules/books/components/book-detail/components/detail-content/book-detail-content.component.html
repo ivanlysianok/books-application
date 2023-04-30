@@ -1,4 +1,4 @@
-<div class="background text-white" *ngIf="bookItem">
+<div class="background col-white" *ngIf="bookItem">
   <div class="container py-3">
     <div class="detail-image-container">
       <app-book-cover
@@ -38,29 +38,27 @@
 
     <div class="mb-2">
       Language:
-      <span class="text-gray ms-1">{{ bookItem.volumeInfo.language }}</span>
+      <span class="col-gray ms-1">{{ bookItem.volumeInfo.language }}</span>
     </div>
 
     <div class="mb-2">
       Publisher:
-      <span class="text-gray ms-1">{{ bookItem.volumeInfo.publisher }}</span>
+      <span class="col-gray ms-1">{{ bookItem.volumeInfo.publisher }}</span>
     </div>
 
     <div class="mb-2">
       Publish date:
-      <span class="text-gray ms-1">{{
-        bookItem.volumeInfo.publishedDate
-      }}</span>
+      <span class="col-gray ms-1">{{ bookItem.volumeInfo.publishedDate }}</span>
     </div>
 
     <div class="mb-2">
       Page count:
-      <span class="text-gray ms-1">{{ bookItem.volumeInfo.pageCount }}</span>
+      <span class="col-gray ms-1">{{ bookItem.volumeInfo.pageCount }}</span>
     </div>
 
     <div class="mb-2" *ngIf="bookPrice">
       Price:
-      <span class="text-gray ms-1">{{ bookPrice }}</span>
+      <span class="col-gray ms-1">{{ bookPrice }}</span>
     </div>
 
     <div class="mt-3">

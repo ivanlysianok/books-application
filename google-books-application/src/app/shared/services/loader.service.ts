@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class LoaderService {
-  public isLoading: BehaviorSubject<boolean | null> = new BehaviorSubject<
+  private isLoading: BehaviorSubject<boolean | null> = new BehaviorSubject<
     boolean | null
   >(null);
   public isLoading$ = this.isLoading.asObservable();
@@ -12,7 +12,7 @@ export class LoaderService {
    * This method fires loader, loading subject value
    * sets to TRUE
    */
-  start(): void {
+  public start(): void {
     this.isLoading.next(true);
   }
 
@@ -20,7 +20,7 @@ export class LoaderService {
    * This method stops loader, loading subject value
    * sets to FALSE
    */
-  stop(): void {
+  public stop(): void {
     this.isLoading.next(false);
   }
 }

@@ -18,7 +18,7 @@
       </div>
 
       <div
-        class="item-centered my-3"
+        class="d-flex align-items-center justify-content-center my-3"
         *ngIf="booksCollection.totalItems > paginationStep"
       >
         <button
@@ -26,7 +26,7 @@
           [disabled]="searchParams.startIndex <= 0"
           (click)="getPreviousResults()"
         >
-          <div class="item-centered">
+          <div class="d-flex align-items-center justify-content-center">
             <i class="bi bi-arrow-left-short pagination-icon"></i>
             Previous page
           </div>
@@ -39,7 +39,7 @@
           "
           (click)="getNextResults()"
         >
-          <div class="item-centered">
+          <div class="d-flex align-items-center justify-content-center">
             Next page
             <i class="bi bi-arrow-right-short pagination-icon"></i>
           </div>

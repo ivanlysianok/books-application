@@ -1,7 +1,7 @@
 <div>
   <ng-content></ng-content>
   <ng-container *ngFor="let item of items; let index = index">
-    <span class="ms-1 text-gray">{{ item }}</span>
+    <span class="ms-1 col-gray">{{ item }}</span>
     <span
       class="me-1"
       *ngIf="items && items.length > 1 && index < items.length - 1"

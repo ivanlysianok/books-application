@@ -1,25 +1,19 @@
 @import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./colors.scss";
 
-.text-white {
+.col-white {
   color: $_white;
 }
 
-.background {
-  background-color: $_dark-purple;
+.col-gray {
+  color: $_gray;
+  font-style: italic;
 }
 
 .c-pointer {
   cursor: pointer;
 }
 
-.text-gray {
-  color: $_gray;
-  font-style: italic;
-}
-
-.item-centered {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.background {
+  background-color: $_dark-purple;
 }

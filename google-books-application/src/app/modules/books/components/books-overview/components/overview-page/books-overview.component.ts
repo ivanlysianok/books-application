@@ -6,6 +6,13 @@ import { CollectionResultModel } from '../../../../../../shared/models/collectio
 import { BookItem } from '../../../../models/book-item.interface';
 import { SearchParams } from 'src/app/modules/books/models/search-params.interface';
 import { Subject, finalize, takeUntil } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
+
+/**
+ * Google auth variable
+ */
+declare const google: any;
 
 @Component({
   selector: 'app-books-overview',
@@ -32,8 +39,7 @@ export class BooksOverviewComponent implements OnDestroy {
 
   constructor(
     private booksService: BooksService,
-    private loaderService: LoaderService,
-    private errorService: ErrorService
+    private loaderService: LoaderService
   ) {}
 
   public ngOnDestroy(): void {
@@ -74,9 +80,6 @@ export class BooksOverviewComponent implements OnDestroy {
           this.booksCollection = response;
           window.scrollTo(0, 0);
         },
-        error: (err) => {
-          this.errorService.error(err);
-        },
       });
   }
 
@@ -107,5 +110,9 @@ export class BooksOverviewComponent implements OnDestroy {
       this.searchParams.startIndex += this.paginationStep;
       this.fetchBooksFromServer();
     }
+  }
+
+  bookListTrackBy(index: number, item: BookItem): string {
+    return item.id;
   }
 }

@@ -1,16 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CREDENTIALS } from 'src/app/credentials/credentials.conts';
 import { SearchParams } from '../models/search-params.interface';
 import { BookItem } from '../models/book-item.interface';
 import { CollectionResultModel } from '../../../shared/models/collection-result.interface';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class BooksService {
-  private baseUri = 'https://www.googleapis.com/books/v1/volumes';
+  private baseUri = `${environment.apiUrl}books/v1/volumes`;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
   /**
    * Get collection of books according to given parametrs
@@ -29,7 +33,6 @@ export class BooksService {
           orderBy: searchParams.orderBy ? searchParams.orderBy : 'relevance',
           startIndex: searchParams.startIndex,
           maxResults: 30,
-          key: CREDENTIALS.GOOGLE_BOOKS_API_KEY,
         },
       }
     );

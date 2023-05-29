@@ -7,16 +7,3 @@ $height-sizes: 40px, 56px;
     height: $size;
   }
 }
-
-.custom-scrollbar {
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: $_light-gray;
-  &::-webkit-scrollbar {
-    width: 0.325rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(240, 240, 241, 0.315);
-    border-radius: 1.35rem;
-  }
-}

@@ -1,14 +1,14 @@
 <ng-container *ngIf="volumeInfo">
   <h6 class="h-40px my-2">
-    {{ volumeInfo.title | truncate : 45 }}
+    {{ volumeInfo.title | truncateText : 45 }}
   </h6>
 
-  <div class="h-56px custom-scrollbar">
+  <div class="h-56px">
     <app-book-list-items [items]="volumeInfo.categories">
       Categories:
     </app-book-list-items>
   </div>
-  <div class="h-56px custom-scrollbar">
+  <div class="h-56px">
     <app-book-list-items [items]="volumeInfo.authors">
       Author(s):
     </app-book-list-items>

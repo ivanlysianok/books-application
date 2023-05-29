@@ -7,13 +7,19 @@ export class ErrorService {
   constructor(private toastrService: ToastrService) {}
 
   /**
-   * This method fired error toast
-   * @param errResponse HTTP error response from api
+   * Show error message in right corner with error title and message
+   * @param errResponse HTTP error response from API
    */
-  public error(errResponse: HttpErrorResponse): void {
+  public error(httpErrorRes: HttpErrorResponse): void {
     this.toastrService.error(
-      errResponse.error.error.message,
-      'An error has occurred'
+      httpErrorRes.error.error.message,
+      'An error has occurred',
+      {
+        timeOut: 8000,
+        extendedTimeOut: 8000,
+        progressBar: true,
+        closeButton: true,
+      }
     );
   }
 }

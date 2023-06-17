@@ -1,10 +1,13 @@
 // Bootstrap
-@import "~bootstrap/scss/bootstrap.scss";
-@import "~bootstrap-icons/font/bootstrap-icons.css";
-// Other libraries
-@import "~ngx-toastr/toastr";
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
 // Global
 @import "app/shared/styles/base.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

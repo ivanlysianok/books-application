@@ -1,20 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchParams } from '../models/search-params.interface';
 import { BookItem } from '../models/book-item.interface';
 import { CollectionResultModel } from '../../../shared/models/collection-result.interface';
-import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class BooksService {
   private baseUri = `${environment.apiUrl}books/v1/volumes`;
 
-  constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Get collection of books according to given parametrs

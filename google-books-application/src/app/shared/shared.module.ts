@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { TruncatePipe } from './pipes/truncate-text.pipe';
 import { ErrorService } from './services/error.service';
 import { LoaderService } from './services/loader.service';
+import { MaterialModule } from '../modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,13 @@ import { LoaderService } from './services/loader.service';
     TruncatePipe,
     BookCoverComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
+    MaterialModule,
+  ],
   exports: [
     LoaderComponent,
     BookListItemsComponent,
@@ -29,6 +36,7 @@ import { LoaderService } from './services/loader.service';
     FormsModule,
     RouterModule,
     BookCoverComponent,
+    MaterialModule,
   ],
   providers: [LoaderService, ErrorService],
 })

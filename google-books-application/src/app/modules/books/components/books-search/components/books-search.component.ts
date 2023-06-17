@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { SearchParams } from '../../../models/search-params.interface';
 import { SEARCH_CATEGORIES } from '../../../constants/search-categories.const';
+import { BooksService } from '../../../services/books.service';
 @Component({
   selector: 'app-books-search',
   templateUrl: './books-search.component.html',
@@ -22,7 +23,10 @@ export class BooksSearchComponent {
    */
   protected SEARCH_CATEGORIES = SEARCH_CATEGORIES;
 
-  constructor(private formBuilder: NonNullableFormBuilder) {
+  constructor(
+    private formBuilder: NonNullableFormBuilder,
+    private booksService: BooksService
+  ) {
     this.formGroup = this.formBuilder.group({
       searchTerm: this.formBuilder.control<string>('', Validators.required),
       category: this.formBuilder.control<string>(''),

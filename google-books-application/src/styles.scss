@@ -5,3 +5,6 @@
 @import "~ngx-toastr/toastr";
 // Global
 @import "app/shared/styles/base.scss";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

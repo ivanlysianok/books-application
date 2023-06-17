@@ -2,6 +2,13 @@
 
 ## CHANGELOG
 
+### v1.0.2
+
+- Change authentication logic. Currently to call APIs users
+  must authenticate via Google account (Implicit flow)
+- Login/logout pages, route guards, interceptor
+- Angular migration from v14 to v16
+
 ### v1.0.1
 
 - Refactoring of components

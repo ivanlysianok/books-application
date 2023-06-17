@@ -2,7 +2,7 @@
 
 ### WARNING !!!
 
-At the moment, the application is massively refactored and new features are added, so there is a possibility that the application will not work properly now. Thanks and sorry for the inconvenience.
+**At the moment, the application is massively refactored and new features are added, so there is a possibility that the application will not work properly now. Thanks and sorry for the inconvenience.**
 
 ### Application overview
 

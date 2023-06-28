@@ -11,7 +11,7 @@ export class BookDetailContentComponent implements OnChanges {
   /**
    * Current book item
    */
-  @Input() bookItem: BookItem | null = null;
+  @Input({ required: true }) bookItem: BookItem | null = null;
 
   /**
    * Identifier for order button

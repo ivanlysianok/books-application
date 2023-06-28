@@ -1,12 +1,10 @@
 <div class="card p-1" *ngIf="bookItem">
   <div class="card-container c-pointer" (click)="openBookDetailPage()">
-    <app-book-cover
-      [imageLinks]="bookItem.volumeInfo.imageLinks"
-    ></app-book-cover>
+    <app-book-cover [imageLinks]="bookItem.volumeInfo.imageLinks" />
     <div class="card-overlay"></div>
   </div>
   <app-book-card-content
     [volumeInfo]="bookItem.volumeInfo"
     (detailButtonClick)="openBookDetailPage()"
-  ></app-book-card-content>
+  />
 </div>

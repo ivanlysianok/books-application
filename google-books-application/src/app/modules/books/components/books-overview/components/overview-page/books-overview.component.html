@@ -1,5 +1,5 @@
 <ng-container class="position-relative">
-  <app-books-search (searchButtonClick)="loadBooks($event)"></app-books-search>
+  <app-books-search (searchButtonClick)="loadBooks($event)" />
 
   <div class="container" *ngIf="booksCollection && searchParams">
     <div *ngIf="!booksCollection.items; else collectionNotEmpty">

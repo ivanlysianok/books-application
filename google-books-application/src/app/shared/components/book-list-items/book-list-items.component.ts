@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './book-list-items.component.html',
 })
 export class BookListItemsComponent {
-  @Input() items?: string[];
+  @Input({ required: true }) items?: string[];
 }

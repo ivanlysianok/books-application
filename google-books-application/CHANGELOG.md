@@ -2,6 +2,11 @@
 
 ## CHANGELOG
 
+### v1.0.3
+
+- Implement v16 features: takeUntilDestroy, required inputs,
+  self closing tags
+
 ### v1.0.2
 
 - Change authentication logic. Currently to call APIs users

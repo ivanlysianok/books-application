@@ -1,9 +1,7 @@
 <div class="background col-white" *ngIf="bookItem">
   <div class="container py-3">
     <div class="detail-image-container">
-      <app-book-cover
-        [imageLinks]="bookItem.volumeInfo.imageLinks"
-      ></app-book-cover>
+      <app-book-cover [imageLinks]="bookItem.volumeInfo.imageLinks" />
     </div>
 
     <div class="my-2">
@@ -25,15 +23,13 @@
     <hr />
 
     <div class="mb-2">
-      <app-book-list-items [items]="bookItem.volumeInfo.authors">
-        Author(s):
-      </app-book-list-items>
+      <app-book-list-items [items]="bookItem.volumeInfo.authors" />
+      Author(s):
     </div>
 
     <div class="mb-2">
-      <app-book-list-items [items]="bookItem.volumeInfo.categories">
-        Category/Categories:
-      </app-book-list-items>
+      <app-book-list-items [items]="bookItem.volumeInfo.categories" />
+      Category/Categories:
     </div>
 
     <div class="mb-2">

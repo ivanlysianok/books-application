@@ -10,7 +10,7 @@ export class BookCardComponent {
   /**
    * Book item from books collection
    */
-  @Input() bookItem: BookItem | null = null;
+  @Input({ required: true }) bookItem: BookItem | null = null;
 
   /**
    * Opens specific book detail page by book ID

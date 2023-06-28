@@ -7,7 +7,7 @@ import { ImageLinks } from '../../../modules/books/models/volumeInfo/image-links
   styleUrls: ['./book-cover.component.scss'],
 })
 export class BookCoverComponent {
-  @Input() imageLinks?: ImageLinks;
+  @Input({ required: true }) imageLinks?: ImageLinks;
 
   public placeholderImageUrl =
     'http://placehold.jp/e0e0e0/ffffff/250x250.png?text=No%20image';

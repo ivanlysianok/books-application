@@ -1,25 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookItem } from '../../../../models/book-item.interface';
 import { BooksService } from '../../../../services/books.service';
 import { ErrorService } from '../../../../../../shared/services/error.service';
 import { LoaderService } from '../../../../../../shared/services/loader.service';
-import { Subject, finalize, takeUntil } from 'rxjs';
+import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.scss'],
 })
-export class BookDetailComponent implements OnInit, OnDestroy {
+export class BookDetailComponent implements OnInit {
   /**
    * Book item that user get by book ID
    */
   protected bookItem: BookItem | null = null;
   /**
-   * Subject for unsubscribe from data streams
+   * Destroy ref to unsubscribing from observables
    */
-  private destroySub$ = new Subject<void>();
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private route: ActivatedRoute,
@@ -30,11 +31,6 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getBookById(this.route.snapshot.paramMap.get('id'));
-  }
-
-  ngOnDestroy(): void {
-    this.destroySub$.next();
-    this.destroySub$.unsubscribe();
   }
 
   /**
@@ -51,7 +47,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
         finalize(() => {
           this.loaderService.stop();
         }),
-        takeUntil(this.destroySub$)
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: (response) => {

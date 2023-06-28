@@ -1,25 +1,17 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { LoaderService } from '../../../../../../shared/services/loader.service';
-import { ErrorService } from '../../../../../../shared/services/error.service';
 import { BooksService } from '../../../../services/books.service';
 import { CollectionResultModel } from '../../../../../../shared/models/collection-result.interface';
 import { BookItem } from '../../../../models/book-item.interface';
 import { SearchParams } from 'src/app/modules/books/models/search-params.interface';
-import { Subject, finalize, takeUntil } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from 'src/app/core/auth/services/auth.service';
-
-/**
- * Google auth variable
- */
-declare const google: any;
-
+import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-books-overview',
   templateUrl: './books-overview.component.html',
   styleUrls: ['./books-overview.component.scss'],
 })
-export class BooksOverviewComponent implements OnDestroy {
+export class BooksOverviewComponent {
   /**
    * Collection of books that will displayed in grid
    */
@@ -33,19 +25,14 @@ export class BooksOverviewComponent implements OnDestroy {
    */
   protected paginationStep = 30;
   /**
-   * Subject for unsubscribe from data streams
+   * Destroy ref to unsubscribing from observables
    */
-  private destroySub$ = new Subject<void>();
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private booksService: BooksService,
     private loaderService: LoaderService
   ) {}
-
-  public ngOnDestroy(): void {
-    this.destroySub$.next();
-    this.destroySub$.unsubscribe();
-  }
 
   /**
    * Assign values to searchParams and load books from server
@@ -70,7 +57,7 @@ export class BooksOverviewComponent implements OnDestroy {
         finalize(() => {
           this.loaderService.stop();
         }),
-        takeUntil(this.destroySub$)
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: (response) => {

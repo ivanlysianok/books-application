@@ -16,6 +16,21 @@ import { APP_ROUTES } from '../../../shared/constants/app-routes.const';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {}
 
+  private handleUnAuthRequestError(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    return next.handle(request).pipe(
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          this.authService.resetAuthToken();
+          this.router.navigate([APP_ROUTES.LOGOUT]);
+        }
+        return throwError(() => err);
+      })
+    );
+  }
+
   public intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -28,14 +43,6 @@ export class AuthInterceptor implements HttpInterceptor {
         }),
       });
     }
-    return next.handle(request).pipe(
-      catchError((err: HttpErrorResponse) => {
-        if (err.status === 401) {
-          this.authService.resetAuthToken();
-          this.router.navigate([APP_ROUTES.LOGOUT]);
-        }
-        return throwError(() => err);
-      })
-    );
+    return this.handleUnAuthRequestError(request, next);
   }
 }

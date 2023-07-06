@@ -12,21 +12,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./books-overview.component.scss'],
 })
 export class BooksOverviewComponent {
-  /**
-   * Collection of books that will displayed in grid
-   */
   protected booksCollection: CollectionResultModel<BookItem[]> | null = null;
-  /**
-   * Search parametrs data that user fill in search form
-   */
   protected searchParams: SearchParams | null = null;
-  /**
-   * Base pagination step
-   */
   protected paginationStep = 30;
-  /**
-   * Destroy ref to unsubscribing from observables
-   */
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -97,9 +85,5 @@ export class BooksOverviewComponent {
       this.searchParams.startIndex += this.paginationStep;
       this.fetchBooksFromServer();
     }
-  }
-
-  bookListTrackBy(index: number, item: BookItem): string {
-    return item.id;
   }
 }

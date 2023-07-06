@@ -1,7 +1,7 @@
 <ng-container class="position-relative">
-  <app-books-search (searchButtonClick)="loadBooks($event)" />
-
-  <div class="container" *ngIf="booksCollection && searchParams">
+  <!-- <app-books-search (searchButtonClick)="loadBooks($event)" /> -->
+  <h1>Books overview</h1>
+  <!-- <div class="container" *ngIf="booksCollection && searchParams">
     <div *ngIf="!booksCollection.items; else collectionNotEmpty">
       Your search did not return any results
     </div>
@@ -46,6 +46,6 @@
         </button>
       </div>
     </ng-template>
-  </div>
+  </div> -->
 </ng-container>
 <app-loader></app-loader>

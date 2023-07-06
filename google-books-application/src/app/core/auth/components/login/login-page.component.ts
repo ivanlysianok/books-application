@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CREDENTIALS } from '../../../../../app/credentials/credentials.conts';
 import { APP_ROUTES } from '../../../../shared/constants/app-routes.const';
+import { GOOGLE_AUTH_SCOPE } from '../../constants/google-auth-scope.const';
 
 /**
  * Google auth variable
@@ -15,7 +16,7 @@ declare const google: any;
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  protected googleApiAccountsRef: any;
+  private googleApiAccountsRef: any;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -25,13 +26,17 @@ export class LoginPageComponent implements OnInit {
     } else {
       this.googleApiAccountsRef = google.accounts.oauth2.initTokenClient({
         client_id: CREDENTIALS.GOOGLE_IDENTITY_CLIENT_ID,
-        scope: 'https://www.googleapis.com/auth/books email profile',
+        scope: GOOGLE_AUTH_SCOPE,
         callback: (response: { access_token: string }) => {
           this.authService.setAuthToken(response.access_token);
           this.navigateToBooksOverview();
         },
       });
     }
+  }
+
+  protected requestAccessToken(): void {
+    this.googleApiAccountsRef.requestAccessToken();
   }
 
   private navigateToBooksOverview(): void {

@@ -3,17 +3,16 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class LoaderService {
-  private isLoading: BehaviorSubject<boolean | null> = new BehaviorSubject<
-    boolean | null
-  >(null);
-  public isLoading$ = this.isLoading.asObservable();
+  private isLoadingSubject$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+  public isLoading$ = this.isLoadingSubject$.asObservable();
 
   /**
    * This method fires loader, loading subject value
    * sets to TRUE
    */
   public start(): void {
-    this.isLoading.next(true);
+    this.isLoadingSubject$.next(true);
   }
 
   /**
@@ -21,6 +20,6 @@ export class LoaderService {
    * sets to FALSE
    */
   public stop(): void {
-    this.isLoading.next(false);
+    this.isLoadingSubject$.next(false);
   }
 }

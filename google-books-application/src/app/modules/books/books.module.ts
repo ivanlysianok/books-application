@@ -8,6 +8,7 @@ import { BookDetailComponent } from './components/book-detail/components/detail-
 import { BookDetailContentComponent } from './components/book-detail/components/detail-content/book-detail-content.component';
 import { BookCardContentComponent } from './components/book-card/components/card-content/book-card-content.component';
 import { BookCardComponent } from './components/book-card/components/card/book-card.component';
+import { BooksFavoriteComponent } from './components/books-favorite/books-favorite.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BookCardComponent } from './components/book-card/components/card/book-c
     BookDetailContentComponent,
     BookCardContentComponent,
     BookCardComponent,
+    BooksFavoriteComponent,
   ],
   imports: [BooksRoutingModule, SharedModule],
   providers: [BooksService],

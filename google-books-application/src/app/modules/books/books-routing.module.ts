@@ -3,11 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { BooksOverviewComponent } from './components/books-overview/components/overview-page/books-overview.component';
 import { BookDetailComponent } from './components/book-detail/components/detail-page/book-detail.component';
 import { AuthGuard } from '../../core/auth/guards/auth.guard';
+import { BooksFavoriteComponent } from './components/books-favorite/books-favorite.component';
 
 const routes: Routes = [
   {
     path: 'books-overview',
     component: BooksOverviewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'books-favorite',
+    component: BooksFavoriteComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -1,33 +1,16 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoaderService } from '../../services/loader.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss'],
 })
-export class LoaderComponent implements OnInit {
-  public isLoading = false;
-  /**
-   * Destroy ref to unsubscribing from observables
-   */
-  private readonly destroyRef: DestroyRef = inject(DestroyRef);
+export class LoaderComponent {
+  protected isLoading$: Observable<boolean>;
 
-  constructor(private loaderService: LoaderService) {}
-
-  ngOnInit(): void {
-    this.isLoadingSubscription();
-  }
-
-  private isLoadingSubscription(): void {
-    this.loaderService.isLoading$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response: boolean | null) => {
-        if (response === null) {
-          return;
-        }
-        this.isLoading = response;
-      });
+  constructor(private loaderService: LoaderService) {
+    this.isLoading$ = this.loaderService.isLoading$;
   }
 }

@@ -13,13 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
-  /**
-   * Book item that user get by book ID
-   */
   protected bookItem: BookItem | null = null;
-  /**
-   * Destroy ref to unsubscribing from observables
-   */
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -33,9 +27,6 @@ export class BookDetailComponent implements OnInit {
     this.getBookById(this.route.snapshot.paramMap.get('id'));
   }
 
-  /**
-   * Get book data from server by book ID
-   */
   private getBookById(id: string | null): void {
     if (!id) {
       return;

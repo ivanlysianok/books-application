@@ -1,6 +1,6 @@
-<div *ngIf="userProfile" class="background">
+<div *ngIf="userProfile" class="background mb-3">
   <div
-    class="d-flex align-items-center justify-content-between col-white px-3 py-2"
+    class="d-flex align-items-center justify-content-between c-white px-3 py-2"
   >
     <div class="d-flex align-items-center">
       <img
@@ -16,10 +16,9 @@
         class="me-2"
         (click)="onNavigateByUrl(data.url)"
       >
-        <span
-          [class]="data.url === router.url ? 'col-white' : 'col-dark-gray'"
-          >{{ data.name }}</span
-        >
+        <span [class]="data.url === router.url ? 'c-white' : 'c-gray'">{{
+          data.name
+        }}</span>
       </button>
     </div>
     <button mat-icon-button (click)="onLogout()">

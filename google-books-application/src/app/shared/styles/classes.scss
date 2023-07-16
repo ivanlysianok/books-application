@@ -1,25 +1,19 @@
-@import "../../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./colors.scss";
 
-.col-white {
-  color: $_white;
+.c-white {
+  color: $white;
 }
 
-.col-dark-gray {
-  color: $_dark-gray;
+.c-gray {
+  color: $gray;
 }
 
-.col-gray {
-  color: $_gray;
-  font-style: italic;
-}
-
-.c-pointer {
+.pointer {
   cursor: pointer;
 }
 
 .background {
-  background-color: $_dark-purple;
+  background-color: $dark-purple;
 }
 
 .min-bg-height {

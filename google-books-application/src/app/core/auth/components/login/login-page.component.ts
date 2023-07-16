@@ -40,6 +40,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   private navigateToBooksOverview(): void {
-    this.router.navigate([APP_ROUTES.BOOKS_OVERVIEW]);
+    this.router.navigate([APP_ROUTES.SEARCH]);
   }
 }

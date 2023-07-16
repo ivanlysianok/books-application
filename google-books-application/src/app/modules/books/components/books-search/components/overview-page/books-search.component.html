@@ -1,0 +1,55 @@
+<ng-container class="position-relative">
+  <div class="container">
+    <h3 class="mb-3">Search books</h3>
+
+    <app-books-search-form (searchButtonClick)="loadBooks($event)" />
+
+    <div *ngIf="booksCollection && searchParams" class="mt-4">
+      <div *ngIf="!booksCollection.items; else collectionNotEmpty">
+        Your search did not return any results
+      </div>
+      <ng-template #collectionNotEmpty>
+        <h5>Search results for "{{ searchParams.searchTerm }}"</h5>
+        Showing {{ searchParams.startIndex + 1 }} -
+        {{ searchParams.startIndex + paginationStep }} results
+
+        <div class="cards-grid mt-3">
+          <app-book-card
+            *ngFor="let item of booksCollection.items"
+            [bookItem]="item"
+          ></app-book-card>
+        </div>
+
+        <div
+          *ngIf="booksCollection.totalItems > paginationStep"
+          class="d-flex align-items-center justify-content-center my-3"
+        >
+          <button
+            class="btn btn-sm btn-light me-1"
+            [disabled]="searchParams.startIndex <= 0"
+            (click)="getPreviousResults()"
+          >
+            <div class="d-flex align-items-center justify-content-center">
+              <i class="bi bi-arrow-left-short pagination-icon"></i>
+              Previous page
+            </div>
+          </button>
+          <button
+            class="btn btn-sm btn-light"
+            [disabled]="
+              searchParams.startIndex >
+              booksCollection.totalItems - paginationStep
+            "
+            (click)="getNextResults()"
+          >
+            <div class="d-flex align-items-center justify-content-center">
+              Next page
+              <i class="bi bi-arrow-right-short pagination-icon"></i>
+            </div>
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</ng-container>
+<app-loader></app-loader>

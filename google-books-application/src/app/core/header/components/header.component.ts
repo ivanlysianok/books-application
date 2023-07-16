@@ -6,7 +6,7 @@ import { LoaderService } from '../../../shared/services/loader.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { APP_ROUTES } from '../../../shared/constants/app-routes.const';
-import { NAVIGATION_PAGE_DATA } from '../../auth/constants/navigation-page-data.const';
+import { NAVIGATION_PAGE_DATA } from '../constants/navigation-page-data.const';
 
 @Component({
   selector: 'app-header',

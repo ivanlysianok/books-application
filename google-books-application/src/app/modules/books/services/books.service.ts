@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class BooksService {
   private baseUri = `${environment.apiUrl}books/v1/volumes`;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   /**
    * Get collection of books according to given parametrs
@@ -20,18 +20,13 @@ export class BooksService {
   public getBooksCollection(
     searchParams: SearchParams
   ): Observable<CollectionResultModel<BookItem[]>> {
-    return this.httpClient.get<CollectionResultModel<BookItem[]>>(
-      this.baseUri,
-      {
-        params: {
-          q: searchParams.searchTerm,
-          subject: searchParams.category,
-          orderBy: searchParams.orderBy ? searchParams.orderBy : 'relevance',
-          startIndex: searchParams.startIndex,
-          maxResults: 30,
-        },
-      }
-    );
+    return this.http.get<CollectionResultModel<BookItem[]>>(this.baseUri, {
+      params: {
+        q: searchParams.searchTerm,
+        startIndex: searchParams.startIndex,
+        maxResults: 30,
+      },
+    });
   }
 
   /**
@@ -40,6 +35,6 @@ export class BooksService {
    * @returns Observable with current book item
    */
   public getBookById(bookId: string): Observable<BookItem> {
-    return this.httpClient.get<BookItem>(`${this.baseUri}/${bookId}`);
+    return this.http.get<BookItem>(`${this.baseUri}/${bookId}`);
   }
 }

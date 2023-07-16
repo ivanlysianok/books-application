@@ -2,6 +2,12 @@
 
 ## CHANGELOG
 
+### v1.0.4
+
+- Re-implement search component, overview component
+- Create custom angular material theme with own color
+  scheme
+
 ### v1.0.3
 
 - Implement v16 features: takeUntilDestroy, required inputs,

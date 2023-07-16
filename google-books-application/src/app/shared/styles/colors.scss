@@ -1,11 +1,33 @@
-$_white: #f0f0f1;
-$_gray: #e0e0e0;
-$_dark-gray: #a8a8a8;
-$_light-gray: #eeecec;
-$_black: #222222;
-$_blue: #5496ec;
-$_purple: #4738cb;
-$_dark-purple: #25294a;
-$_shadow-purple: 0 0 0 0.25rem rgba(71, 56, 203, 0.45);
-$_shadow-blue: 0 0 0 0.25rem rgba(84, 56, 150, 0.45);
-$_shadow-gray: 0 0 0 0.25rem rgba(240, 240, 241, 0.25);
+@use "@angular/material" as mat;
+
+$white: #fff;
+$black: #222222;
+
+$main-color-pallete: (
+  50: #e8eaef,
+  100: #c4c9d9,
+  200: #9fa7bf,
+  300: #7b85a5,
+  400: #606b93,
+  500: #465383,
+  600: #3f4b7b,
+  700: #37426f,
+  800: #303962,
+  900: #25294a,
+  contrast: (
+    50: $black,
+    100: $black,
+    200: $black,
+    300: $white,
+    400: $white,
+    500: $white,
+    600: $white,
+    700: $white,
+    800: $white,
+    900: $white,
+  ),
+);
+
+$gray: map-get(mat.$gray-palette, 400);
+$purple: map-get($main-color-pallete, 300);
+$dark-purple: map-get($main-color-pallete, 900);

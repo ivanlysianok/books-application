@@ -1,0 +1,39 @@
+<form [formGroup]="formGroup">
+  <mat-form-field subscriptSizing="dynamic" class="me-2 search-input">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      formControlName="searchTerm"
+      placeholder="Search for books by name, author, genre (for example: Brothers Karamazov)"
+    />
+    <button
+      color="primary"
+      matSuffix
+      mat-icon-button
+      [disabled]="!formGroup.valid"
+      (click)="formGroup.reset()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    <button
+      class="me-2"
+      color="primary"
+      matSuffix
+      mat-icon-button
+      [disabled]="!formGroup.valid"
+      (click)="searchBooks()"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-error
+    *ngIf="
+      formGroup.controls.searchTerm.invalid &&
+      (formGroup.controls.searchTerm.dirty ||
+        formGroup.controls.searchTerm.touched)
+    "
+    class="p-0"
+  >
+    Please fill this field
+  </mat-error>
+</form>

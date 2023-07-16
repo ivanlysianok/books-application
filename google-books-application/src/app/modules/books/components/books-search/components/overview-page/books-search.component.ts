@@ -7,11 +7,11 @@ import { SearchParams } from 'src/app/modules/books/models/search-params.interfa
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
-  selector: 'app-books-overview',
-  templateUrl: './books-overview.component.html',
-  styleUrls: ['./books-overview.component.scss'],
+  selector: 'app-books-search',
+  templateUrl: './books-search.component.html',
+  styleUrls: ['./books-search.component.scss'],
 })
-export class BooksOverviewComponent {
+export class BooksSearchComponent {
   protected booksCollection: CollectionResultModel<BookItem[]> | null = null;
   protected searchParams: SearchParams | null = null;
   protected paginationStep = 30;
@@ -22,18 +22,11 @@ export class BooksOverviewComponent {
     private loaderService: LoaderService
   ) {}
 
-  /**
-   * Assign values to searchParams and load books from server
-   * @param searchParams Search params type of SearchParams
-   */
   protected loadBooks(searchParams: SearchParams): void {
     this.searchParams = searchParams;
     this.fetchBooksFromServer();
   }
 
-  /**
-   * Fetch books from API
-   */
   private fetchBooksFromServer(): void {
     if (!this.searchParams) {
       return;
@@ -58,10 +51,6 @@ export class BooksOverviewComponent {
       });
   }
 
-  /**
-   * Fired when user clicked on previous page and load related data
-   * from server
-   */
   protected getPreviousResults(): void {
     if (!this.searchParams || this.searchParams.startIndex < 0) {
       return;
@@ -70,10 +59,6 @@ export class BooksOverviewComponent {
     this.fetchBooksFromServer();
   }
 
-  /**
-   * Fired when user clicked on next page and load related data
-   * from server
-   */
   protected getNextResults(): void {
     if (!this.searchParams || !this.booksCollection?.totalItems) {
       return;

@@ -2,6 +2,12 @@
 
 ## CHANGELOG
 
+### v1.0.5
+
+- Refactor book-card component, implement mat-card instead of that
+- Implement favorite books logic in book service
+- Renamings, other refactorings
+
 ### v1.0.4
 
 - Re-implement search component, overview component

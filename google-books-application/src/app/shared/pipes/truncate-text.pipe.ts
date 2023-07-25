@@ -3,11 +3,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'truncateText',
 })
-export class TruncatePipe implements PipeTransform {
-  transform(text = '', length = 20, ellipsis = '...'): string {
-    if (text.length > length) {
-      return text.substring(0, length).trim() + ellipsis;
-    }
-    return text;
+export class TruncateTextPipe implements PipeTransform {
+  transform(text = '', length = 20): string {
+    return text.length > length
+      ? text.substring(0, length).trim() + '...'
+      : text;
   }
 }

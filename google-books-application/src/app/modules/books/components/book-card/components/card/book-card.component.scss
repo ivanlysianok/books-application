@@ -1,28 +1,12 @@
 @import "../../../../../../shared/styles/base.scss";
 
-.card {
-  background-color: $dark-purple;
-  min-height: 25rem;
-  color: $white;
-}
-
-.card-container {
-  position: relative;
+.card-cover-image {
   width: 100%;
   height: 15rem;
+  object-fit: cover;
+  border: 0.3rem solid $dark-purple;
 }
 
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: 0.2s ease all;
-  background-color: $purple;
-
-  &:hover {
-    opacity: 0.3;
-  }
+.card-content {
+  min-height: 8rem;
 }

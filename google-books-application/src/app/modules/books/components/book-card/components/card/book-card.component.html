@@ -1,10 +1,27 @@
-<div class="card p-1" *ngIf="bookItem">
-  <div class="card-container pointer" (click)="openBookDetailPage()">
-    <app-book-cover [imageLinks]="bookItem.volumeInfo.imageLinks" />
-    <div class="card-overlay"></div>
-  </div>
-  <app-book-card-content
-    [volumeInfo]="bookItem.volumeInfo"
-    (detailButtonClick)="openBookDetailPage()"
+<mat-card class="background c-white" *ngIf="bookItem">
+  <img
+    mat-card-image
+    [src]="bookImageSource"
+    class="card-cover-image"
+    alt="Book cover image"
   />
-</div>
+  <mat-card-content class="c-white card-content px-2 mt-1">
+    <div *ngIf="bookVolume" class="h-100">
+      <h6>
+        {{ bookVolume.title | truncateText : 45 }}
+      </h6>
+      <span
+        *ngIf="bookVolume.authors && bookVolume.authors?.length"
+        class="c-gray"
+      >
+        {{ bookVolume.authors[0] | truncateText : 45 }}
+      </span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="d-flex align-items-center justify-content-between">
+    <a class="pointer c-white" (click)="onOpenDetailDialog()">detail</a>
+    <mat-icon class="pointer">{{
+      bookItem.isFavorite ? "favorite" : "favorite_outline"
+    }}</mat-icon>
+  </mat-card-actions>
+</mat-card>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -6,7 +6,7 @@ import { BookCoverComponent } from './components/book-cover/book-cover.component
 import { BookListItemsComponent } from './components/book-list-items/book-list-items.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { TruncatePipe } from './pipes/truncate-text.pipe';
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { ErrorService } from './services/error.service';
 import { LoaderService } from './services/loader.service';
 import { MaterialModule } from '../modules/material/material.module';
@@ -16,7 +16,7 @@ import { MaterialModule } from '../modules/material/material.module';
     LoaderComponent,
     PageNotFoundComponent,
     BookListItemsComponent,
-    TruncatePipe,
+    TruncateTextPipe,
     BookCoverComponent,
   ],
   imports: [
@@ -25,18 +25,20 @@ import { MaterialModule } from '../modules/material/material.module';
     FormsModule,
     RouterModule,
     MaterialModule,
+    NgOptimizedImage,
   ],
   exports: [
     LoaderComponent,
     BookListItemsComponent,
     PageNotFoundComponent,
-    TruncatePipe,
+    TruncateTextPipe,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
     BookCoverComponent,
     MaterialModule,
+    NgOptimizedImage,
   ],
   providers: [LoaderService, ErrorService],
 })

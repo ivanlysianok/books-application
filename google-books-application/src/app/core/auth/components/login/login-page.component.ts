@@ -22,14 +22,14 @@ export class LoginPageComponent implements OnInit {
 
   public ngOnInit(): void {
     if (this.authService.getAuthToken()) {
-      this.navigateToBooksOverview();
+      this.navigateToSearchBooksPage();
     } else {
       this.googleApiAccountsRef = google.accounts.oauth2.initTokenClient({
         client_id: CREDENTIALS.GOOGLE_IDENTITY_CLIENT_ID,
         scope: GOOGLE_AUTH_SCOPE,
         callback: (response: { access_token: string }) => {
           this.authService.setAuthToken(response.access_token);
-          this.navigateToBooksOverview();
+          this.navigateToSearchBooksPage();
         },
       });
     }
@@ -39,7 +39,7 @@ export class LoginPageComponent implements OnInit {
     this.googleApiAccountsRef.requestAccessToken();
   }
 
-  private navigateToBooksOverview(): void {
+  private navigateToSearchBooksPage(): void {
     this.router.navigate([APP_ROUTES.SEARCH]);
   }
 }

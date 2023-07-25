@@ -4,8 +4,8 @@
 
     <app-books-search-form (searchButtonClick)="loadBooks($event)" />
 
-    <div *ngIf="booksCollection && searchParams" class="mt-4">
-      <div *ngIf="!booksCollection.items; else collectionNotEmpty">
+    <div *ngIf="bookCollection && searchParams" class="mt-4">
+      <div *ngIf="!bookCollection.items; else collectionNotEmpty">
         Your search did not return any results
       </div>
       <ng-template #collectionNotEmpty>
@@ -15,13 +15,13 @@
 
         <div class="cards-grid mt-3">
           <app-book-card
-            *ngFor="let item of booksCollection.items"
+            *ngFor="let item of bookCollection.items"
             [bookItem]="item"
           ></app-book-card>
         </div>
 
         <div
-          *ngIf="booksCollection.totalItems > paginationStep"
+          *ngIf="bookCollection.totalItems > paginationStep"
           class="d-flex align-items-center justify-content-center my-3"
         >
           <button
@@ -38,7 +38,7 @@
             class="btn btn-sm btn-light"
             [disabled]="
               searchParams.startIndex >
-              booksCollection.totalItems - paginationStep
+              bookCollection.totalItems - paginationStep
             "
             (click)="getNextResults()"
           >

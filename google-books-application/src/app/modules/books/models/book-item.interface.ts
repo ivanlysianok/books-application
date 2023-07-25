@@ -5,4 +5,5 @@ export interface BookItem {
   id: string;
   saleInfo: SaleInfo;
   volumeInfo: VolumeInfo;
+  isFavorite: boolean;
 }

@@ -1,9 +1,0 @@
-@import "../../../../../../shared/styles/base.scss";
-
-$height-sizes: 40px, 56px;
-
-@each $size in $height-sizes {
-  .h-#{$size} {
-    height: $size;
-  }
-}

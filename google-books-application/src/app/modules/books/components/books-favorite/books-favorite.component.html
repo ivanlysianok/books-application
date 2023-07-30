@@ -1,4 +1,15 @@
 <div class="container">
-  <h3>Favorite</h3>
+  <h3 class="mb-3">Favorite books</h3>
+  <div *ngIf="bookCollection">
+    <div *ngIf="!bookCollection?.items; else collectionNotEmpty" class="mt-4">
+      You have no books in you favorite collection.
+    </div>
+    <ng-template #collectionNotEmpty>
+      <app-book-card-list
+        [bookItems]="bookCollection.items"
+        (favoriteStateChange)="fetchFavoriteBooks()"
+      ></app-book-card-list>
+    </ng-template>
+  </div>
 </div>
-<!-- TODO: Will be implemented in future -->
+<app-loader></app-loader>

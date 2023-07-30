@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { LoaderService } from '../../../../../../shared/services/loader.service';
 import { BooksService } from '../../../../services/books.service';
-import { SearchParams } from 'src/app/modules/books/models/search-params.interface';
+import { SearchParams } from '../../../../models/search-params.interface';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BookCollection } from '../../../../models/book-collection.interface';
@@ -23,10 +23,10 @@ export class BooksSearchComponent {
 
   protected loadBooks(searchParams: SearchParams): void {
     this.searchParams = searchParams;
-    this.fetchBooksFromServer();
+    this.fetchBooks();
   }
 
-  private fetchBooksFromServer(): void {
+  private fetchBooks(): void {
     if (!this.searchParams) {
       return;
     }
@@ -55,7 +55,7 @@ export class BooksSearchComponent {
       return;
     }
     this.searchParams.startIndex -= this.paginationStep;
-    this.fetchBooksFromServer();
+    this.fetchBooks();
   }
 
   protected getNextResults(): void {
@@ -67,7 +67,7 @@ export class BooksSearchComponent {
       this.bookCollection.totalItems - this.paginationStep
     ) {
       this.searchParams.startIndex += this.paginationStep;
-      this.fetchBooksFromServer();
+      this.fetchBooks();
     }
   }
 }

@@ -13,12 +13,9 @@
         Showing {{ searchParams.startIndex + 1 }} -
         {{ searchParams.startIndex + paginationStep }} results
 
-        <div class="cards-grid mt-3">
-          <app-book-card
-            *ngFor="let item of bookCollection.items"
-            [bookItem]="item"
-          ></app-book-card>
-        </div>
+        <app-book-card-list
+          [bookItems]="bookCollection.items"
+        ></app-book-card-list>
 
         <div
           *ngIf="bookCollection.totalItems > paginationStep"

@@ -32,44 +32,23 @@ export class BooksService {
   }
 
   /**
-   * Get favorite books
+   * Get favorite books and add isFavorite flag to each item
    * @returns Observable with favorite books
    */
-  private getFavoriteBooks(): Observable<BookCollection> {
-    return this.http.get<BookCollection>(
-      `${this.bookshelvesUri}/${BookShelves.Favorite}/volumes`
-    );
-  }
-
-  /**
-   * Check for matching IDs from books collection and
-   * favorite books collection to get known if book is
-   * favorite or not
-   * @param id Book ID
-   * @param favoriteBookItems Favorite book items
-   * @returns TRUE if IDs match, otherwise FALSE
-   */
-  private checkForFavoriteBookById(
-    id: string,
-    favoriteBookItems: BookItem[]
-  ): boolean {
-    return favoriteBookItems.some((favBook) => favBook.id === id);
-  }
-
-  /**
-   * Get transformed books data with isFavorite flag
-   * @param books List of books
-   * @param favoriteBooks List of favorite books
-   * @returns Transformed books with "isFavorite" flag
-   */
-  private getTransformedBooks(
-    books: BookItem[],
-    favoriteBooks: BookItem[]
-  ): BookItem[] {
-    return books.map((book) => ({
-      ...book,
-      isFavorite: this.checkForFavoriteBookById(book.id, favoriteBooks),
-    }));
+  public getFavoriteBooks(): Observable<BookCollection> {
+    return this.http
+      .get<BookCollection>(
+        `${this.bookshelvesUri}/${BookShelves.Favorite}/volumes`
+      )
+      .pipe(
+        map((bookCollection) => ({
+          totalItems: bookCollection.totalItems,
+          items: bookCollection.items.map((book) => ({
+            ...book,
+            isFavorite: true,
+          })),
+        }))
+      );
   }
 
   /**
@@ -94,11 +73,54 @@ export class BooksService {
   }
 
   /**
-   * Get book by ID
-   * @param bookId ID of specific book
-   * @returns Observable with current book item
+   * Get transformed books data with isFavorite flag
+   * @param books List of books
+   * @param favoriteBooks List of favorite books
+   * @returns Transformed books with "isFavorite" flag
    */
-  public getBookById(bookId: string): Observable<BookItem> {
-    return this.http.get<BookItem>(`${this.booksVolumesUri}/${bookId}`);
+  private getTransformedBooks(
+    books: BookItem[],
+    favoriteBooks: BookItem[]
+  ): BookItem[] {
+    return books.map((book) => ({
+      ...book,
+      isFavorite: this.checkForFavoriteBookById(book.id, favoriteBooks),
+    }));
+  }
+
+  /**
+   * Check for matching IDs from books collection and
+   * favorite books collection to get known if book is
+   * favorite or not
+   * @param id Book ID
+   * @param favoriteBookItems Favorite book items
+   * @returns TRUE if IDs match, otherwise FALSE
+   */
+  private checkForFavoriteBookById(
+    id: string,
+    favoriteBookItems: BookItem[]
+  ): boolean {
+    return favoriteBookItems.some((favBook) => favBook.id === id);
+  }
+
+  /**
+   * Add / Delete book from favorite collection according to
+   * addAsFavorite flag and ID
+   * @param addAsFavorite Flag that tells if provide "add" operation or
+   * "delete" operation
+   * @param id Book ID
+   */
+  public changeFavoriteStateById(
+    addAsFavorite: boolean,
+    id: string
+  ): Observable<unknown> {
+    return this.http.post<unknown>(
+      `${this.bookshelvesUri}/${BookShelves.Favorite}/${
+        addAsFavorite ? 'addVolume' : 'removeVolume'
+      }`,
+      {
+        volumeId: id,
+      }
+    );
   }
 }

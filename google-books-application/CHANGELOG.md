@@ -2,6 +2,11 @@
 
 ## CHANGELOG
 
+### v1.0.6
+
+- Implement "favorite" page and adding/removing elements to it.
+- Delete detail page and code related to that.
+
 ### v1.0.5
 
 - Refactor book-card component, implement mat-card instead of that

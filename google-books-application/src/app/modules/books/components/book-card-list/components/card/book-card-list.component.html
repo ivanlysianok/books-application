@@ -1,0 +1,33 @@
+<div class="cards-grid mt-3" *ngIf="bookItems">
+  <mat-card class="background c-white" *ngFor="let item of bookItems">
+    <img
+      mat-card-image
+      [src]="
+        item.volumeInfo.imageLinks?.thumbnail ||
+        item.volumeInfo.imageLinks?.smallThumbnail ||
+        CARD_IMAGE_PLACEHOLDER
+      "
+      class="card-cover-image"
+      alt="Book cover image"
+    />
+    <mat-card-content class="c-white card-content px-2 mt-1">
+      <div *ngIf="item?.volumeInfo" class="h-100">
+        <h6>
+          {{ item.volumeInfo.title | truncateText : 45 }}
+        </h6>
+        <span
+          *ngIf="item.volumeInfo.authors && item.volumeInfo.authors?.length"
+          class="c-gray"
+        >
+          {{ item.volumeInfo.authors[0] | truncateText : 45 }}
+        </span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="d-flex align-items-center justify-content-between">
+      <a class="pointer c-white" (click)="onOpenDetailDialog()">detail</a>
+      <mat-icon class="pointer" (click)="onChangeFavoriteState(item)">{{
+        item.isFavorite ? "favorite" : "favorite_outline"
+      }}</mat-icon>
+    </mat-card-actions>
+  </mat-card>
+</div>

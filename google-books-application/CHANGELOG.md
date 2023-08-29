@@ -2,6 +2,11 @@
 
 ## CHANGELOG
 
+### v1.0.7
+
+- Refactor of adding/removing books in to favorite collection
+- Create notification service
+
 ### v1.0.6
 
 - Implement "favorite" page and adding/removing elements to it.

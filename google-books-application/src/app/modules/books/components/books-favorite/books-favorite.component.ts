@@ -10,7 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./books-favorite.component.scss'],
 })
 export class BooksFavoriteComponent implements OnInit {
-  protected bookCollection: BookCollection | null = null;
+  protected booksCollection: BookCollection | null = null;
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -37,8 +37,18 @@ export class BooksFavoriteComponent implements OnInit {
           if (!response) {
             return;
           }
-          this.bookCollection = response;
+          this.booksCollection = response;
         },
       });
+  }
+
+  protected onRemoveFromFavoriteById(id: string): void {
+    if (!this.booksCollection?.items) {
+      return;
+    }
+    const bookIndex = this.booksCollection.items.findIndex(
+      (book) => book.id === id
+    );
+    this.booksCollection.items.splice(bookIndex, 1);
   }
 }

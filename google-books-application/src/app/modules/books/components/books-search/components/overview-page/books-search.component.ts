@@ -50,6 +50,18 @@ export class BooksSearchComponent {
       });
   }
 
+  protected onUpdateFavoriteBook(id: string): void {
+    if (!this.bookCollection?.items) {
+      return;
+    }
+    this.bookCollection.items = this.bookCollection.items.map((book) => {
+      if (book.id === id) {
+        book.isFavorite = !book.isFavorite;
+      }
+      return book;
+    });
+  }
+
   protected getPreviousResults(): void {
     if (!this.searchParams || this.searchParams.startIndex < 0) {
       return;

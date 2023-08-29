@@ -43,7 +43,7 @@ export class BooksService {
       .pipe(
         map((bookCollection) => ({
           totalItems: bookCollection.totalItems,
-          items: bookCollection.items.map((book) => ({
+          items: bookCollection?.items?.map((book) => ({
             ...book,
             isFavorite: true,
           })),
@@ -100,24 +100,29 @@ export class BooksService {
     id: string,
     favoriteBookItems: BookItem[]
   ): boolean {
-    return favoriteBookItems.some((favBook) => favBook.id === id);
+    return favoriteBookItems?.some((favBook) => favBook.id === id);
   }
 
   /**
-   * Add / Delete book from favorite collection according to
-   * addAsFavorite flag and ID
-   * @param addAsFavorite Flag that tells if provide "add" operation or
-   * "delete" operation
-   * @param id Book ID
+   * Add specific book to a "favorite" shelf by ID
+   * @param id ID of book
    */
-  public changeFavoriteStateById(
-    addAsFavorite: boolean,
-    id: string
-  ): Observable<unknown> {
-    return this.http.post<unknown>(
-      `${this.bookshelvesUri}/${BookShelves.Favorite}/${
-        addAsFavorite ? 'addVolume' : 'removeVolume'
-      }`,
+  public addBookToFavoriteById(id: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.bookshelvesUri}/${BookShelves.Favorite}/addVolume`,
+      {
+        volumeId: id,
+      }
+    );
+  }
+
+  /**
+   * Delete book from "favorite" shelf by ID
+   * @param id ID of book
+   */
+  public deleteBookFromFavoriteById(id: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.bookshelvesUri}/${BookShelves.Favorite}/removeVolume`,
       {
         volumeId: id,
       }

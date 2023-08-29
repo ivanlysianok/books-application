@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
-import { ErrorService } from './services/error.service';
 import { LoaderService } from './services/loader.service';
 import { MaterialModule } from '../modules/material/material.module';
+import { NotificationService } from './services/notification.service';
 
 @NgModule({
   declarations: [LoaderComponent, PageNotFoundComponent, TruncateTextPipe],
@@ -30,6 +30,6 @@ import { MaterialModule } from '../modules/material/material.module';
     MaterialModule,
     NgOptimizedImage,
   ],
-  providers: [LoaderService, ErrorService],
+  providers: [LoaderService, NotificationService],
 })
 export class SharedModule {}

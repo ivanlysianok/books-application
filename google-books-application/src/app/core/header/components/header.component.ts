@@ -44,6 +44,7 @@ export class HeaderComponent implements OnInit {
             return;
           }
           this.userProfile = data;
+          console.log(this.userProfile, 'userProfile');
         },
       });
   }

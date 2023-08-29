@@ -1,13 +1,17 @@
 <div class="container">
   <h3 class="mb-3">Favorite books</h3>
-  <div *ngIf="bookCollection">
-    <div *ngIf="!bookCollection?.items; else collectionNotEmpty" class="mt-4">
-      You have no books in you favorite collection.
+  <div *ngIf="booksCollection">
+    <div
+      *ngIf="!booksCollection?.items?.length; else collectionNotEmpty"
+      class="mt-4"
+    >
+      You have no added books in your "favorite" collection. Go to the search
+      page and start adding books!
     </div>
     <ng-template #collectionNotEmpty>
       <app-book-card-list
-        [bookItems]="bookCollection.items"
-        (favoriteStateChange)="fetchFavoriteBooks()"
+        [bookItems]="booksCollection.items"
+        (updateFavoriteShelf)="onRemoveFromFavoriteById($event)"
       ></app-book-card-list>
     </ng-template>
   </div>

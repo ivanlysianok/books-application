@@ -15,6 +15,7 @@
 
         <app-book-card-list
           [bookItems]="bookCollection.items"
+          (updateFavoriteShelf)="onUpdateFavoriteBook($event)"
         ></app-book-card-list>
 
         <div

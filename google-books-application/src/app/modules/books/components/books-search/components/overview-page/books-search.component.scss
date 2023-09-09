@@ -1,3 +1,21 @@
-.pagination-icon {
-  font-size: 1.75rem;
+@import "../../../../../../shared/styles/base.scss";
+
+$icon-size: 1.25rem;
+
+.load-more-button {
+  background-color: $dark-purple;
+}
+
+.arrow-icon {
+  width: $icon-size;
+  height: $icon-size;
+  font-size: $icon-size;
+}
+
+:host {
+  ::ng-deep {
+    .mat-mdc-button.mat-unthemed {
+      color: $white;
+    }
+  }
 }

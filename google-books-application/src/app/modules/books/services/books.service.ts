@@ -9,20 +9,20 @@ import { BookCollection } from '../models/book-collection.interface';
 
 @Injectable()
 export class BooksService {
-  private booksVolumesUri = `${environment.apiUrl}books/v1/volumes`;
-  private bookshelvesUri = `${environment.apiUrl}books/v1/mylibrary/bookshelves`;
+  private readonly booksVolumesUri = `${environment.apiUrl}books/v1/volumes`;
+  private readonly bookshelvesUri = `${environment.apiUrl}books/v1/mylibrary/bookshelves`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   /**
-   * Get books collection by search params
+   * Get books by passed search params
    * @param searchParams Search params (search term, start index...)
-   * @returns Observable with books collection
+   * @returns Observable with book items
    */
   private getBooksBySearchParams(
     searchParams: SearchParams
   ): Observable<BookCollection> {
-    return this.http.get<BookCollection>(this.booksVolumesUri, {
+    return this.httpClient.get<BookCollection>(this.booksVolumesUri, {
       params: {
         q: searchParams.searchTerm,
         startIndex: searchParams.startIndex,
@@ -33,42 +33,43 @@ export class BooksService {
 
   /**
    * Get favorite books and add isFavorite flag to each item
-   * @returns Observable with favorite books
+   * @returns Observable with favorite book items
    */
-  public getFavoriteBooks(): Observable<BookCollection> {
-    return this.http
+  public getFavoriteBooks(): Observable<BookItem[]> {
+    return this.httpClient
       .get<BookCollection>(
         `${this.bookshelvesUri}/${BookShelves.Favorite}/volumes`
       )
       .pipe(
-        map((bookCollection) => ({
-          totalItems: bookCollection.totalItems,
-          items: bookCollection?.items?.map((book) => ({
+        map((booksCollection) => {
+          if (!booksCollection || !booksCollection.items) {
+            return [];
+          }
+          return booksCollection.items.map((book) => ({
             ...book,
             isFavorite: true,
-          })),
-        }))
+          }));
+        })
       );
   }
 
   /**
-   * Get books collection and merge them with
-   * favorite books data by search params
+   * Get books and merge them with favorite books data by search params
    * @param searchParams Search params (search term, start index...)
    * @returns Observable with "complete" books data
    */
-  public getBooksCollection(
-    searchParams: SearchParams
-  ): Observable<BookCollection> {
+  public getBookItems(searchParams: SearchParams): Observable<BookItem[]> {
     return this.getBooksBySearchParams(searchParams).pipe(
-      switchMap((books) =>
-        this.getFavoriteBooks().pipe(
-          map((favoriteBooks) => ({
-            totalItems: books.totalItems,
-            items: this.getTransformedBooks(books.items, favoriteBooks.items),
-          }))
-        )
-      )
+      switchMap((booksCollection) => {
+        if (!booksCollection || !booksCollection.items) {
+          return [];
+        }
+        return this.getFavoriteBooks().pipe(
+          map((favoriteBooks) =>
+            this.getTransformedBooks(booksCollection.items, favoriteBooks)
+          )
+        );
+      })
     );
   }
 
@@ -89,9 +90,9 @@ export class BooksService {
   }
 
   /**
-   * Check for matching IDs from books collection and
-   * favorite books collection to get known if book is
-   * favorite or not
+   * Check for matching IDs from books list and
+   * favorite books list to get known if book has
+   * favorite flag or not
    * @param id Book ID
    * @param favoriteBookItems Favorite book items
    * @returns TRUE if IDs match, otherwise FALSE
@@ -108,7 +109,7 @@ export class BooksService {
    * @param id ID of book
    */
   public addBookToFavoriteById(id: string): Observable<void> {
-    return this.http.post<void>(
+    return this.httpClient.post<void>(
       `${this.bookshelvesUri}/${BookShelves.Favorite}/addVolume`,
       {
         volumeId: id,
@@ -121,7 +122,7 @@ export class BooksService {
    * @param id ID of book
    */
   public deleteBookFromFavoriteById(id: string): Observable<void> {
-    return this.http.post<void>(
+    return this.httpClient.post<void>(
       `${this.bookshelvesUri}/${BookShelves.Favorite}/removeVolume`,
       {
         volumeId: id,

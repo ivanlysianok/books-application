@@ -1,16 +1,13 @@
 <div class="container">
   <h3 class="mb-3">Favorite books</h3>
-  <div *ngIf="booksCollection">
-    <div
-      *ngIf="!booksCollection?.items?.length; else collectionNotEmpty"
-      class="mt-4"
-    >
+  <div *ngIf="books">
+    <div *ngIf="!books?.length; else collectionNotEmpty" class="mt-4">
       You have no added books in your "favorite" collection. Go to the search
       page and start adding books!
     </div>
     <ng-template #collectionNotEmpty>
       <app-book-card-list
-        [bookItems]="booksCollection.items"
+        [bookItems]="books"
         (updateFavoriteShelf)="onRemoveFromFavoriteById($event)"
       ></app-book-card-list>
     </ng-template>

@@ -1,16 +1,16 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { BookCollection } from '../../models/book-collection.interface';
 import { BooksService } from '../../services/books.service';
 import { LoaderService } from '../../../../shared/services/loader.service';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BookItem } from '../../models/book-item.interface';
 @Component({
   selector: 'app-books-favorite',
   templateUrl: './books-favorite.component.html',
   styleUrls: ['./books-favorite.component.scss'],
 })
 export class BooksFavoriteComponent implements OnInit {
-  protected booksCollection: BookCollection | null = null;
+  protected books: BookItem[] | null = null;
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -37,18 +37,17 @@ export class BooksFavoriteComponent implements OnInit {
           if (!response) {
             return;
           }
-          this.booksCollection = response;
+          this.books = response;
+          console.log(this.books, 'books');
         },
       });
   }
 
   protected onRemoveFromFavoriteById(id: string): void {
-    if (!this.booksCollection?.items) {
+    if (!this.books) {
       return;
     }
-    const bookIndex = this.booksCollection.items.findIndex(
-      (book) => book.id === id
-    );
-    this.booksCollection.items.splice(bookIndex, 1);
+    const bookIndex = this.books.findIndex((book) => book.id === id);
+    this.books.splice(bookIndex, 1);
   }
 }

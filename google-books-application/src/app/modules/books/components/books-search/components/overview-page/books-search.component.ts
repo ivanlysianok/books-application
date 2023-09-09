@@ -4,16 +4,16 @@ import { BooksService } from '../../../../services/books.service';
 import { SearchParams } from '../../../../models/search-params.interface';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BookCollection } from '../../../../models/book-collection.interface';
+import { PAGINATION_STEP } from '../../../../constants/pagination-step.const';
+import { BookItem } from '../../../../models/book-item.interface';
 @Component({
   selector: 'app-books-search',
   templateUrl: './books-search.component.html',
   styleUrls: ['./books-search.component.scss'],
 })
 export class BooksSearchComponent {
-  protected bookCollection: BookCollection | null = null;
+  protected books: BookItem[] | null = null;
   protected searchParams: SearchParams | null = null;
-  protected paginationStep = 30;
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -26,13 +26,13 @@ export class BooksSearchComponent {
     this.fetchBooks();
   }
 
-  private fetchBooks(): void {
+  private fetchBooks(isLoadOnInit = true): void {
     if (!this.searchParams) {
       return;
     }
     this.loaderService.start();
     this.booksService
-      .getBooksCollection(this.searchParams)
+      .getBookItems(this.searchParams)
       .pipe(
         finalize(() => {
           this.loaderService.stop();
@@ -44,17 +44,24 @@ export class BooksSearchComponent {
           if (!response) {
             return;
           }
-          this.bookCollection = response;
-          window.scrollTo(0, 0);
+          this.getBooksItems(isLoadOnInit, response);
         },
       });
   }
 
+  private getBooksItems(isLoadOnInit: boolean, bookItems: BookItem[]): void {
+    if (isLoadOnInit) {
+      this.books = bookItems;
+    } else {
+      this.books?.push(...bookItems);
+    }
+  }
+
   protected onUpdateFavoriteBook(id: string): void {
-    if (!this.bookCollection?.items) {
+    if (!this.books) {
       return;
     }
-    this.bookCollection.items = this.bookCollection.items.map((book) => {
+    this.books = this.books.map((book) => {
       if (book.id === id) {
         book.isFavorite = !book.isFavorite;
       }
@@ -62,24 +69,11 @@ export class BooksSearchComponent {
     });
   }
 
-  protected getPreviousResults(): void {
-    if (!this.searchParams || this.searchParams.startIndex < 0) {
+  protected onNextResults(): void {
+    if (!this.searchParams || !this.books?.length) {
       return;
     }
-    this.searchParams.startIndex -= this.paginationStep;
-    this.fetchBooks();
-  }
-
-  protected getNextResults(): void {
-    if (!this.searchParams || !this.bookCollection?.totalItems) {
-      return;
-    }
-    if (
-      this.searchParams.startIndex <
-      this.bookCollection.totalItems - this.paginationStep
-    ) {
-      this.searchParams.startIndex += this.paginationStep;
-      this.fetchBooks();
-    }
+    this.searchParams.startIndex += PAGINATION_STEP;
+    this.fetchBooks(false);
   }
 }

@@ -2,6 +2,11 @@
 
 ## CHANGELOG
 
+### v1.0.8
+
+- Pagination button implementation
+- Refactoring of book service
+
 ### v1.0.7
 
 - Refactor of adding/removing books in to favorite collection

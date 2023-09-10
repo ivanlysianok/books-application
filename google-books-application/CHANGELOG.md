@@ -2,6 +2,10 @@
 
 ## CHANGELOG
 
+### v1.0.11
+
+- Implement detail redirection (to original google book resource)
+
 ### v1.0.10
 
 - Implement confirmation dialog component

@@ -24,7 +24,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions class="d-flex align-items-center justify-content-between">
-      <a class="pointer c-white" (click)="onOpenDetailDialog()">detail</a>
+      <a class="pointer c-white" (click)="onOpenDetailDialog(item)">detail</a>
       <mat-icon class="pointer" (click)="onFavoriteIconClick(item)">{{
         item.isFavorite
           ? ICON_DEFINITION.FAVORITE

@@ -86,7 +86,10 @@ export class BookCardListComponent {
       });
   }
 
-  protected onOpenDetailDialog(): void {
-    //
+  protected onOpenDetailDialog(item: BookItem): void {
+    if (!item?.volumeInfo?.infoLink) {
+      return;
+    }
+    window.open(item.volumeInfo.infoLink);
   }
 }

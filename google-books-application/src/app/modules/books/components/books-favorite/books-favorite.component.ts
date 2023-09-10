@@ -8,6 +8,8 @@ import { NotificationService } from '../../../../shared/services/notification.se
 import { FAVORITE_OPERATION_MESSAGE } from '../../constants/favorite-operation-message.const';
 import { DEFAULT_MESSAGE } from '../../../../shared/constants/default-message.const';
 import { ICON_DEFINITION } from '../../../../shared/constants/icon-definition.const';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 @Component({
   selector: 'app-books-favorite',
   templateUrl: './books-favorite.component.html',
@@ -21,7 +23,8 @@ export class BooksFavoriteComponent implements OnInit {
   constructor(
     private booksService: BooksService,
     private loaderService: LoaderService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -63,22 +66,39 @@ export class BooksFavoriteComponent implements OnInit {
     if (!this.books?.length) {
       return;
     }
-    this.loaderService.start();
-    this.booksService
-      .clearAllBooksFromFavoriteShelf()
-      .pipe(
-        finalize(() => this.loaderService.stop()),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe({
-        next: () => {
-          this.notificationService.showSnackbar(
-            FAVORITE_OPERATION_MESSAGE.REMOVED_ALL
-          );
-          this.fetchFavoriteBooks();
+    this.dialog
+      .open(ConfirmationDialogComponent, {
+        data: {
+          headerText: 'Clear favorite books',
+          contentText:
+            'Are you sure that you want to clear all books from "favorite" section?',
         },
-        error: () => {
-          this.notificationService.showSnackbar(DEFAULT_MESSAGE.ERROR);
+      })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response: boolean) => {
+          if (!response) {
+            return;
+          }
+          this.loaderService.start();
+          this.booksService
+            .clearAllBooksFromFavoriteShelf()
+            .pipe(
+              finalize(() => this.loaderService.stop()),
+              takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe({
+              next: () => {
+                this.notificationService.showSnackbar(
+                  FAVORITE_OPERATION_MESSAGE.REMOVED_ALL
+                );
+                this.fetchFavoriteBooks();
+              },
+              error: () => {
+                this.notificationService.showSnackbar(DEFAULT_MESSAGE.ERROR);
+              },
+            });
         },
       });
   }

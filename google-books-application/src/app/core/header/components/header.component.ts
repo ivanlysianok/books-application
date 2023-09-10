@@ -8,6 +8,8 @@ import { finalize } from 'rxjs';
 import { APP_ROUTES } from '../../../shared/constants/app-routes.const';
 import { NAVIGATION_PAGE_DATA } from '../constants/navigation-page-data.const';
 import { ICON_DEFINITION } from '../../../shared/constants/icon-definition.const';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +25,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private loaderService: LoaderService,
+    private dialog: MatDialog,
     protected router: Router
   ) {}
 
@@ -46,14 +49,29 @@ export class HeaderComponent implements OnInit {
             return;
           }
           this.userProfile = data;
-          console.log(this.userProfile, 'userProfile');
         },
       });
   }
 
   protected onLogout(): void {
-    this.authService.resetAuthToken();
-    this.router.navigate([APP_ROUTES.LOGOUT]);
+    this.dialog
+      .open(ConfirmationDialogComponent, {
+        data: {
+          headerText: 'Logout',
+          contentText: 'Are you sure that you want to logout from application?',
+        },
+      })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response: boolean) => {
+          if (!response) {
+            return;
+          }
+          this.authService.resetAuthToken();
+          this.router.navigate([APP_ROUTES.LOGOUT]);
+        },
+      });
   }
 
   protected onNavigateByUrl(url: string): void {

@@ -2,6 +2,10 @@
 
 ## CHANGELOG
 
+### v1.0.10
+
+- Implement confirmation dialog component
+
 ### v1.0.9
 
 - Implement resetting all of books from favorite shelf

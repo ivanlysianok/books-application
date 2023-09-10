@@ -6,6 +6,9 @@ import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PAGINATION_STEP } from '../../../../constants/pagination-step.const';
 import { BookItem } from '../../../../models/book-item.interface';
+import { NotificationService } from '../../../../../../shared/services/notification.service';
+import { DEFAULT_MESSAGE } from '../../../../../../shared/constants/default-message.const';
+import { ICON_DEFINITION } from '../../../../../../shared/constants/icon-definition.const';
 @Component({
   selector: 'app-books-search',
   templateUrl: './books-search.component.html',
@@ -14,11 +17,13 @@ import { BookItem } from '../../../../models/book-item.interface';
 export class BooksSearchComponent {
   protected books: BookItem[] | null = null;
   protected searchParams: SearchParams | null = null;
+  protected readonly ICON_DEFINITION = ICON_DEFINITION;
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private booksService: BooksService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private notificationService: NotificationService
   ) {}
 
   protected loadBooks(searchParams: SearchParams): void {
@@ -45,6 +50,9 @@ export class BooksSearchComponent {
             return;
           }
           this.getBooksItems(isLoadOnInit, response);
+        },
+        error: () => {
+          this.notificationService.showSnackbar(DEFAULT_MESSAGE.ERROR);
         },
       });
   }

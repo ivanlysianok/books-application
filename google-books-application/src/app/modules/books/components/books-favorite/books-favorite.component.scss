@@ -1,0 +1,13 @@
+@import "../../../../shared/styles/base.scss";
+
+.clear-all-button {
+  background-color: $dark-purple;
+}
+
+:host {
+  ::ng-deep {
+    .mat-mdc-button.mat-unthemed {
+      color: $white;
+    }
+  }
+}

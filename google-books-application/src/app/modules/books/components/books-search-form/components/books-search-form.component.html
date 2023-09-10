@@ -13,7 +13,7 @@
       [disabled]="!formGroup.valid"
       (click)="formGroup.reset()"
     >
-      <mat-icon>close</mat-icon>
+      <mat-icon>{{ ICON_DEFINITION.CLOSE }}</mat-icon>
     </button>
     <button
       class="me-2"
@@ -23,7 +23,7 @@
       [disabled]="!formGroup.valid"
       (click)="searchBooks()"
     >
-      <mat-icon>search</mat-icon>
+      <mat-icon>{{ ICON_DEFINITION.SEARCH }}</mat-icon>
     </button>
   </mat-form-field>
   <mat-error

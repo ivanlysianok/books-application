@@ -1,14 +1,22 @@
 <div class="container">
   <h3 class="mb-3">Favorite books</h3>
   <div *ngIf="books">
-    <div *ngIf="!books?.length; else collectionNotEmpty" class="mt-4">
+    <div *ngIf="!books?.length; else collectionNotEmpty">
       You have no added books in your "favorite" collection. Go to the search
       page and start adding books!
     </div>
     <ng-template #collectionNotEmpty>
+      <div class="d-flex justify-content-end">
+        <button mat-button class="clear-all-button" (click)="onClearAllBooks()">
+          <div class="d-flex align-items-center">
+            <span class="me-1">Clear all</span>
+            <mat-icon>{{ ICON_DEFINITION.CLOSE }}</mat-icon>
+          </div>
+        </button>
+      </div>
       <app-book-card-list
         [bookItems]="books"
-        (updateFavoriteShelf)="onRemoveFromFavoriteById($event)"
+        (updateFavoriteShelf)="onClearBookById($event)"
       ></app-book-card-list>
     </ng-template>
   </div>

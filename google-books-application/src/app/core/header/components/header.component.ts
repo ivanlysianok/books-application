@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { APP_ROUTES } from '../../../shared/constants/app-routes.const';
 import { NAVIGATION_PAGE_DATA } from '../constants/navigation-page-data.const';
+import { ICON_DEFINITION } from '../../../shared/constants/icon-definition.const';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,7 @@ import { NAVIGATION_PAGE_DATA } from '../constants/navigation-page-data.const';
 export class HeaderComponent implements OnInit {
   protected userProfile: UserProfile | null = null;
   protected readonly NAVIGATION_PAGE_DATA = NAVIGATION_PAGE_DATA;
+  protected readonly ICON_DEFINITION = ICON_DEFINITION;
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(

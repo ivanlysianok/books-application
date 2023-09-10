@@ -3,15 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
 import { SearchParams } from '../models/search-params.interface';
 import { BookItem } from '../models/book-item.interface';
-import { environment } from '../../../../environments/environment';
-import { BookShelves } from '../enums/book-shelves.enum';
 import { BookCollection } from '../models/book-collection.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class BooksService {
-  private readonly booksVolumesUri = `${environment.apiUrl}books/v1/volumes`;
-  private readonly bookshelvesUri = `${environment.apiUrl}books/v1/mylibrary/bookshelves`;
-
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -22,7 +18,7 @@ export class BooksService {
   private getBooksBySearchParams(
     searchParams: SearchParams
   ): Observable<BookCollection> {
-    return this.httpClient.get<BookCollection>(this.booksVolumesUri, {
+    return this.httpClient.get<BookCollection>(environment.booksApiUrl, {
       params: {
         q: searchParams.searchTerm,
         startIndex: searchParams.startIndex,
@@ -37,9 +33,7 @@ export class BooksService {
    */
   public getFavoriteBooks(): Observable<BookItem[]> {
     return this.httpClient
-      .get<BookCollection>(
-        `${this.bookshelvesUri}/${BookShelves.Favorite}/volumes`
-      )
+      .get<BookCollection>(`${environment.favoriteShelfApiUrl}/volumes`)
       .pipe(
         map((booksCollection) => {
           if (!booksCollection || !booksCollection.items) {
@@ -107,10 +101,11 @@ export class BooksService {
   /**
    * Add specific book to a "favorite" shelf by ID
    * @param id ID of book
+   * @returns Observable void
    */
   public addBookToFavoriteById(id: string): Observable<void> {
     return this.httpClient.post<void>(
-      `${this.bookshelvesUri}/${BookShelves.Favorite}/addVolume`,
+      `${environment.favoriteShelfApiUrl}/addVolume`,
       {
         volumeId: id,
       }
@@ -120,13 +115,25 @@ export class BooksService {
   /**
    * Delete book from "favorite" shelf by ID
    * @param id ID of book
+   * @returns Observable void
    */
   public deleteBookFromFavoriteById(id: string): Observable<void> {
     return this.httpClient.post<void>(
-      `${this.bookshelvesUri}/${BookShelves.Favorite}/removeVolume`,
+      `${environment.favoriteShelfApiUrl}/removeVolume`,
       {
         volumeId: id,
       }
+    );
+  }
+
+  /**
+   * Delete all presented books from "favorite" shelf
+   * @returns Observable void
+   */
+  public clearAllBooksFromFavoriteShelf(): Observable<void> {
+    return this.httpClient.post<void>(
+      `${environment.favoriteShelfApiUrl}/clearVolumes`,
+      {}
     );
   }
 }

@@ -2,6 +2,12 @@
 
 ## CHANGELOG
 
+### v1.0.9
+
+- Implement resetting all of books from favorite shelf
+- Add error handling to API requests
+- Add constant for icons
+
 ### v1.0.8
 
 - Pagination button implementation

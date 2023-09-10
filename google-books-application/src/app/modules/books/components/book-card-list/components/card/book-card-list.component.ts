@@ -14,6 +14,8 @@ import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FAVORITE_OPERATION_MESSAGE } from '../../../../constants/favorite-operation-message.const';
 import { NotificationService } from '../../../../../../shared/services/notification.service';
+import { DEFAULT_MESSAGE } from '../../../../../../shared/constants/default-message.const';
+import { ICON_DEFINITION } from '../../../../../../shared/constants/icon-definition.const';
 
 @Component({
   selector: 'app-book-card-list',
@@ -26,6 +28,7 @@ export class BookCardListComponent {
     new EventEmitter<string>();
 
   protected readonly CARD_IMAGE_PLACEHOLDER = CARD_IMAGE_PLACEHOLDER;
+  protected readonly ICON_DEFINITION = ICON_DEFINITION;
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
@@ -77,8 +80,13 @@ export class BookCardListComponent {
           );
           this.updateFavoriteShelf.emit(id);
         },
+        error: () => {
+          this.notificationService.showSnackbar(DEFAULT_MESSAGE.ERROR);
+        },
       });
   }
 
-  protected onOpenDetailDialog(): void {}
+  protected onOpenDetailDialog(): void {
+    //
+  }
 }

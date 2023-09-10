@@ -26,7 +26,9 @@
     <mat-card-actions class="d-flex align-items-center justify-content-between">
       <a class="pointer c-white" (click)="onOpenDetailDialog()">detail</a>
       <mat-icon class="pointer" (click)="onFavoriteIconClick(item)">{{
-        item.isFavorite ? "favorite" : "favorite_outline"
+        item.isFavorite
+          ? ICON_DEFINITION.FAVORITE
+          : ICON_DEFINITION.FAVORITE_OUTLINE
       }}</mat-icon>
     </mat-card-actions>
   </mat-card>

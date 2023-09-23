@@ -9,13 +9,19 @@ import { UserProfile } from '../interfaces/user-profile.interface';
   providedIn: 'root',
 })
 export class AuthService {
+  /**
+   * @description Subject for save authentication token
+   */
   private authTokenSub$ = new BehaviorSubject<string | null>(null);
+  /**
+   * @description Data source for get authentication token
+   */
   public authTokenChanges$ = this.authTokenSub$.asObservable();
 
   constructor(private httpService: HttpClient) {}
 
   /**
-   * Get auth token from LocalStorage to check if user is authenticated within Google or not
+   * @description Get auth token from LocalStorage to check if user is authenticated within Google or not
    * @returns Auth token if presented, otherwise null
    */
   public getAuthToken(): string | null {
@@ -23,7 +29,7 @@ export class AuthService {
   }
 
   /**
-   * Set auth token to LocalStorage and to authToken subject
+   * @description Set auth token to LocalStorage and to authToken subject
    * @param accessToken Access token from Google oAuth API
    */
   public setAuthToken(accessToken: string): void {
@@ -32,7 +38,7 @@ export class AuthService {
   }
 
   /**
-   * Reset auth token from LocalStorage and from authToken subject
+   * @description Reset auth token from LocalStorage and from authToken subject
    */
   public resetAuthToken(): void {
     localStorage.removeItem(AUTH_TOKEN_DEFINITION);
@@ -40,7 +46,7 @@ export class AuthService {
   }
 
   /**
-   * Get active user data from Google by access token
+   * @description Get active user data from Google by access token
    * @param accessToken Access token
    * @returns Observable with user data
    */

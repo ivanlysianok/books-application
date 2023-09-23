@@ -1,28 +1,30 @@
-<div *ngIf="userProfile" class="background mb-3">
-  <div
-    class="d-flex align-items-center justify-content-between c-white px-3 py-2"
-  >
-    <div class="d-flex align-items-center">
-      <img
-        class="profile-image rounded-circle me-2"
-        [src]="userProfile.picture"
-      />
-      <h6>{{ userProfile.name }}</h6>
-    </div>
-    <div>
-      <button
-        *ngFor="let data of NAVIGATION_PAGE_DATA"
-        mat-button
-        class="me-2"
-        (click)="onNavigateByUrl(data.url)"
-      >
-        <span [class]="data.url === router.url ? 'c-white' : 'c-gray'">{{
-          data.name
-        }}</span>
+<header>
+  <div *ngIf="userProfile" class="bg-dark-purple mb-3">
+    <div
+      class="d-flex align-items-center justify-content-between c-white px-3 py-2"
+    >
+      <div class="d-flex align-items-center">
+        <img
+          class="profile-image rounded-circle me-2"
+          [src]="userProfile.picture"
+        />
+        <h6>{{ userProfile.name }}</h6>
+      </div>
+      <div>
+        <button
+          *ngFor="let data of NAVIGATION_PAGE_DATA"
+          mat-button
+          class="me-2"
+          (click)="onNavigateByUrl(data.url)"
+        >
+          <span [class]="data.url === router.url ? 'c-white' : 'c-gray'">{{
+            data.name
+          }}</span>
+        </button>
+      </div>
+      <button mat-icon-button (click)="onLogout()">
+        <mat-icon>{{ ICON_DEFINITION.LOGOUT }}</mat-icon>
       </button>
     </div>
-    <button mat-icon-button (click)="onLogout()">
-      <mat-icon>{{ ICON_DEFINITION.LOGOUT }}</mat-icon>
-    </button>
   </div>
-</div>
+</header>

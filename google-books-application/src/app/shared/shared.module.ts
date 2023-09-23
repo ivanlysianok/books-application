@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './components/loader/loader.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { LoaderService } from './services/loader.service';
 import { MaterialModule } from '../modules/material/material.module';
@@ -13,7 +12,6 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 @NgModule({
   declarations: [
     LoaderComponent,
-    PageNotFoundComponent,
     ConfirmationDialogComponent,
     TruncateTextPipe,
   ],
@@ -26,7 +24,6 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
   ],
   exports: [
     LoaderComponent,
-    PageNotFoundComponent,
     ConfirmationDialogComponent,
     TruncateTextPipe,
     CommonModule,

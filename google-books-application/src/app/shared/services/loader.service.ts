@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class LoaderService {
+  /**
+   * @description Subject that controls wheter loading is fired or not
+   */
   private isLoadingSubject$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
-  public isLoading$ = this.isLoadingSubject$.asObservable();
+  /**
+   * @description Data stream to get loading data
+   */
+  public isLoading$: Observable<boolean> =
+    this.isLoadingSubject$.asObservable();
 
   /**
-   * This method fires loader, loading subject value
-   * sets to TRUE
+   * @description Start loader and sets loading subject to TRUE
    */
   public start(): void {
     this.isLoadingSubject$.next(true);
   }
 
   /**
-   * This method stops loader, loading subject value
-   * sets to FALSE
+   * @description Stop loader and sets loading subject to FALSE
    */
   public stop(): void {
     this.isLoadingSubject$.next(false);

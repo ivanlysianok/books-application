@@ -11,7 +11,30 @@ export class BooksService {
   constructor(private httpClient: HttpClient) {}
 
   /**
-   * Get books by passed search params
+   * @description Get books and merge them with favorite books data by search params
+   * @param searchParams Search params (search term, start index...)
+   * @returns Observable with "complete" books data
+   */
+  public getBookItems(searchParams: SearchParams): Observable<BookItem[]> {
+    return this.getBooksBySearchParams(searchParams).pipe(
+      switchMap((booksCollection) => {
+        if (!booksCollection || !booksCollection.items) {
+          return [];
+        }
+        return this.getFavoriteBooks().pipe(
+          map((favoriteBooks) =>
+            this.getBooksWithIsFavoriteFlag(
+              booksCollection.items,
+              favoriteBooks
+            )
+          )
+        );
+      })
+    );
+  }
+
+  /**
+   * @description Get books by passed search params
    * @param searchParams Search params (search term, start index...)
    * @returns Observable with book items
    */
@@ -28,7 +51,7 @@ export class BooksService {
   }
 
   /**
-   * Get favorite books and add isFavorite flag to each item
+   * @description Get list of favorite books and add isFavorite flag to each item
    * @returns Observable with favorite book items
    */
   public getFavoriteBooks(): Observable<BookItem[]> {
@@ -48,32 +71,13 @@ export class BooksService {
   }
 
   /**
-   * Get books and merge them with favorite books data by search params
-   * @param searchParams Search params (search term, start index...)
-   * @returns Observable with "complete" books data
-   */
-  public getBookItems(searchParams: SearchParams): Observable<BookItem[]> {
-    return this.getBooksBySearchParams(searchParams).pipe(
-      switchMap((booksCollection) => {
-        if (!booksCollection || !booksCollection.items) {
-          return [];
-        }
-        return this.getFavoriteBooks().pipe(
-          map((favoriteBooks) =>
-            this.getTransformedBooks(booksCollection.items, favoriteBooks)
-          )
-        );
-      })
-    );
-  }
-
-  /**
-   * Get transformed books data with isFavorite flag
+   * @description Get books with isFavorite flag based on books list
+   * and favorite books list
    * @param books List of books
    * @param favoriteBooks List of favorite books
    * @returns Transformed books with "isFavorite" flag
    */
-  private getTransformedBooks(
+  private getBooksWithIsFavoriteFlag(
     books: BookItem[],
     favoriteBooks: BookItem[]
   ): BookItem[] {
@@ -84,7 +88,7 @@ export class BooksService {
   }
 
   /**
-   * Check for matching IDs from books list and
+   * @description Check for matching IDs from books list and
    * favorite books list to get known if book has
    * favorite flag or not
    * @param id Book ID
@@ -99,7 +103,7 @@ export class BooksService {
   }
 
   /**
-   * Add specific book to a "favorite" shelf by ID
+   * @description Add specific book to a "favorite" shelf by ID
    * @param id ID of book
    * @returns Observable void
    */
@@ -113,7 +117,7 @@ export class BooksService {
   }
 
   /**
-   * Delete book from "favorite" shelf by ID
+   * @description Delete book from "favorite" shelf by ID
    * @param id ID of book
    * @returns Observable void
    */
@@ -127,7 +131,7 @@ export class BooksService {
   }
 
   /**
-   * Delete all presented books from "favorite" shelf
+   * @description Delete all presented books from "favorite" shelf
    * @returns Observable void
    */
   public clearAllBooksFromFavoriteShelf(): Observable<void> {

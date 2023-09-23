@@ -2,6 +2,10 @@
 
 ## CHANGELOG
 
+### v1.0.12
+
+- Final refactoring, code clean-up, adding JSdocks
+
 ### v1.0.11
 
 - Implement detail redirection (to original google book resource)

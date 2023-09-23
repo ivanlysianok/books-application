@@ -6,7 +6,7 @@ export class NotificationService {
   constructor(private snackbar: MatSnackBar) {}
 
   /**
-   * Show material snackbar according to passed message and duration
+   * @description Show material snackbar according to passed message and duration
    * @param message Message to show
    * @param duration Duration in miliseconds, by default is 3000
    */

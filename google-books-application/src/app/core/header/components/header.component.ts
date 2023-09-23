@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
       .open(ConfirmationDialogComponent, {
         data: {
           headerText: 'Logout',
-          contentText: 'Are you sure that you want to logout from application?',
+          contentText: 'Are you sure that you want logout from application?',
         },
       })
       .afterClosed()

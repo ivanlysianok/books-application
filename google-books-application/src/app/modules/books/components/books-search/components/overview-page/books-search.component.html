@@ -1,4 +1,4 @@
-<ng-container class="position-relative">
+<section>
   <div class="container">
     <h3 class="mb-3">Search books</h3>
 
@@ -15,7 +15,7 @@
           (updateFavoriteShelf)="onUpdateFavoriteBook($event)"
         ></app-book-card-list>
         <div class="d-flex justify-content-center align-items-center mt-3">
-          <button mat-button class="load-more-button" (click)="onNextResults()">
+          <button mat-button class="bg-dark-purple" (click)="onNextResults()">
             <div class="d-flex align-items-center">
               <span class="me-1">Load more</span>
               <mat-icon class="arrow-icon">{{
@@ -27,5 +27,5 @@
       </ng-template>
     </div>
   </div>
-</ng-container>
+</section>
 <app-loader></app-loader>

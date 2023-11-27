@@ -1,6 +1,6 @@
 # Angular 16 - Application for searching books with Google OAuth authentication
 
-## ![Alt text](/google-books-application/src/assets/preview.png?raw=true "Overview page")
+## ![Alt text](/src/assets/preview.png?raw=true "Overview page")
 
 ### Video demo
 

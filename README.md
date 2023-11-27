@@ -21,22 +21,6 @@ Angular 16 web app that is intended to search books via Google Books API and add
 - Add / Remove books from favorite bookshelf: https://www.googleapis.com/books/v1/mylibrary/bookshelves/
 - OAuth 2.0. authentication: https://www.googleapis.com/oauth2/v1/userinfo
 
-### How to run locally
-
-```
-1. Clone repository
-$ git clone https://github.com/ivanlysianok/books-application.git
-
-2. Go into application folder
-$ cd google-books-application
-
-3. Instal npm packages
-$ npm install
-
-4. Run app
-$ ng serve
-```
-
 ### Features
 
 - Authentication with Google OAuth 2.0 implicit flow

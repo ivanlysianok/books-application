@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { CREDENTIALS } from '../../../../../app/credentials/credentials.conts';
 import { APP_ROUTES } from '../../../../shared/constants/app-routes.const';
 import { GOOGLE_AUTH_SCOPE } from '../../constants/google-auth-scope.const';
+import { CREDENTIALS } from '../../../../credentials/credentials.const';
 
 /**
  * Google auth variable
@@ -18,7 +18,7 @@ declare const google: any;
 export class LoginPageComponent implements OnInit {
   private googleApiAccountsRef: any;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   public ngOnInit(): void {
     if (this.authService.getAuthToken()) {
